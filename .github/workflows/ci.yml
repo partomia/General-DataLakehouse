@@ -1,0 +1,48 @@
+name: CI
+
+# Every push to main, every pull request, or by hand from the Actions tab.
+# Unit tests, then the CDE jobs on local Spark + Iceberg for all five business
+# dates, then the failed-batch drill (a run dies mid-write, the partial batch is
+# inspected, and --resume finishes it). Nothing here talks to Cloudera.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Unit tests + the pipeline on local Spark + Iceberg
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Java (local Spark / Iceberg needs it)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install dependencies
+        run: pip install -r requirements-ci.txt
+
+      - name: Unit tests
+        run: pytest -q
+
+      # The generator is deterministic, so every run sees the same data and faults.
+      - name: Pipeline, all business dates
+        run: python scripts/run_local.py all
+
+      - name: Failed batch drill
+        run: |
+          python scripts/run_local.py land bronze --dates 2026-09-21,2026-09-22 --landing /tmp/drill/landing --warehouse /tmp/drill/warehouse
+          python scripts/run_local.py land --dates 2026-09-23 --landing /tmp/drill/landing
+          ! python scripts/run_local.py bronze --dates 2026-09-23 --landing /tmp/drill/landing --warehouse /tmp/drill/warehouse -- --fail-during lms_loan
+          python scripts/run_local.py bronze --dates 2026-09-23 --landing /tmp/drill/landing --warehouse /tmp/drill/warehouse -- --resume

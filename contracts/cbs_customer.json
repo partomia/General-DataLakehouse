@@ -1,0 +1,143 @@
+{
+  "entity": "cbs_customer",
+  "source": "cbs",
+  "format": "mysqldump",
+  "file_glob": "cbs_dump_*.sql",
+  "table": "customer",
+  "description": "Customer (CIF) rows of the core banking MySQL dump",
+  "key": [
+    "cust_id"
+  ],
+  "columns": [
+    {
+      "name": "cust_id",
+      "type": "int",
+      "required": true
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "allowed": [
+        "MR",
+        "MRS",
+        "MS",
+        "DR"
+      ],
+      "severity": "warn"
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "middle_name",
+      "type": "string"
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "dob",
+      "type": "date",
+      "format": "yyyy-MM-dd",
+      "required": true
+    },
+    {
+      "name": "gender",
+      "type": "string",
+      "allowed": [
+        "M",
+        "F",
+        "O"
+      ],
+      "severity": "warn"
+    },
+    {
+      "name": "pan",
+      "type": "string",
+      "pattern": "^[A-Z]{5}[0-9]{4}[A-Z]$",
+      "severity": "warn"
+    },
+    {
+      "name": "aadhaar",
+      "type": "string",
+      "pattern": "^[0-9]{12}$",
+      "severity": "warn"
+    },
+    {
+      "name": "mobile",
+      "type": "string",
+      "pattern": "^[+]?[0-9 -]{10,16}$",
+      "severity": "warn"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "pattern": "^[^@ ]+@[^@ ]+[.][a-z]+$",
+      "severity": "warn"
+    },
+    {
+      "name": "addr_line1",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "addr_line2",
+      "type": "string"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "state",
+      "type": "string"
+    },
+    {
+      "name": "pincode",
+      "type": "string",
+      "pattern": "^[0-9]{6}$",
+      "severity": "warn"
+    },
+    {
+      "name": "kyc_status",
+      "type": "string",
+      "allowed": [
+        "VERIFIED",
+        "PENDING",
+        "EXPIRED"
+      ],
+      "severity": "warn"
+    },
+    {
+      "name": "segment",
+      "type": "string",
+      "allowed": [
+        "MASS",
+        "AFFLUENT",
+        "PRIVATE"
+      ],
+      "severity": "warn"
+    },
+    {
+      "name": "home_branch",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "format": "yyyy-MM-dd HH:mm:ss"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "format": "yyyy-MM-dd HH:mm:ss",
+      "required": true
+    }
+  ]
+}

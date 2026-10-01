@@ -1,0 +1,117 @@
+{
+  "entity": "pay_transaction",
+  "source": "payments",
+  "format": "jsonl",
+  "file_glob": "payments_*.jsonl",
+  "description": "Payments hub messages, nested JSON (ISO 20022-like)",
+  "key": [
+    "msg_id"
+  ],
+  "control_field": "amount",
+  "known_keys": [
+    "msg_id",
+    "end_to_end_id",
+    "created_at",
+    "value_date",
+    "channel",
+    "direction",
+    "status",
+    "amount",
+    "debtor",
+    "creditor",
+    "remittance",
+    "charges"
+  ],
+  "columns": [
+    {
+      "name": "msg_id",
+      "type": "string",
+      "path": "msg_id",
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "path": "created_at",
+      "required": true,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T"
+    },
+    {
+      "name": "value_date",
+      "type": "date",
+      "path": "value_date",
+      "format": "yyyy-MM-dd",
+      "required": true
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "path": "channel",
+      "allowed": [
+        "UPI",
+        "IMPS",
+        "NEFT",
+        "RTGS",
+        "CARD",
+        "CASH_DEPOSIT",
+        "SWIFT"
+      ],
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "path": "direction",
+      "allowed": [
+        "DR",
+        "CR"
+      ],
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "path": "status",
+      "allowed": [
+        "SETTLED",
+        "REJECTED",
+        "RETURNED"
+      ],
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "decimal",
+      "path": "amount.value",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "path": "amount.ccy",
+      "allowed": [
+        "INR",
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "debtor_account",
+      "type": "string",
+      "path": "debtor.account.number",
+      "required": true
+    },
+    {
+      "name": "creditor_account",
+      "type": "string",
+      "path": "creditor.account.number",
+      "required": true
+    }
+  ]
+}

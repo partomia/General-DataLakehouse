@@ -1,0 +1,5 @@
+# GitHub Actions: unit tests and the whole pipeline on local Spark + Iceberg.
+# The CDE jobs themselves need nothing beyond PySpark and the standard library.
+pyspark==4.0.1
+pytest
+requests

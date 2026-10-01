@@ -1,0 +1,39 @@
+{
+  "entity": "doc_document",
+  "source": "documents",
+  "format": "binary",
+  "file_glob": "*",
+  "description": "Correspondence e-mails, KYC declarations and ID scans (unstructured)",
+  "key": [
+    "file_name"
+  ],
+  "columns": [
+    {
+      "name": "file_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "doc_type",
+      "type": "string",
+      "allowed": [
+        "EML",
+        "KYC",
+        "SCAN"
+      ],
+      "required": true
+    },
+    {
+      "name": "bytes",
+      "type": "bigint",
+      "required": true,
+      "min": 1,
+      "severity": "reject"
+    },
+    {
+      "name": "sha256",
+      "type": "string",
+      "required": true
+    }
+  ]
+}

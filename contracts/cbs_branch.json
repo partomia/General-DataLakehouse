@@ -1,0 +1,56 @@
+{
+  "entity": "cbs_branch",
+  "source": "cbs",
+  "format": "mysqldump",
+  "file_glob": "cbs_dump_*.sql",
+  "table": "branch",
+  "description": "Branch master from the core banking MySQL dump",
+  "key": [
+    "branch_code"
+  ],
+  "columns": [
+    {
+      "name": "branch_code",
+      "type": "string",
+      "required": true,
+      "pattern": "^BR[0-9]{3}$",
+      "severity": "reject"
+    },
+    {
+      "name": "ifsc",
+      "type": "string",
+      "required": true,
+      "pattern": "^[A-Z]{4}0[A-Z0-9]{6}$",
+      "severity": "reject"
+    },
+    {
+      "name": "branch_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "state",
+      "type": "string"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "allowed": [
+        "NORTH",
+        "SOUTH",
+        "EAST",
+        "WEST"
+      ]
+    },
+    {
+      "name": "opened_on",
+      "type": "date",
+      "format": "yyyy-MM-dd"
+    }
+  ]
+}

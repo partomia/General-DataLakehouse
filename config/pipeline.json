@@ -1,0 +1,27 @@
+{
+  "_comment": "Read by the CDE jobs (standard library json). Entity order is the bronze ingest order, and the order --fail-after counts in.",
+  "db_prefix": "rsingh_gdl",
+  "seed": 20260921,
+  "customers": 1000,
+  "business_dates": ["2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25"],
+  "entities": [
+    "cbs_branch",
+    "cbs_product",
+    "cbs_customer",
+    "cbs_account",
+    "cbs_cdc_event",
+    "cbs_eod_balance",
+    "lms_borrower",
+    "lms_loan",
+    "lms_repayment",
+    "pay_transaction",
+    "crm_customer",
+    "doc_document"
+  ],
+  "currencies": [
+    {"code": "INR", "name": "Indian Rupee", "inr_rate": 1.0},
+    {"code": "USD", "name": "US Dollar", "inr_rate": 83.2},
+    {"code": "EUR", "name": "Euro", "inr_rate": 90.1},
+    {"code": "GBP", "name": "Pound Sterling", "inr_rate": 105.3}
+  ]
+}

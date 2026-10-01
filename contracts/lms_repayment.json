@@ -1,0 +1,45 @@
+{
+  "entity": "lms_repayment",
+  "source": "lms",
+  "format": "psv",
+  "file_glob": "lms_repayment_*.csv",
+  "description": "Repayments received by the loan management system",
+  "key": [
+    "txn_id"
+  ],
+  "control_field": "amount",
+  "columns": [
+    {
+      "name": "txn_id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "loan_id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "payment_date",
+      "type": "date",
+      "format": "dd/MM/yyyy",
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "decimal",
+      "required": true
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "allowed": [
+        "NACH",
+        "BRANCH_CASH",
+        "PREPAYMENT",
+        "UPI",
+        "NEFT"
+      ]
+    }
+  ]
+}

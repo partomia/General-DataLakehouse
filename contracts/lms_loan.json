@@ -1,0 +1,125 @@
+{
+  "entity": "lms_loan",
+  "source": "lms",
+  "format": "psv",
+  "file_glob": "lms_loan_*.csv",
+  "description": "Loan positions of the loan management system (daily full extract)",
+  "key": [
+    "loan_id",
+    "as_of_date"
+  ],
+  "control_field": "principal_outstanding",
+  "columns": [
+    {
+      "name": "loan_id",
+      "type": "string",
+      "required": true,
+      "pattern": "^LN[0-9]{8}$",
+      "severity": "reject"
+    },
+    {
+      "name": "borrower_id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "product_code",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "branch_code",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "sanction_date",
+      "type": "date",
+      "format": "dd/MM/yyyy",
+      "required": true
+    },
+    {
+      "name": "sanction_amount",
+      "type": "decimal",
+      "required": true
+    },
+    {
+      "name": "interest_rate",
+      "type": "decimal"
+    },
+    {
+      "name": "tenure_months",
+      "type": "int"
+    },
+    {
+      "name": "emi_amount",
+      "type": "decimal"
+    },
+    {
+      "name": "principal_outstanding",
+      "type": "decimal",
+      "required": true
+    },
+    {
+      "name": "principal_overdue",
+      "type": "decimal"
+    },
+    {
+      "name": "interest_overdue",
+      "type": "decimal"
+    },
+    {
+      "name": "dpd",
+      "type": "int",
+      "required": true
+    },
+    {
+      "name": "last_payment_date",
+      "type": "date",
+      "format": "dd/MM/yyyy"
+    },
+    {
+      "name": "loan_status",
+      "type": "string",
+      "allowed": [
+        "ACTIVE",
+        "CLOSED"
+      ],
+      "required": true
+    },
+    {
+      "name": "src_asset_class",
+      "type": "string",
+      "allowed": [
+        "STANDARD",
+        "SUBSTANDARD",
+        "DOUBTFUL",
+        "LOSS",
+        "CLOSED"
+      ],
+      "severity": "warn"
+    },
+    {
+      "name": "restructured_flag",
+      "type": "string",
+      "allowed": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "name": "loss_flag",
+      "type": "string",
+      "allowed": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "name": "as_of_date",
+      "type": "date",
+      "format": "dd/MM/yyyy",
+      "required": true
+    }
+  ]
+}

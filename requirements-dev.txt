@@ -1,0 +1,4 @@
+# Laptop: run the CDE jobs on local Spark + Iceberg, the unit tests, and the
+# Cloudera scripts (CDW Impala, Airflow variables, Atlas, Ranger, CDV)
+-r requirements-ci.txt
+impyla==0.21.0

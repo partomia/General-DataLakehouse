@@ -1,0 +1,65 @@
+{
+  "entity": "cbs_cdc_event",
+  "source": "cbs",
+  "format": "jsonl",
+  "file_glob": "cbs_cdc_*.jsonl",
+  "description": "Debezium-style change events from the core banking binlog (customer, account)",
+  "key": [
+    "binlog_file",
+    "binlog_pos"
+  ],
+  "known_keys": [
+    "op",
+    "ts_ms",
+    "source",
+    "before",
+    "after"
+  ],
+  "columns": [
+    {
+      "name": "op",
+      "type": "string",
+      "path": "op",
+      "allowed": [
+        "c",
+        "u",
+        "d"
+      ],
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "ts_ms",
+      "type": "bigint",
+      "path": "ts_ms",
+      "required": true
+    },
+    {
+      "name": "table",
+      "type": "string",
+      "path": "source.table",
+      "allowed": [
+        "customer",
+        "account"
+      ],
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "binlog_file",
+      "type": "string",
+      "path": "source.file",
+      "required": true
+    },
+    {
+      "name": "binlog_pos",
+      "type": "bigint",
+      "path": "source.pos",
+      "required": true
+    }
+  ],
+  "image_contracts": {
+    "customer": "cbs_customer",
+    "account": "cbs_account"
+  }
+}

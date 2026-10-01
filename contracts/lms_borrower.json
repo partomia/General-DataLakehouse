@@ -1,0 +1,72 @@
+{
+  "entity": "lms_borrower",
+  "source": "lms",
+  "format": "psv",
+  "file_glob": "lms_borrower_*.csv",
+  "description": "Borrowers of the loan management system (full extract)",
+  "key": [
+    "borrower_id"
+  ],
+  "columns": [
+    {
+      "name": "borrower_id",
+      "type": "string",
+      "required": true,
+      "pattern": "^LB[0-9]{6}$",
+      "severity": "reject"
+    },
+    {
+      "name": "full_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "dob",
+      "type": "date",
+      "format": "dd/MM/yyyy",
+      "required": true
+    },
+    {
+      "name": "pan",
+      "type": "string",
+      "pattern": "^[A-Za-z]{5}[0-9]{4}[A-Za-z]$",
+      "severity": "warn"
+    },
+    {
+      "name": "mobile",
+      "type": "string",
+      "pattern": "^[+]?[0-9 -]{10,16}$",
+      "severity": "warn"
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "city",
+      "type": "string"
+    },
+    {
+      "name": "pincode",
+      "type": "string",
+      "pattern": "^[0-9]{6}$",
+      "severity": "warn"
+    },
+    {
+      "name": "cbs_cust_ref",
+      "type": "int"
+    },
+    {
+      "name": "created_on",
+      "type": "date",
+      "format": "dd/MM/yyyy"
+    },
+    {
+      "name": "updated_on",
+      "type": "date",
+      "format": "dd/MM/yyyy",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "entity": "cbs_account",
+  "source": "cbs",
+  "format": "mysqldump",
+  "file_glob": "cbs_dump_*.sql",
+  "table": "account",
+  "description": "Deposit accounts of the core banking MySQL dump",
+  "key": [
+    "acct_no"
+  ],
+  "columns": [
+    {
+      "name": "acct_no",
+      "type": "string",
+      "required": true,
+      "pattern": "^[0-9]{14}$",
+      "severity": "reject"
+    },
+    {
+      "name": "cust_id",
+      "type": "int",
+      "required": true
+    },
+    {
+      "name": "joint_cust_id",
+      "type": "int"
+    },
+    {
+      "name": "product_code",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "branch_code",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "allowed": [
+        "INR",
+        "USD",
+        "EUR",
+        "GBP"
+      ]
+    },
+    {
+      "name": "open_date",
+      "type": "date",
+      "format": "yyyy-MM-dd",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "allowed": [
+        "ACTIVE",
+        "DORMANT",
+        "CLOSED"
+      ],
+      "required": true
+    },
+    {
+      "name": "close_date",
+      "type": "date",
+      "format": "yyyy-MM-dd"
+    },
+    {
+      "name": "interest_rate",
+      "type": "decimal"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "format": "yyyy-MM-dd HH:mm:ss",
+      "required": true
+    }
+  ]
+}

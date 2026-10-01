@@ -1,0 +1,60 @@
+{
+  "entity": "crm_customer",
+  "source": "crm",
+  "format": "json_array",
+  "file_glob": "crm_customers_*.json",
+  "description": "CRM / digital onboarding customer documents",
+  "key": [
+    "crm_id"
+  ],
+  "known_keys": [
+    "crm_id",
+    "source_channel",
+    "profile",
+    "identifiers",
+    "addresses",
+    "contacts",
+    "consent",
+    "updated_at"
+  ],
+  "columns": [
+    {
+      "name": "crm_id",
+      "type": "string",
+      "path": "crm_id",
+      "required": true,
+      "pattern": "^CRM-[0-9a-f]{8}$",
+      "severity": "reject"
+    },
+    {
+      "name": "full_name",
+      "type": "string",
+      "path": "profile.full_name",
+      "required": true
+    },
+    {
+      "name": "date_of_birth",
+      "type": "date",
+      "path": "profile.date_of_birth",
+      "formats": [
+        "yyyy-MM-dd",
+        "dd-MM-yyyy"
+      ],
+      "required": true
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "path": "contacts.email",
+      "pattern": "^[^@ ]+@[^@ ]+[.][a-z]+$",
+      "severity": "warn"
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "path": "updated_at",
+      "required": true,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T"
+    }
+  ]
+}

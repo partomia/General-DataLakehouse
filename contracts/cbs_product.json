@@ -1,0 +1,50 @@
+{
+  "entity": "cbs_product",
+  "source": "cbs",
+  "format": "mysqldump",
+  "file_glob": "cbs_dump_*.sql",
+  "table": "product",
+  "description": "Product master from the core banking MySQL dump",
+  "key": [
+    "product_code"
+  ],
+  "columns": [
+    {
+      "name": "product_code",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "product_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "product_type",
+      "type": "string",
+      "allowed": [
+        "SA",
+        "CA",
+        "TD",
+        "HL",
+        "PL",
+        "AL",
+        "BL"
+      ],
+      "required": true
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "allowed": [
+        "DEPOSITS",
+        "LENDING"
+      ],
+      "required": true
+    },
+    {
+      "name": "base_rate",
+      "type": "decimal"
+    }
+  ]
+}

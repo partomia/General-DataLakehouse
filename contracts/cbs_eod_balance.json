@@ -1,0 +1,47 @@
+{
+  "entity": "cbs_eod_balance",
+  "source": "cbs",
+  "format": "psv",
+  "file_glob": "cbs_eod_balance_*.csv",
+  "description": "End-of-day balance extract from core banking, pipe-delimited with a trailer",
+  "key": [
+    "acct_no",
+    "bal_date"
+  ],
+  "control_field": "ledger_balance",
+  "columns": [
+    {
+      "name": "acct_no",
+      "type": "string",
+      "required": true,
+      "pattern": "^[0-9]{14}$",
+      "severity": "reject"
+    },
+    {
+      "name": "bal_date",
+      "type": "date",
+      "format": "yyyy-MM-dd",
+      "required": true
+    },
+    {
+      "name": "ledger_balance",
+      "type": "decimal",
+      "required": true
+    },
+    {
+      "name": "available_balance",
+      "type": "decimal"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "allowed": [
+        "INR",
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "required": true
+    }
+  ]
+}

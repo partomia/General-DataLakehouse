@@ -233,9 +233,10 @@ def kpi_reference(ctx: Ctx) -> None:
     spark, ref = ctx.spark, lambda n: ctx.names.t("ref", n)  # noqa: E731
     defs = [(k["kpi_code"], k["name"], k["definition"], k["formula"], k["grain"], k["certified_view"], k["owner"],
              k["version"], k["certified_on"], k["glossary_term"]) for k in KPI["kpis"]]
-    spark.createDataFrame(defs, "kpi_code string, kpi_name string, definition string, formula string, grain string, "
-                                "certified_view string, owner string, version string, certified_on string, "
-                                "glossary_term string").writeTo(ref("kpi_definition")).createOrReplace()
+    C.replace_table(spark.createDataFrame(
+        defs, "kpi_code string, kpi_name string, definition string, formula string, grain string, "
+              "certified_view string, owner string, version string, certified_on string, glossary_term string"),
+        ref("kpi_definition"))
     params = [("NPA", "npa_dpd", float(KPI["irac"]["npa_dpd"]), None, "days past due above which a loan is NPA")]
     params += [("NPA", f"provision_rate.{k}", float(v), k, f"provision on {k} outstanding")
                for k, v in KPI["provision_rates"].items()]
@@ -246,8 +247,9 @@ def kpi_reference(ctx: Ctx) -> None:
                ("CRV", "annualisation_factor", float(crv["annualisation_factor"]), None, "fee income multiplier")]
     params += [("CRV", f"lending_margin.{k}", float(v), k, f"annual margin on {k} outstanding")
                for k, v in crv["lending_margin"].items()]
-    spark.createDataFrame(params, "kpi_code string, parameter string, value double, applies_to string, "
-                                  "description string").writeTo(ref("kpi_parameter")).createOrReplace()
+    C.replace_table(spark.createDataFrame(
+        params, "kpi_code string, parameter string, value double, applies_to string, description string"),
+        ref("kpi_parameter"))
 
 
 # ---------------------------------------------------------------- party, account, loan
@@ -449,7 +451,7 @@ def source_mapping(ctx: Ctx) -> None:
                 missing.append(f"{name}.{col}")
     if missing:
         raise RuntimeError(f"gold columns without a row in model/source_mapping.csv: {', '.join(missing)}")
-    ctx.spark.createDataFrame(rows, MAPPING_SCHEMA).writeTo(ctx.names.t("ref", "source_mapping")).createOrReplace()
+    C.replace_table(ctx.spark.createDataFrame(rows, MAPPING_SCHEMA), ctx.names.t("ref", "source_mapping"))
 
 
 # ---------------------------------------------------------------- run

@@ -1,0 +1,47 @@
+{
+  "_comment": "Atlas classifications, glossary and Ranger tag masking for the rsingh_gdl_* databases, applied by scripts/governance.py. Only GDL_* classifications and rsingh-gdl-* policies are created or changed; the PII_* tags and policies of the other projects are left alone.",
+  "atlas_cluster": "cm",
+  "databases": ["rsingh_gdl_bronze", "rsingh_gdl_silver", "rsingh_gdl_mdm", "rsingh_gdl_gold", "rsingh_gdl_semantic"],
+  "classifications": {
+    "GDL_PII_LAST_4": {"description": "Identifier (PAN, Aadhaar, mobile, account number): masked users see the last 4 characters",
+                       "mask": {"dataMaskType": "hive:MASK_SHOW_LAST_4"}},
+    "GDL_PII_HASH":   {"description": "Name or e-mail: masked users see a hash, so joins and counts on it still work",
+                       "mask": {"dataMaskType": "hive:MASK_HASH"}},
+    "GDL_PII_REDACT": {"description": "Postal address or a raw date-of-birth string: letters become x, digits n",
+                       "mask": {"dataMaskType": "hive:MASK"}},
+    "GDL_PII_YEAR":   {"description": "Date of birth (DATE column): masked users see 1 January of the year",
+                       "mask": {"dataMaskType": "hive:CUSTOM", "valueExpr": "TRUNC({col}, 'YYYY')"}}
+  },
+  "columns": {
+    "pan": "GDL_PII_LAST_4", "pan_std": "GDL_PII_LAST_4", "borrower_pan": "GDL_PII_LAST_4",
+    "aadhaar": "GDL_PII_LAST_4",
+    "mobile": "GDL_PII_LAST_4", "mobile_e164": "GDL_PII_LAST_4",
+    "acct_no": "GDL_PII_LAST_4",
+    "first_name": "GDL_PII_HASH", "middle_name": "GDL_PII_HASH", "last_name": "GDL_PII_HASH",
+    "full_name": "GDL_PII_HASH", "name_std": "GDL_PII_HASH", "name_key": "GDL_PII_HASH",
+    "name_a": "GDL_PII_HASH", "name_b": "GDL_PII_HASH", "party_name": "GDL_PII_HASH",
+    "debtor_name": "GDL_PII_HASH", "creditor_name": "GDL_PII_HASH", "counterparty_name": "GDL_PII_HASH",
+    "borrower_name": "GDL_PII_HASH", "customer_name": "GDL_PII_HASH",
+    "email": "GDL_PII_HASH", "email_std": "GDL_PII_HASH", "sender_email": "GDL_PII_HASH",
+    "address": "GDL_PII_REDACT", "address_std": "GDL_PII_REDACT", "address_text": "GDL_PII_REDACT",
+    "address_display": "GDL_PII_REDACT",
+    "dob": {"date": "GDL_PII_YEAR", "string": "GDL_PII_REDACT"},
+    "date_of_birth": {"date": "GDL_PII_YEAR", "string": "GDL_PII_REDACT"}
+  },
+  "masking": {
+    "service": "cm_tag",
+    "policy_prefix": "rsingh-gdl-pii-",
+    "masked_users": ["federal01", "federal07"],
+    "_comment": "rsingh is in no masking policy and sees clear values"
+  },
+  "glossary": {
+    "name": "GDL Banking KPIs",
+    "description": "Certified banking KPIs of the General Data Lakehouse. Each term is defined once (config/kpi.json) and assigned to its certified semantic view and to every MIS and regulatory dataset that reads it.",
+    "assigned_to": {
+      "NPA": ["kpi_npa_exposure", "mis_npa_trend", "mis_npa_breakdown", "reg_asset_classification"],
+      "CASA": ["kpi_casa_ratio", "mis_casa_trend", "mis_casa_breakdown", "reg_deposit_composition"],
+      "CRV": ["kpi_crv_component", "kpi_customer_relationship_value", "mis_crv_segment",
+              "mis_crv_top_relationships", "rpt_customer_profitability"]
+    }
+  }
+}

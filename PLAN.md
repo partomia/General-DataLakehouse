@@ -253,7 +253,7 @@ before the failed batch is in the drill (`docs/FAILED_BATCH_DEMO.md`).
   consistency check, time-travel SQL.
 - [x] **7. Cloudera live**: CDE jobs + DAG, CDW views, five batches end to end, the failed-batch
   drill on the cluster, Atlas lineage checked.
-- [ ] **8. Governance**: Atlas classifications, glossary and terms; Ranger tag masking policies;
+- [x] **8. Governance**: Atlas classifications, glossary and terms; Ranger tag masking policies;
   verified as a masked and a clear user.
 - [x] **9. Data Visualization**: Banking KPIs MIS, Reconciliation & Data Quality, MDM & Golden
   Record and AML Alerts dashboards as code.

@@ -56,6 +56,8 @@ Afterwards:
   `--verify` checked every visual through the Data API, and the KPI tiles agree with Impala.
   On the latest date the AML dashboard shows 5 alerts: 2 critical PAN matches on the
   screening list, and 1 alert that is new that day.
+- Masking checked in Hue on `dim_party`: as `federal01` the PII columns come back masked,
+  as `rsingh` in clear.
 - The Airflow DAG `rsingh-gdl-orchestration` is registered, paused, with its schedule off.
 - Atlas lineage runs from bronze to silver, gold and semantic, through Spark and Impala
   processes. For example, `kpi_npa_exposure` traces back to `fact_loan_position_daily`, then

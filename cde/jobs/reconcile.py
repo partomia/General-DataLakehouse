@@ -12,6 +12,8 @@ control figures (the batch manifests), never against what Spark happened to read
            gold_total       silver total = fact total (INR), explained the same way
            dimension_link   every fact row found its dimension version valid on the date
            party_resolved   every fact row resolved to a golden party (not UNKNOWN)
+           truth_*          fact_aml_alert against the generator's _truth file, when there is one:
+                            planted patterns and screening hits alerted, nothing else alerted
 
 Each check is MATCHED, EXPLAINED (the difference is fully accounted for, and the detail
 says by what) or MISMATCH. Results replace the date's rows in ref.recon_results; the
@@ -24,6 +26,7 @@ Usage:
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -225,6 +228,49 @@ def gold_checks(r: Recon) -> None:
                      f"received; {n_unknown - n_why} with the owner in silver but no golden party")
 
 
+def aml_checks(r: Recon, landing: str) -> None:
+    """The AML alerts against the generator's _truth file (synthetic data only): every planted
+    payment pattern alerted by its rule once complete, every screening-list hit alerted while
+    listed, and nothing else alerted on the date (the namesake with another date of birth included)."""
+    g, fs, uri = r.table("gold", "fact_aml_alert"), C.HadoopFS(r.spark), f"{landing}/_truth/persons.json"
+    if g is None or not fs.exists(uri):
+        return
+    truth = json.loads(fs.read_text(uri))
+    if "aml_watchlist" not in truth:
+        return
+    day = r.d.isoformat()
+    upto = g.where(F.col("business_date") <= F.lit(day).cast("date")).select("rule_code", "account_key").distinct()
+    alerted = {(x["rule_code"], x["account_key"]) for x in upto.collect()}
+    due = [p for p in truth["aml_patterns"] if p["complete_on"] <= day]
+    missed = [p for p in due if (p["rule"], f"ACC:CBS:{p['acct_no']}") not in alerted]
+    r.add("gold", "fact_aml_alert", "truth_planted_patterns", len(due), len(due) - len(missed),
+          detail=f"{len(due)} planted pattern(s) complete by {day}, alerted by their rule: "
+                 f"{len(due) - len(missed)}" + (f"; missed {', '.join(p['acct_no'] for p in missed)}" if missed else ""))
+
+    wl = truth["aml_watchlist"]
+    xref = C.read_as_of_batch(r.spark, r.names, "mdm", "party_xref", r.d).where("src_system = 'cbs'")
+    party = {x["src_key"]: x["party_id"] for x in xref.select("src_key", "party_id").collect()}
+    rule = {"PAN": "AML-WL-01", "NAME_DOB": "AML-WL-02"}
+    today = [x.asDict() for x in r.on_date(g, "business_date")
+             .select("rule_code", "account_key", "party_id", "entry_id").collect()]
+    found = {(x["rule_code"], x["party_id"], x["entry_id"]) for x in today}
+    hits = [h for h in wl["hits"] if h["from"] <= day]
+    lost = [h for h in hits if (rule[h["basis"]], party.get(str(h["cbs_cust_id"])), h["entry_id"]) not in found]
+    r.add("gold", "fact_aml_alert", "truth_watchlist_hits", len(hits), len(hits) - len(lost),
+          detail=f"{len(hits)} listed customer(s) on {day}, alerted on the right basis: {len(hits) - len(lost)}"
+                 + (f"; missed {', '.join(h['entry_id'] for h in lost)}" if lost else ""))
+
+    expected = {(p["rule"], f"ACC:CBS:{p['acct_no']}") for p in truth["aml_patterns"]}
+    expected_wl = {(rule[h["basis"]], party.get(str(h["cbs_cust_id"])), h["entry_id"]) for h in hits}
+    other = [x for x in today if (x["rule_code"], x["account_key"]) not in expected
+             and (x["rule_code"], x["party_id"], x["entry_id"]) not in expected_wl]
+    trap = wl["namesake_not_a_hit"]
+    r.add("gold", "fact_aml_alert", "truth_unexpected_alerts", 0, len(other),
+          detail=f"{len(other)} alert(s) on {day} not planted"
+                 + (": " + ", ".join(f"{x['rule_code']} {x['account_key'] or x['party_id']}" for x in other[:10])
+                    if other else f" (namesake {trap['entry_id']}, another date of birth, not alerted)"))
+
+
 def absent_owner_accounts(r: Recon):
     """account_key -> reason, for accounts whose owning CBS customer is not in silver as of the batch."""
     acc = r.table("silver", "cbs_account")
@@ -280,6 +326,7 @@ def run(spark, argv=None) -> dict:
         bronze_checks(r, C.read_manifests(spark, landing, args.business_date))
         silver_checks(r)
         gold_checks(r)
+        aml_checks(r, landing)
         bad = write(r, reports)
         counts = {s: sum(1 for row in r.rows if row[9] == s) for s in ("MATCHED", "EXPLAINED", "MISMATCH")}
         print(f"reconcile {r.bid}: " + ", ".join(f"{k} {v}" for k, v in counts.items()), flush=True)

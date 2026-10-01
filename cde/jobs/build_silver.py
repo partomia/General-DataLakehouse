@@ -7,6 +7,7 @@ For one business date, from that date's bronze rows:
     cbs_customer     D1 dump rows, then CDC after-images; deletes are soft (_is_deleted)
     cbs_account      the same for accounts
     cbs_branch, cbs_product, lms_borrower, crm_customer
+    aml_watchlist    screening-list entries (the AML extension), name and PAN standardised
   daily tables     (the business date's partition replaced in one commit)
     cbs_eod_balance  duplicates removed, balances converted to INR
     lms_loan_daily, lms_repayment
@@ -270,6 +271,12 @@ def simple_state(ctx: Ctx, entity: str, system: str, ts, extra=None) -> None:
     log(ctx, entity, "cleanse", entity, rows_in, rows_in, "typed per contract; blanks to NULL")
 
 
+def watchlist_extra(df: DataFrame) -> DataFrame:
+    return (df.withColumn("name_std", C.std_name(F.col("full_name")))
+            .withColumn("name_key", C.name_key(F.col("name_std")))
+            .withColumn("pan_std", C.std_pan(F.col("pan"))))
+
+
 def borrower_extra(df: DataFrame) -> DataFrame:
     return (person_std(df, F.col("full_name"), F.col("pan"), F.col("mobile"), None, F.col("address"), F.col("pincode"))
             .withColumn("borrower_key", F.concat(F.lit("BRW:LMS:"), "borrower_id")))
@@ -491,6 +498,9 @@ def run(spark, argv=None) -> dict:
         payments(ctx)
         crm_state(ctx)
         documents(ctx)
+        simple_state(ctx, "aml_watchlist", "compliance", F.col("_t_updated_on").cast("timestamp"), watchlist_extra)
+        log(ctx, "aml_watchlist", "standardise", "aml_watchlist", None, None,
+            "name (case, punctuation, titles, variants, token order), PAN")
         write_exceptions(ctx)
         audit.load(STAGE, "*", "COMPLETED", rows_in=sum(s["rows_in"] for s in ctx.summary.values()),
                    rows_out=sum(s["rows_out"] for s in ctx.summary.values()))

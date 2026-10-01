@@ -1,0 +1,37 @@
+{
+  "_comment": "AML alert rules, read by cde/jobs/build_gold.py (fact_aml_alert, dim_aml_rule). Amounts are INR.",
+  "rules": [
+    {
+      "rule_code": "AML-STR-01",
+      "name": "Cash structuring",
+      "subject": "ACCOUNT",
+      "severity": "HIGH",
+      "description": "At least 3 settled cash deposits of 40,000 to 49,999.99 on one account within the last 3 business dates: kept just under the 50,000 at which a PAN must be quoted",
+      "params": {"band_from": 40000, "band_to": 49999.99, "min_count": 3, "window_business_dates": 3}
+    },
+    {
+      "rule_code": "AML-PTH-01",
+      "name": "Pass-through account",
+      "subject": "ACCOUNT",
+      "severity": "HIGH",
+      "description": "On one business date, at least 8 settled credits totalling 50,000 or more, and at least 90% of the credited amount debited out the same date",
+      "params": {"min_credits": 8, "min_credit_total": 50000, "min_out_ratio": 0.9}
+    },
+    {
+      "rule_code": "AML-WL-01",
+      "name": "Watchlist match on PAN",
+      "subject": "PARTY",
+      "severity": "CRITICAL",
+      "description": "A golden party's PAN equals the PAN of an active screening-list entry (listed on or before the date, not delisted)",
+      "params": {"basis": "PAN"}
+    },
+    {
+      "rule_code": "AML-WL-02",
+      "name": "Watchlist match on name and date of birth",
+      "subject": "PARTY",
+      "severity": "HIGH",
+      "description": "A golden party's standardised, order-free name and date of birth equal an active screening-list entry's, with no PAN match",
+      "params": {"basis": "NAME_DOB"}
+    }
+  ]
+}

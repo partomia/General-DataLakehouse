@@ -1,0 +1,78 @@
+{
+  "entity": "aml_watchlist",
+  "source": "compliance",
+  "format": "psv",
+  "file_glob": "aml_watchlist_*.csv",
+  "description": "Screening lists from the compliance vendor (sanctions and politically exposed persons), daily full extract",
+  "key": [
+    "entry_id"
+  ],
+  "columns": [
+    {
+      "name": "entry_id",
+      "type": "string",
+      "required": true,
+      "pattern": "^WL[0-9]{6}$",
+      "severity": "reject"
+    },
+    {
+      "name": "list_name",
+      "type": "string",
+      "allowed": [
+        "UN_SANCTIONS",
+        "MHA_UAPA",
+        "OFAC_SDN",
+        "PEP_DOMESTIC"
+      ],
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "entry_type",
+      "type": "string",
+      "allowed": [
+        "SANCTION",
+        "PEP"
+      ],
+      "required": true,
+      "severity": "reject"
+    },
+    {
+      "name": "full_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "dob",
+      "type": "date",
+      "format": "dd/MM/yyyy"
+    },
+    {
+      "name": "pan",
+      "type": "string",
+      "pattern": "^[A-Za-z]{5}[0-9]{4}[A-Za-z]$",
+      "severity": "warn"
+    },
+    {
+      "name": "nationality",
+      "type": "string"
+    },
+    {
+      "name": "listed_on",
+      "type": "date",
+      "format": "dd/MM/yyyy",
+      "required": true
+    },
+    {
+      "name": "delisted_on",
+      "type": "date",
+      "format": "dd/MM/yyyy"
+    },
+    {
+      "name": "updated_on",
+      "type": "date",
+      "format": "dd/MM/yyyy",
+      "required": true
+    }
+  ]
+}

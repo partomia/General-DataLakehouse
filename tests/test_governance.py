@@ -8,7 +8,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import governance as G  # noqa: E402
 
 GOV, KPI, _ = G.load_config()
-CLEAR = {"pincode", "ifsc", "branch_name", "product_name", "file_name"}   # not personal data, kept clear
+CLEAR = {"pincode", "ifsc", "branch_name", "product_name", "file_name", "list_name"}   # not personal data, kept clear
 PII = re.compile(r"name|pan|aadhaar|mobile|phone|email|dob|birth|address|passport|acct_no", re.I)
 
 

@@ -14,6 +14,8 @@ Stage 0 - Landing: five synthetic source systems drop their files for one busine
              identifier and address arrays.                               (semi)
   documents  correspondence e-mails (.eml), KYC declarations (.txt) and ID scans
              (.png).                                                      (unstructured)
+  compliance screening lists (sanctions, PEP): a daily full pipe-delimited extract
+             with header + trailer; the AML extension's source.          (structured)
 
 Each <landing>/<source>/<date>/ folder gets _manifest.json: per entity the
 record count and control total the source itself reports, and per file its size
@@ -122,6 +124,8 @@ LOAN_COLS = ["loan_id", "borrower_id", "product_code", "branch_code", "sanction_
              "interest_overdue", "dpd", "last_payment_date", "loan_status", "src_asset_class",
              "restructured_flag", "loss_flag", "as_of_date"]
 REPAYMENT_COLS = ["txn_id", "loan_id", "payment_date", "amount", "mode"]
+WATCHLIST_COLS = ["entry_id", "list_name", "entry_type", "full_name", "dob", "pan", "nationality", "listed_on",
+                  "delisted_on", "updated_on"]
 
 
 def R(seed: int, label: str) -> random.Random:
@@ -236,6 +240,7 @@ class World:
         self.out: dict[date, dict] = {}
         self._cust_seq, self._acct_seq, self._borr_seq, self._loan_seq = 100001, 1, 200001, 1
         self._build()
+        self._build_watchlist()
         prev = None
         for d in DATES:
             self.out[d] = self._day(d, prev)
@@ -530,6 +535,81 @@ class World:
             if p.in_crm:
                 self._crm_doc(rng, p, datetime(2026, 9, 20, 12) - timedelta(days=rng.randint(0, 700)))
 
+    # ------------------------------------------------------------ compliance
+
+    def _build_watchlist(self) -> None:
+        """Screening-list entries, from their own random stream so no other source changes. Noise
+        entries, plus planted hits on CBS-only customers (one golden record, the CBS name and PAN):
+        a PEP listed with the customer's PAN, a sanctioned name written surname first with the date of
+        birth and no PAN, a namesake with another date of birth (must not alert), a listing that
+        arrives on the fourth date, and a noise entry delisted on the third."""
+        rng = R(self.seed, "watchlist")
+        faulty = {c for ids in self.dump_faults.values() for c in ids}
+        active = {a["cust_id"] for a in self.accounts.values()
+                  if a["status"] == "ACTIVE" and a["product_code"][:2] in ("SA", "CA")}
+        names = {(p.first, p.last) for p in self.persons}
+        clean = [p for p in self.persons
+                 if p.in_cbs and not p.in_lms and not p.in_crm and not p.relation and len(p.systems["cbs"]) == 1
+                 and p.systems["cbs"][0] not in faulty and p.systems["cbs"][0] in active
+                 and sum(1 for q in self.persons if (q.first, q.last) == (p.first, p.last)) == 1]
+        pep, sanctioned, namesake, late = rng.sample(clean, 4)
+
+        def entry(list_name, name, dob=None, pan=None, nationality="IN", listed=None, appears=DATES[0]):
+            listed = listed or date(2005, 1, 1) + timedelta(days=rng.randint(0, 7900))
+            return {"list_name": list_name, "entry_type": "PEP" if list_name.startswith("PEP") else "SANCTION",
+                    "full_name": name, "dob": dob, "pan": pan, "nationality": nationality, "listed_on": listed,
+                    "delisted_on": None, "updated_on": listed, "_appears": appears, "_delisted": None}
+
+        def full(p):
+            return " ".join(x for x in (p.first, p.middle, p.last) if x)
+
+        entries = []
+        for _ in range(36):
+            first, last = rng.choice(FIRST_M + FIRST_F), rng.choice(LAST)
+            while (first, last) in names:
+                first, last = rng.choice(FIRST_M + FIRST_F), rng.choice(LAST)
+            lst = rng.choice(["UN_SANCTIONS", "MHA_UAPA", "OFAC_SDN", "PEP_DOMESTIC", "PEP_DOMESTIC"])
+            dob = date(1940, 1, 1) + timedelta(days=rng.randint(0, 18000)) if rng.random() < 0.8 else None
+            pan = None
+            if lst == "PEP_DOMESTIC" and rng.random() < 0.5:
+                pan = ("".join(rng.choice("ABCDEFGHJKLMNPRSTUVWXYZ") for _ in range(3)) + "P" + last[0]
+                       + f"{rng.randint(0, 9999):04d}" + rng.choice("ABCDEFGHJKLMNPRSTUVWXYZ"))
+                pan = None if pan in self.pans else pan
+            nat = "IN" if lst in ("PEP_DOMESTIC", "MHA_UAPA") else rng.choice(["IN", "AE", "AF", "IR", "SY"])
+            entries.append(entry(lst, f"{first} {last}", dob, pan, nat))
+        delisted = entries[rng.randrange(len(entries))]
+        delisted["_delisted"] = DATES[2]
+        given = " ".join(x for x in (pep.first, pep.middle) if x)
+        hits = [(entry("PEP_DOMESTIC", f"{pep.last.upper()}, {given.upper()}", pep.dob, pep.pan,
+                       listed=date(2023, 4, 1)), pep, "PAN", DATES[0]),
+                (entry("UN_SANCTIONS", f"{sanctioned.last} {sanctioned.first} {sanctioned.middle}".strip(),
+                       sanctioned.dob, listed=date(2025, 11, 14)), sanctioned, "NAME_DOB", DATES[0]),
+                (entry("MHA_UAPA", full(late), late.dob, late.pan, listed=DATES[3], appears=DATES[3]),
+                 late, "PAN", DATES[3])]
+        trap = entry("OFAC_SDN", full(namesake), namesake.dob + timedelta(days=1100), nationality="AE")
+        entries += [h[0] for h in hits] + [trap]
+        rng.shuffle(entries)
+        for i, e in enumerate(entries, 1):
+            e["entry_id"] = f"WL{i:06d}"
+        self.watchlist = entries
+        self.watchlist_truth = {
+            "hits": [{"entry_id": e["entry_id"], "pid": p.pid, "cbs_cust_id": p.systems["cbs"][0], "basis": basis,
+                      "from": first.isoformat()} for e, p, basis, first in hits],
+            "namesake_not_a_hit": {"entry_id": trap["entry_id"], "pid": namesake.pid,
+                                   "cbs_cust_id": namesake.systems["cbs"][0]},
+            "delisted": {"entry_id": delisted["entry_id"], "on": DATES[2].isoformat()}}
+
+    def watchlist_on(self, d: date) -> list:
+        rows = []
+        for e in self.watchlist:
+            if e["_appears"] > d:
+                continue
+            row = {k: v for k, v in e.items() if not k.startswith("_")}
+            if e["_delisted"] and e["_delisted"] <= d:
+                row["delisted_on"] = row["updated_on"] = e["_delisted"]
+            rows.append({k: dmy(v) if isinstance(v, date) else v for k, v in row.items()})
+        return sorted(rows, key=lambda r: r["entry_id"])
+
     # ------------------------------------------------------------ one business date
 
     def _day(self, d: date, prev: date | None) -> dict:
@@ -798,7 +878,7 @@ class World:
                       "CARD": rng.lognormvariate(7.5, 0.9), "CASH_DEPOSIT": rng.lognormvariate(9.0, 0.8)}[channel]
             payment(a, direction, channel, amount)
         aml_rng = R(self.seed, "aml")
-        planted = aml_rng.sample(accts, 4)
+        planted = self.__dict__.setdefault("_aml_accounts", aml_rng.sample(accts, 4))   # the first date's, kept
         if idx in (1, 2, 3):   # structuring: cash deposits just under 50,000 on three days
             for a in planted[:3]:
                 for _ in range(aml_rng.choice([1, 2])):
@@ -811,6 +891,10 @@ class World:
                 payment(a, "CR", "UPI", amt, when=datetime(d.year, d.month, d.day, 10, 5 * i))
             payment(a, "DR", "RTGS", total * 0.95, when=datetime(d.year, d.month, d.day, 15, 0))
         self.aml_planted = [a["acct_no"] for a in planted]
+        self.aml_patterns = [{"acct_no": a["acct_no"], "rule": "AML-STR-01", "complete_on": DATES[3].isoformat()}
+                             for a in planted[:3]]
+        self.aml_patterns.append({"acct_no": planted[3]["acct_no"], "rule": "AML-PTH-01",
+                                  "complete_on": DATES[4].isoformat()})
         out[3]["amount"] = {"ccy": "INR"}
         out[40]["amount"] = {"ccy": "INR"}
         out.insert(60, json.loads(json.dumps(out[59])))
@@ -885,6 +969,7 @@ class World:
                              "crm": p.systems["crm"]} for p in self.persons],
                 "slipping_loans": self.slipping, "upgrade_loan": self.upgrade, "prepaid_loan": self.prepay,
                 "source_class_lag": self.src_lag, "aml_planted_accounts": self.aml_planted,
+                "aml_patterns": self.aml_patterns, "aml_watchlist": self.watchlist_truth,
                 "faults": {d.isoformat(): self.out[d]["faults"] for d in DATES}}
 
 
@@ -995,6 +1080,9 @@ def day_files(world: World, d: date) -> dict:
                   [{"entity": "crm_customer", "file": name, "records": len(day["crm"])}])
     docs = dict(day["docs"])
     out["documents"] = (docs, [{"entity": "doc_document", "file": "*", "records": len(docs)}])
+    name, rows = f"aml_watchlist_{ymd}.csv", world.watchlist_on(d)
+    out["compliance"] = ({name: psv(WATCHLIST_COLS, rows, None)[0]},
+                         [{"entity": "aml_watchlist", "file": name, "records": len(rows)}])
     return out
 
 

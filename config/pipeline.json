@@ -21,7 +21,8 @@
     "lms_repayment",
     "pay_transaction",
     "crm_customer",
-    "doc_document"
+    "doc_document",
+    "aml_watchlist"
   ],
   "currencies": [
     {"code": "INR", "name": "Indian Rupee", "inr_rate": 1.0},

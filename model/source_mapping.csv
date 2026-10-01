@@ -194,3 +194,32 @@ fact_payment,counterparty_bank,payments,pay_transaction,debtor/creditor.account.
 fact_payment,is_on_us,payments,pay_transaction,debtor/creditor.account.ifsc,enrich,counterparty bank is this bank
 fact_payment,purpose_code,payments,pay_transaction,remittance.purpose,normalise,flattened
 fact_payment,device_id,payments,pay_transaction,device.id,normalise,field new from 2026-09-24 (schema drift)
+dim_aml_rule,rule_code,config,aml_rules.json,rules.rule_code,enrich,AML rule identifier
+dim_aml_rule,rule_name,config,aml_rules.json,rules.name,enrich,
+dim_aml_rule,subject_type,config,aml_rules.json,rules.subject,enrich,ACCOUNT or PARTY
+dim_aml_rule,severity,config,aml_rules.json,rules.severity,enrich,"CRITICAL, HIGH"
+dim_aml_rule,description,config,aml_rules.json,rules.description,enrich,
+dim_aml_rule,parameters,config,aml_rules.json,rules.params,enrich,thresholds as JSON
+fact_aml_alert,date_key,gold,dim_date,date_key,normalise,yyyymmdd of the business date
+fact_aml_alert,alert_id,gold,,,enrich,"first 16 hex of sha256(rule_code | subject_key | business date)"
+fact_aml_alert,rule_code,gold,dim_aml_rule,rule_code,enrich,rule that alerted
+fact_aml_alert,severity,gold,dim_aml_rule,severity,enrich,the rule's severity
+fact_aml_alert,subject_type,gold,dim_aml_rule,subject_type,enrich,ACCOUNT (payment rules) or PARTY (screening)
+fact_aml_alert,subject_key,gold,,,enrich,account_key; or party_id | entry_id
+fact_aml_alert,party_id,mdm,party_xref,party_id,match,"account owner, or the screened golden party"
+fact_aml_alert,party_sk,gold,dim_party,party_sk,historise,party version valid on the business date
+fact_aml_alert,account_key,gold,fact_payment,account_key,aggregate,account the payment rules alerted on
+fact_aml_alert,account_sk,gold,dim_account,account_sk,historise,account version valid on the date
+fact_aml_alert,branch_code,gold,dim_account / dim_party,branch_code / home_branch,enrich,account branch or the party's home branch
+fact_aml_alert,window_from,gold,fact_payment,value_date,aggregate,first value date counted (the date for screening)
+fact_aml_alert,window_to,gold,fact_payment,value_date,aggregate,last value date counted
+fact_aml_alert,txn_count,gold,fact_payment,msg_id,aggregate,payments counted (1 for screening)
+fact_aml_alert,amount_inr,gold,fact_payment,amount_inr,aggregate,"structuring: cash deposited; pass-through: credited"
+fact_aml_alert,entry_id,compliance,aml_watchlist,entry_id,match,screening-list entry matched
+fact_aml_alert,list_name,compliance,aml_watchlist,list_name,match,list of the entry
+fact_aml_alert,match_basis,gold,,,match,"PAN, or NAME_DOB (standardised order-free name + date of birth)"
+fact_aml_alert,evidence,gold,fact_payment / aml_watchlist,msg_id / entry_id,aggregate,up to 20 message ids or the entry
+fact_aml_alert,is_new,gold,fact_aml_alert,,enrich,the rule did not alert on the subject on an earlier business date
+fact_aml_alert,src_system,gold,,,ingest,"payments or compliance"
+fact_aml_alert,src_batch_id,gold,,,ingest,batch that raised the alert
+fact_aml_alert,business_date,gold,,,normalise,partition: the batch's business date

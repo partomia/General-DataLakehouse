@@ -13,7 +13,7 @@ def manifest(root, source, d):
 
 def test_every_day_has_manifests_matching_the_files(landed):
     for d in CFG["business_dates"]:
-        for source in ("cbs", "lms", "payments", "crm", "documents"):
+        for source in C.SOURCES:
             m = manifest(landed, source, d)
             assert m is not None, (source, d)
             assert m["batch_id"] == C.batch_id(C.parse_date(d))
@@ -35,7 +35,7 @@ def test_generator_is_deterministic(landed, tmp_path):
 
     d = CFG["business_dates"][2]
     load_job("land_sources").main(["--business-date", d, "--landing", str(tmp_path)])
-    for source in ("cbs", "lms", "payments"):
+    for source in ("cbs", "lms", "payments", "compliance"):
         a, b = manifest(landed, source, d), manifest(tmp_path, source, d)
         assert [f["sha256"] for f in a["files"]] == [f["sha256"] for f in b["files"]], source
 
@@ -58,3 +58,24 @@ def test_planted_faults_are_present(landed):
 def test_truth_lists_every_person(landed):
     truth = json.loads((landed / "_truth" / "persons.json").read_text())
     assert len(truth["persons"]) >= CFG["customers"]
+
+
+def test_aml_patterns_and_screening_hits_are_planted(landed):
+    truth = json.loads((landed / "_truth" / "persons.json").read_text())
+    dates = CFG["business_dates"]
+    structuring = {p["acct_no"] for p in truth["aml_patterns"] if p["rule"] == "AML-STR-01"}
+    deposits = {}
+    for d in dates[1:4]:
+        for line in next((landed / "payments" / d).glob("*.jsonl")).read_text().splitlines():
+            p = json.loads(line)
+            if p["channel"] == "CASH_DEPOSIT" and 40000 <= float(p["amount"].get("value") or 0) < 50000:
+                acct = p["creditor"]["account"]["number"]
+                deposits[acct] = deposits.get(acct, 0) + 1
+    assert all(deposits.get(a, 0) >= 3 for a in structuring), "structuring is on the same accounts every date"
+
+    wl = truth["aml_watchlist"]
+    first = next((landed / "compliance" / dates[0]).glob("*.csv")).read_text()
+    fourth = next((landed / "compliance" / dates[3]).glob("*.csv")).read_text()
+    late = [h["entry_id"] for h in wl["hits"] if h["from"] == dates[3]]
+    assert late and all(e not in first and e in fourth for e in late), "a listing arrives on the fourth date"
+    assert wl["namesake_not_a_hit"]["entry_id"] in first

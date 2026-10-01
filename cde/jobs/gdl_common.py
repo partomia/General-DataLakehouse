@@ -31,7 +31,7 @@ DEFAULT_PREFIX = "rsingh_gdl"
 DEFAULT_LANDING = "s3a://federal-buk-574bcea0/data/IB/rsingh_gdl/landing"
 DEFAULT_REPORTS = "s3a://federal-buk-574bcea0/data/IB/rsingh_gdl/reports"
 LAYERS = ("bronze", "silver", "mdm", "gold", "semantic", "ref")
-SOURCES = ("cbs", "lms", "payments", "crm", "documents")
+SOURCES = ("cbs", "lms", "payments", "crm", "documents", "compliance")
 
 # Impala writes these ref tables too (scripts/run_semantic.py) and cannot write an Iceberg
 # timestamptz column, so their times are timestamp_ntz holding UTC (the session time zone).

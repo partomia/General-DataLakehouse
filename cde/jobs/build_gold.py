@@ -18,6 +18,11 @@ For one business date, from silver and MDM as the batch committed them:
     fact_loan_position_daily     outstanding, overdue, DPD, IRAC asset class computed from DPD
                                  (the source's own class is kept beside it), provision
     fact_payment                 own-account payments: channel, direction, INR amount, fees
+  AML, the extension domain (config/aml_rules.json); joins only through party_id / account_key
+    dim_aml_rule                 the alert rules and their parameters
+    fact_aml_alert               cash structuring and pass-through on fact_payment, screening-list
+                                 matches (PAN, or name + date of birth) of dim_party against
+                                 silver.aml_watchlist; is_new when not alerted on an earlier date
   ref.kpi_definition / ref.kpi_parameter   from config/kpi.json
 
 SCD2 rows carry version, effective_from, effective_to (9999-12-31 while open), is_current,
@@ -36,6 +41,7 @@ from __future__ import annotations
 
 import csv
 import io
+import json
 import sys
 from datetime import date, timedelta
 from pathlib import Path
@@ -52,6 +58,7 @@ SCD_META = ["version", "effective_from", "effective_to", "is_current", "change_r
 DEPOSIT_TYPE = {"SA": "SAVINGS", "CA": "CURRENT", "TD": "TERM"}
 UNKNOWN_PARTY = "UNKNOWN"
 KPI = C.load_json("config/kpi.json")
+AML = C.load_json("config/aml_rules.json")
 MAPPING_SCHEMA = ("target_table string, target_column string, source_system string, source_entity string, "
                   "source_field string, transform_type string, rule string")
 
@@ -435,6 +442,126 @@ def fact_payment(ctx: Ctx) -> None:
     replace_fact(ctx, "fact_payment", df, rows_in, f"{rows_in - n} payments not on an own account")
 
 
+# ---------------------------------------------------------------- AML (the extension domain)
+
+
+def dim_aml_rule(ctx: Ctx) -> None:
+    rows = [(r["rule_code"], r["name"], r["subject"], r["severity"], r["description"],
+             json.dumps(r["params"], sort_keys=True)) for r in AML["rules"]]
+    replace_dim(ctx, "dim_aml_rule", ctx.spark.createDataFrame(
+        rows, "rule_code string, rule_name string, subject_type string, severity string, description string, "
+              "parameters string"), "from config/aml_rules.json")
+
+
+def account_alerts(ctx: Ctx, rule: dict, df: DataFrame) -> DataFrame:
+    """Account-level alerts (account_key, txn_count, amount_inr, window_from, window_to, evidence) with
+    the account and party versions valid on the date."""
+    acc = valid_on(ctx.spark.table(ctx.t("dim_account")), ctx.dlit).select(
+        "account_key", "account_sk", "party_id", "branch_code")
+    return (df.join(acc, "account_key", "left").join(party_sk(ctx), "party_id", "left")
+            .select(F.lit(rule["rule_code"]).alias("rule_code"), F.col("account_key").alias("subject_key"),
+                    F.coalesce("party_id", F.lit(UNKNOWN_PARTY)).alias("party_id"), "party_sk", "account_key",
+                    "account_sk", "branch_code", "window_from", "window_to", "txn_count", "amount_inr",
+                    F.lit(None).cast("string").alias("entry_id"), F.lit(None).cast("string").alias("list_name"),
+                    F.lit(None).cast("string").alias("match_basis"), "evidence",
+                    F.lit("payments").alias("src_system")))
+
+
+def evidence(col):
+    return F.array_join(F.slice(F.array_sort(F.collect_list(col)), 1, 20), ",").alias("evidence")
+
+
+def structuring(ctx: Ctx, rule: dict) -> DataFrame:
+    p, prm = ctx.spark.table(ctx.t("fact_payment")), rule["params"]
+    dates = [r[0] for r in p.where(F.col("business_date") <= ctx.dlit).select("business_date").distinct()
+             .orderBy(F.desc("business_date")).limit(prm["window_business_dates"]).collect()]
+    cash = p.where(F.col("business_date").isin(dates) & (F.col("channel") == "CASH_DEPOSIT")
+                   & (F.col("direction") == "CR") & (F.col("status") == "SETTLED")
+                   & F.col("amount_inr").between(prm["band_from"], prm["band_to"]))
+    hits = (cash.groupBy("account_key")
+            .agg(F.count("*").alias("txn_count"), F.sum("amount_inr").cast(C.DECIMAL).alias("amount_inr"),
+                 F.min("value_date").alias("window_from"), F.max("value_date").alias("window_to"), evidence("msg_id"))
+            .where(F.col("txn_count") >= prm["min_count"]))
+    return account_alerts(ctx, rule, hits)
+
+
+def pass_through(ctx: Ctx, rule: dict) -> DataFrame:
+    prm = rule["params"]
+    p = ctx.on_date("gold", "fact_payment").where(F.col("status") == "SETTLED")
+    cr, dr = F.col("direction") == "CR", F.col("direction") == "DR"
+    hits = (p.groupBy("account_key")
+            .agg(F.sum(cr.cast("int")).alias("credits"), F.sum(F.when(cr, F.col("amount_inr"))).alias("credit_inr"),
+                 F.sum(F.when(dr, F.col("amount_inr"))).alias("debit_inr"), F.count("*").alias("txn_count"),
+                 F.min("value_date").alias("window_from"), F.max("value_date").alias("window_to"), evidence("msg_id"))
+            .where((F.col("credits") >= prm["min_credits"]) & (F.col("credit_inr") >= prm["min_credit_total"])
+                   & (F.col("debit_inr") >= F.col("credit_inr") * prm["min_out_ratio"]))
+            .withColumn("amount_inr", F.col("credit_inr").cast(C.DECIMAL)))
+    return account_alerts(ctx, rule, hits)
+
+
+def watchlist_alerts(ctx: Ctx, rules: dict) -> DataFrame | None:
+    """Golden parties valid on the date against the screening-list entries active on it (silver as the
+    batch committed it): PAN first; name and date of birth only where the PAN did not match."""
+    wl = C.read_as_of_batch(ctx.spark, ctx.names, "silver", "aml_watchlist", ctx.d)
+    if wl is None:
+        return None
+    d = ctx.dlit
+    wl = wl.where(~F.col("_is_deleted") & (F.col("listed_on") <= d)
+                  & (F.col("delisted_on").isNull() | (F.col("delisted_on") > d))).select(
+        "entry_id", "list_name", F.col("pan_std").alias("w_pan"), F.col("name_key").alias("w_name"),
+        F.col("dob").alias("w_dob"))
+    party = (valid_on(ctx.spark.table(ctx.t("dim_party")), d).where(F.col("party_id") != UNKNOWN_PARTY)
+             .select("party_id", "party_sk", F.col("home_branch").alias("branch_code"), "dob",
+                     C.std_pan(F.col("pan")).alias("pan_std"), C.name_key(C.std_name(F.col("full_name"))).alias("name_key")))
+    by_pan = party.join(wl, party["pan_std"] == wl["w_pan"]).withColumn("match_basis", F.lit("PAN"))
+    by_name = (party.join(wl, (party["name_key"] == wl["w_name"]) & (party["dob"] == wl["w_dob"]))
+               .withColumn("match_basis", F.lit("NAME_DOB")))
+    both = by_pan.unionByName(by_name)
+    first = Window.partitionBy("party_id", "entry_id").orderBy(F.when(F.col("match_basis") == "PAN", 0).otherwise(1))
+    code = F.create_map(*[x for r in rules.values() for x in (F.lit(r["params"]["basis"]), F.lit(r["rule_code"]))])
+    return (both.withColumn("_rn", F.row_number().over(first)).where("_rn = 1")
+            .select(F.element_at(code, F.col("match_basis")).alias("rule_code"),
+                    F.concat_ws("|", "party_id", "entry_id").alias("subject_key"), "party_id", "party_sk",
+                    F.lit(None).cast("string").alias("account_key"), F.lit(None).cast("bigint").alias("account_sk"),
+                    "branch_code", d.alias("window_from"), d.alias("window_to"), F.lit(1).cast("bigint").alias("txn_count"),
+                    F.lit(None).cast(C.DECIMAL).alias("amount_inr"), "entry_id", "list_name", "match_basis",
+                    F.concat(F.lit("watchlist "), F.col("entry_id")).alias("evidence"),
+                    F.lit("compliance").alias("src_system")))
+
+
+def fact_aml_alert(ctx: Ctx) -> None:
+    """One row per rule and subject (account, or party and list entry) that alerts on the date. is_new:
+    the same rule did not alert on the same subject on an earlier business date."""
+    rules = {r["rule_code"]: r for r in AML["rules"]}
+    parts = [structuring(ctx, rules["AML-STR-01"]), pass_through(ctx, rules["AML-PTH-01"])]
+    wl = watchlist_alerts(ctx, {k: v for k, v in rules.items() if v["subject"] == "PARTY"})
+    if wl is not None:
+        parts.append(wl)
+    df = parts[0]
+    for x in parts[1:]:
+        df = df.unionByName(x)
+    sev = F.create_map(*[x for r in rules.values() for x in (F.lit(r["rule_code"]), F.lit(r["severity"]))])
+    t = ctx.t("fact_aml_alert")
+    if C.table_exists(ctx.spark, t):
+        seen = (ctx.spark.table(t).where(F.col("business_date") < ctx.dlit).select("rule_code", "subject_key")
+                .distinct().withColumn("_seen", F.lit(True)))
+        df = df.join(seen, ["rule_code", "subject_key"], "left")
+    else:
+        df = df.withColumn("_seen", F.lit(None).cast("boolean"))
+    df = df.select(
+        date_key(F.lit(ctx.d.isoformat()).cast("date")),
+        F.substring(F.sha2(F.concat_ws("|", "rule_code", "subject_key", F.lit(ctx.d.isoformat())), 256), 1, 16)
+        .alias("alert_id"),
+        "rule_code", F.element_at(sev, F.col("rule_code")).alias("severity"),
+        F.when(F.col("account_key").isNotNull(), "ACCOUNT").otherwise("PARTY").alias("subject_type"),
+        "subject_key", "party_id", "party_sk", "account_key", "account_sk", "branch_code", "window_from", "window_to",
+        "txn_count", "amount_inr", "entry_id", "list_name", "match_basis", "evidence",
+        F.col("_seen").isNull().alias("is_new"), "src_system", F.lit(ctx.bid).alias("src_batch_id")).localCheckpoint()
+    n = df.count()
+    by_rule = {r["rule_code"]: r["count"] for r in df.groupBy("rule_code").count().collect()}
+    replace_fact(ctx, "fact_aml_alert", df, n, ", ".join(f"{k} {by_rule.get(k, 0)}" for k in rules))
+
+
 # ---------------------------------------------------------------- source mapping
 
 
@@ -493,6 +620,11 @@ def run(spark, argv=None) -> dict:
         fact_payment(ctx)
         audit.transform("fact_payment", "enrich", f"{s('pay_transaction')},{ctx.t('dim_account')}",
                         ctx.t("fact_payment"), None, None, "own-account payments with account and party")
+        dim_aml_rule(ctx)
+        fact_aml_alert(ctx)
+        audit.transform("fact_aml_alert", "enrich",
+                        f"{ctx.t('fact_payment')},{s('aml_watchlist')},{ctx.t('dim_party')},{ctx.t('dim_account')}",
+                        ctx.t("fact_aml_alert"), None, None, "rules in config/aml_rules.json")
         source_mapping(ctx)
         audit.load(STAGE, "*", "COMPLETED", rows_out=len(ctx.written))
     except Exception as e:

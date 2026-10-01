@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The three General Data Lakehouse dashboards in Cloudera Data Visualization, as code:
+The four General Data Lakehouse dashboards in Cloudera Data Visualization, as code:
 
   GDL Banking KPIs MIS             NPA exposure, CASA ratio and customer relationship value,
                                    from the MIS views (each aggregates one certified KPI view)
@@ -8,6 +8,8 @@ The three General Data Lakehouse dashboards in Cloudera Data Visualization, as c
                                    audit and the failed-batch trail (dash_recon, dash_load_audit)
   GDL MDM & Golden Record          golden records, match rules and decisions, the review
                                    queue and match quality against the generator truth
+  GDL AML Alerts                   the AML extension: alerts per rule, region and date, the
+                                   alert queue (dash_aml_alert, sql/semantic/60_aml_views.sql)
 
 Datasets, visuals and sheets are declared below; this script turns them into one Data
 Visualization export file (dataviz/gdl_dashboards.json) with fixed UUIDs and primary keys,
@@ -61,6 +63,7 @@ DATASETS = {                          # key: (name, view, integer columns that a
     "match_pair": ("GDL - Match pairs", "dash_match_pair", set()),
     "xref": ("GDL - Party cross-reference", "dash_party_xref", {"cluster_size"}),
     "golden": ("GDL - Golden parties", "dash_golden_party", {"member_records"}),
+    "aml": ("GDL - AML alerts", "dash_aml_alert", {"is_latest"}),
 }
 
 LATEST = "[is_latest] = 1"
@@ -289,6 +292,38 @@ MDM_SHEETS = [
     ]),
 ]
 
+AML_QUEUE = [("alert_id", "Alert"), ("rule_name", "Rule"), ("severity", "Severity"), ("party_id", "Party"),
+             ("full_name", "Name"), ("account_key", "Account"), ("branch_name", "Branch"), ("list_name", "List"),
+             ("match_basis", "Matched on"), ("window_from", "From"), ("window_to", "To"), ("evidence", "Evidence")]
+AML_SHEETS = [
+    ("Alerts", [
+        dict(type="kpi", ds="aml", title="Alerts on the latest date", measures=[("sum([alerts])", "Alerts")],
+             filters=[LATEST], pos=(1, 1, 16, 10)),
+        dict(type="kpi", ds="aml", title="New alerts (not raised on an earlier date)",
+             measures=[("sum([is_new])", "New")], filters=[LATEST], pos=(17, 1, 16, 10)),
+        dict(type="kpi", ds="aml", title="Critical: screening-list match on PAN",
+             measures=[("sum([is_critical])", "Critical")], filters=[LATEST], pos=(33, 1, 16, 10)),
+        dict(type="kpi", ds="aml", title="Amount under alert (lakh)",
+             measures=[(f"round(sum([amount_inr]) / {LAKH}, 2)", "Amount lakh")], filters=[LATEST],
+             pos=(49, 1, 16, 10)),
+        dict(type="trellis-bars", ds="aml", title="Alerts per business date and rule",
+             x=[("business_date", "Business date")], measures=[("sum([alerts])", "Alerts")],
+             color=[("rule_name", "Rule")], pos=(1, 11, 32, 22)),
+        dict(type="trellis-bars", ds="aml", title="Alerts by region and severity (latest date)",
+             x=[("region", "Region")], measures=[("sum([alerts])", "Alerts")], color=[("severity", "Severity")],
+             filters=[LATEST], pos=(33, 11, 32, 22)),
+        dict(type="table", ds="aml", title="Alert queue (latest date)", dims=AML_QUEUE,
+             measures=[("sum([txn_count])", "Payments"), ("sum([amount_inr])", "Amount INR")],
+             filters=[LATEST], sort_dim="severity", pos=(1, 33, 64, 26)),
+    ]),
+    ("New alerts by date", [
+        dict(type="table", ds="aml", title="Every new alert, by the date it was first raised",
+             dims=[("business_date", "Business date")] + AML_QUEUE,
+             measures=[("sum([txn_count])", "Payments"), ("sum([amount_inr])", "Amount INR")],
+             filters=["[is_new] = 1"], sort_dim="business_date", sort_asc=False, pos=(1, 1, 64, 30)),
+    ]),
+]
+
 DASHBOARDS = [
     dict(title="GDL Banking KPIs MIS", pk=DASHBOARD_PK0, key="kpi-mis", sheets=KPI_SHEETS, main_ds="npa_trend",
          subtitle="NPA exposure, CASA ratio and customer relationship value from the certified KPI views"),
@@ -296,6 +331,8 @@ DASHBOARDS = [
          main_ds="recon", subtitle="Reconciliation per layer and batch, KPI consistency, load audit and failed batches"),
     dict(title="GDL MDM & Golden Record", pk=DASHBOARD_PK0 + 2, key="mdm", sheets=MDM_SHEETS, main_ds="golden",
          subtitle="Golden records, match rules and decisions, review queue, match quality"),
+    dict(title="GDL AML Alerts", pk=DASHBOARD_PK0 + 3, key="aml", sheets=AML_SHEETS, main_ds="aml",
+         subtitle="Cash structuring, pass-through and screening-list alerts (the AML extension domain)"),
 ]
 
 SHELVES = {

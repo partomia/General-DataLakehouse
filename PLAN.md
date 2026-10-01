@@ -1,8 +1,8 @@
 # Build plan: General Data Lakehouse on Cloudera
 
-A small, governed banking lakehouse for demos. Five synthetic source systems land
+A small, governed banking lakehouse for demos. Six synthetic source systems land
 files (a MySQL dump, MySQL CDC events, CSV extracts with control trailers, nested
-JSON, and documents), and CDE Spark carries them through bronze, silver, MDM and gold
+JSON, documents, and a compliance screening list), and CDE Spark carries them through bronze, silver, MDM and gold
 on Iceberg v2. The output is a banking data model over four domains with SCD Type 2
 dimensions, one golden customer record across all layers, and three certified KPIs
 (NPA exposure, CASA ratio, customer relationship value) that MIS reports, ad-hoc
@@ -23,7 +23,7 @@ days of batches, so a full run takes minutes and a laptop runs it too.
 | 4, 9 | MDM: standardise, match, de-duplicate, survivorship, golden record, one truth across layers | `cde/jobs/build_mdm.py`, `mdm.party_xref` (source id -> `party_id`), every silver and gold row carries `party_id` |
 | 5 | Time travel | `sql/time_travel.sql` (`FOR SYSTEM_TIME / SYSTEM_VERSION AS OF`, which Impala and Spark both accept), snapshot ids recorded per batch |
 | 6 | SCD2 with versions, timestamps, link to original records | `gold.dim_party`, `gold.dim_account`: `version`, `effective_from/to`, `is_current`, `record_hash`, `src_batch_id`, `src_record_id` |
-| 7 | Metadata and lineage across ingest, transform, consume | Atlas (Spark on CDE, Impala views), `ref.transform_log` (cleanse / standardise / deduplicate / enrich / normalise / aggregate / consume), Atlas glossary terms on the KPI columns, Atlas PII classifications + Ranger tag masking (`governance/`) |
+| 7 | Metadata and lineage across ingest, transform, consume | Atlas (Spark on CDE, Impala views), `ref.transform_log` (cleanse / standardise / deduplicate / enrich / normalise / aggregate / consume), Atlas glossary terms on the KPI views and their consumers, Atlas PII classifications + Ranger tag masking (`scripts/governance.py`, `docs/GOVERNANCE.md`) |
 | 8 | Reconciliation, failed-batch re-run, automated mismatch report | Batch manifests with control counts, `ref.load_audit`, `ref.recon_results`, `cde/jobs/reconcile.py`, `--fail-during` / `--fail-after` / `--resume` flags, `docs/FAILED_BATCH_DEMO.md` |
 | 10 | Banking data model, 3+ domains | Customer, Deposits, Lending, Payments, AML as the extension; `docs/BANKING_MODEL.md` (ER, canonical keys, SCD2, conformed dims, source mappings, extension method) |
 | 11 | Certified KPIs consumed three ways | `semantic.kpi_npa_exposure`, `kpi_casa_ratio`, `kpi_customer_relationship_value`, each read by an MIS dashboard (CDV), `sql/adhoc.sql` (Hue) and a regulatory / reporting dataset; a check proves the consumers agree with the certified view |
@@ -34,12 +34,12 @@ days of batches, so a full run takes minutes and a laptop runs it too.
 |---|---|---|
 | Landing zone | Cloud storage (S3), written by a CDE job | `landing/<source>/<business_date>/...` files + `_manifest.json` per batch |
 | Ingest + medallion + MDM | CDE Spark 3, Iceberg v2 | bronze (raw + validation), silver (typed, standardised, CDC applied), mdm, gold (model, SCD2) |
-| Reconciliation + DQ | CDE Spark | per batch and layer, results in `ref.recon_results`, `ref.dq_results` |
-| Orchestration | CDE Airflow | one DAG run per business date; a failed task leaves the batch `FAILED` in `ref.load_audit`; the last task materialises the regulatory datasets in Impala |
+| Reconciliation + DQ | CDE Spark | per batch and layer, results in `ref.recon_results`; record-level rejects in `bronze.quarantine` |
+| Orchestration | CDE Airflow | one DAG run per business date; a failed task leaves the batch `FAILED` in `ref.load_audit`; the semantic layer and regulatory datasets then run on Impala (`scripts/run_semantic.py --engine impala`) |
 | Semantic layer, ad-hoc, time travel | CDW Impala (Hue) | certified KPI views, MIS views, regulatory datasets (`INSERT OVERWRITE` per reporting date, so Atlas records column lineage), time travel queries |
-| Lineage, glossary, classification | SDX Atlas | lineage captured automatically from Spark and Impala; glossary `GDL Banking KPIs` with a term per KPI, attached to the KPI columns; PII classifications on bronze columns, propagated to silver and gold |
+| Lineage, glossary, classification | SDX Atlas | lineage captured automatically from Spark and Impala; glossary `GDL Banking KPIs` with a term per KPI, assigned to the certified view and its consumers; PII classifications on every PII column of every layer, not propagated |
 | Masking | SDX Ranger, tag service `cm_tag` | tag-based masking policies for this project's PII tags |
-| End consumption | Cloudera Data Visualization, built as code | dashboards "Banking KPIs MIS", "Reconciliation & Data Quality", "MDM & Golden Record" |
+| End consumption | Cloudera Data Visualization, built as code | dashboards "GDL Banking KPIs MIS", "GDL Reconciliation & Data Quality", "GDL MDM & Golden Record", "GDL AML Alerts" (`docs/DATAVIZ.md`) |
 | CI | GitHub Actions | pytest, the whole pipeline on local Spark + Iceberg, the failed-batch drill |
 
 No CAI jobs, models or applications in this phase. Data Visualization runs on the
@@ -52,14 +52,13 @@ existing CDW instance (decision 6).
 - Job code in `cde/jobs/` (PySpark + standard library, shared helpers in `gdl_common.py`);
   configuration as JSON (`config/pipeline.json`, `contracts/`); env var prefix `GDL_`.
 - CDE: repository `rsingh-gdl-pipeline`, python-env `rsingh-gdl-python-env` (only if a job
-  needs a package beyond PySpark), jobs `rsingh-gdl-{land-sources,ingest-bronze,build-silver,
-  build-mdm,build-gold,reconcile}`, DAG job `rsingh-gdl-orchestration` (dag_id `general_datalakehouse`).
-- Data Visualization: connection `rsingh-gdl-impala`, report views in `rsingh_gdl_semantic`;
-  if hosted in CAI, project `rsingh-general-datalakehouse` with application `GDL Data Visualization`.
+  needs a package beyond PySpark), jobs `rsingh-gdl-{land,bronze,silver,mdm,gold,recon}`, DAG job `rsingh-gdl-orchestration` (dag_id `general_datalakehouse`).
+- Data Visualization: the instance's existing connection `federal-impala-1`; datasets are views in
+  `rsingh_gdl_semantic`; dashboards, datasets and visuals named `GDL ...` with fixed primary keys 9000+.
 - Landing: `s3a://federal-buk-574bcea0/data/IB/rsingh_gdl/landing/<source>/<business_date>/`
-  (write access to confirm from the first CDE job).
-- Atlas classifications `GDL_PII_MASK_LAST4`, `GDL_PII_HASH`, `GDL_PII_REDACT`, `GDL_PII_YEAR`,
-  `GDL_PII_NULLIFY` (own names, so the existing `PII_*` tags and policies of the other demos
+
+- Atlas classifications `GDL_PII_LAST_4`, `GDL_PII_HASH`, `GDL_PII_REDACT`, `GDL_PII_YEAR`
+  (own names, so the existing `PII_*` tags and policies of the other demos
   are not touched); glossary `GDL Banking KPIs`; Ranger policies `rsingh-gdl-pii-*` in `cm_tag`.
 
 ## Source systems (synthetic, deterministic, seeded)
@@ -71,6 +70,7 @@ existing CDW instance (decision 6).
 | Payments hub | semi-structured | JSON lines, nested (debtor / creditor / amount{value,ccy} / remittance), an extra field appears from D4 (schema drift) | daily events |
 | CRM / digital onboarding | semi-structured | JSON documents, variable attributes, arrays of addresses and contacts | daily changes |
 | Correspondence + KYC | unstructured | `.eml` emails (address change, complaint), KYC declaration `.txt`, small `.png` scans | daily |
+| Compliance screening (AML extension) | structured | pipe-delimited sanctions / PEP list with header and trailer | daily full extract |
 
 Each batch folder has `_manifest.json`: file name, size, sha256, record count and
 control totals per entity, as the source system reports them. Reconciliation is
@@ -129,7 +129,8 @@ delete of a record never inserted, a CSV whose trailer count is off by one.
 
 ## Banking data model (gold)
 
-Four domains: **Customer**, **Deposits**, **Lending**, **Payments**.
+Four domains: **Customer**, **Deposits**, **Lending**, **Payments**; **AML** added as the extension
+(`dim_aml_rule`, `fact_aml_alert`). Details in `docs/BANKING_MODEL.md`.
 
 | Kind | Tables |
 |---|---|
@@ -153,7 +154,7 @@ Four domains: **Customer**, **Deposits**, **Lending**, **Payments**.
 - **Extension methodology**: a new domain adds a contract, a bronze entity, a silver
   standardiser, mappings in the CSV, and gold tables that join only through conformed dimensions
   and canonical keys. Documented step by step, and shown once by adding a small AML domain
-  (`fact_aml_alert` from payment rules) as the worked example.
+  (`fact_aml_alert` from payment rules and a screening list) as the worked example.
 
 ## Certified KPIs and their consumers
 
@@ -225,19 +226,17 @@ before the failed batch is in the drill (`docs/FAILED_BATCH_DEMO.md`).
   (ingest, validate, cleanse, standardise, deduplicate, match, survive, enrich, normalise,
   aggregate, consume), rows in and out, batch, and snapshot id, so the operational metadata Atlas
   does not hold (counts, rules) can be queried next to it.
-- **Governance as code** (`governance/`, standard library, over the data lake's Knox gateway
+- **Governance as code** (`scripts/governance.py` from `config/governance.json`, standard
+  library, over the data lake's Knox gateway
   `https://federal-aw-dl-gateway.federal.dp5i-5vkq.cloudera.site/federal-aw-dl/cdp-proxy-api/`
-  with the workload user; both APIs answered a read on 2026-10-01):
-  - `atlas_setup.py`: creates the `GDL_PII_*` classifications, tags the PII columns listed in
-    `governance/pii_columns.json` (PAN, Aadhaar, mobile, email, DOB, name, address) on bronze, and
-    turns propagation off where a derived column must not inherit the mask (the churn demo's
-    `date_of_birth` -> `age` lesson). Creates glossary `GDL Banking KPIs` with one term per KPI
-    (definition, formula, owner, version) and assigns each term to its KPI view columns.
-  - `ranger_setup.py`: tag-based masking policies in `cm_tag`, one per `GDL_PII_*` tag (last 4,
-    hash, redact, year only via a custom `TRUNC({col}, 'YYYY')`, nullify): masked for a demo
-    user or group, clear for `rsingh`. Idempotent; `--dry-run` shows the change.
-  - Writes need Atlas and Ranger admin rights for `rsingh`; if a write is refused, the scripts
-    print the exact policy JSON for doing it in the UI.
+  with the workload user; `plan` / `apply` / `verify`; details in `docs/GOVERNANCE.md`):
+  - Classifications `GDL_PII_*` on every PII column of bronze, silver, MDM, gold and semantic,
+    by column name (date of birth by type), each attached with propagation off, so a derived
+    column never inherits a mask (the churn demo's `date_of_birth` -> `age` lesson).
+  - Glossary `GDL Banking KPIs`, one term per KPI (definition, formula, owner, version), assigned
+    to the certified view and to every MIS view and regulatory dataset that reads it.
+  - Tag-based masking policies in `cm_tag`, one per tag (last 4, hash, redact, year only via a
+    custom `TRUNC({col}, 'YYYY')`): masked for federal01 and federal07, clear for `rsingh`.
 
 ## Phases
 
@@ -287,8 +286,10 @@ before the failed batch is in the drill (`docs/FAILED_BATCH_DEMO.md`).
    `https://viz-indianbank-spend-analytics.dw-federal-cdp-env.dp5i-5vkq.cloudera.site/arc/apps/`;
    this project adds its own connection and dashboards there and touches nothing else.
 7. Masked demo users for the Ranger policies: `federal01` and `federal07`; `rsingh` sees clear values.
-8. Impala from the DAG: CDE Airflow's CDW operator if the vcluster has it, otherwise a laptop
-   step (`scripts/run_impala_sql.py`) after the DAG run.
+8. Impala after the DAG: a laptop step, `scripts/run_semantic.py --engine impala`, after each
+   DAG run (the same script runs the semantic layer on Spark locally and in CI).
+9. AML as the extension: a compliance screening-list source plus payment rules, raising
+   `fact_aml_alert`; alerts checked against the generator truth by reconciliation (2026-10-02).
 
 ## Open
 

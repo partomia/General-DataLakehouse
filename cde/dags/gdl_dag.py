@@ -3,7 +3,7 @@ Airflow DAG (CDE): one batch of the General Data Lakehouse, one business date pe
 
   land_sources -> ingest_bronze -> build_silver -> build_mdm -> build_gold -> reconcile
 
-land_sources stands in for the five source systems dropping their extracts on the landing
+land_sources stands in for the six source systems dropping their extracts on the landing
 zone (s3a://federal-buk-574bcea0/data/IB/rsingh_gdl/landing/). Every other task reads only
 what landed there. reconcile runs whatever happened upstream (trigger rule all_done), so a
 failed batch still gets its mismatch report in ref.recon_results and under
@@ -41,7 +41,7 @@ default_args = {
 
 with DAG(
     dag_id="general_datalakehouse",
-    description="Five source systems -> bronze / silver / MDM / gold on Iceberg, reconciled per batch",
+    description="Six source systems -> bronze / silver / MDM / gold on Iceberg, reconciled per batch",
     default_args=default_args,
     schedule_interval=None,
     start_date=datetime(2026, 9, 20),

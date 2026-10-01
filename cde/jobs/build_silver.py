@@ -70,7 +70,8 @@ def nz(col):
     return F.when(col != "", col)
 
 
-def lineage(system: str, key, op, ts, position, deleted=F.lit(False)) -> list:
+def lineage(system: str, key, op, ts, position, deleted=None) -> list:
+    deleted = F.lit(False) if deleted is None else deleted
     return [F.lit(system).alias("_src_system"), key.cast("string").alias("_src_key"), op.alias("_src_op"),
             ts.alias("_src_ts"), position.alias("_src_position"), F.col("_batch_id").alias("_src_batch_id"),
             F.col("_record_hash").alias("_src_record_hash"), deleted.alias("_is_deleted")]

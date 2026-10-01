@@ -556,7 +556,7 @@ def fact_aml_alert(ctx: Ctx) -> None:
         F.when(F.col("account_key").isNotNull(), "ACCOUNT").otherwise("PARTY").alias("subject_type"),
         "subject_key", "party_id", "party_sk", "account_key", "account_sk", "branch_code", "window_from", "window_to",
         "txn_count", "amount_inr", "entry_id", "list_name", "match_basis", "evidence",
-        F.col("_seen").isNull().alias("is_new"), "src_system", F.lit(ctx.bid).alias("src_batch_id")).localCheckpoint()
+        F.col("_seen").isNull().alias("is_new"), "src_system", F.lit(ctx.bid).alias("src_batch_id"))
     n = df.count()
     by_rule = {r["rule_code"]: r["count"] for r in df.groupBy("rule_code").count().collect()}
     replace_fact(ctx, "fact_aml_alert", df, n, ", ".join(f"{k} {by_rule.get(k, 0)}" for k in rules))

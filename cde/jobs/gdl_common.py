@@ -221,6 +221,22 @@ class Audit:
 # ---------------------------------------------------------------- fs
 
 
+def read_as_of_batch(spark, names: Names, layer: str, entity: str, business_date: date):
+    """layer.entity as it stood when the batch (or the latest earlier batch) committed it: Iceberg time
+    travel to the snapshot ref.load_audit recorded, so a later stage re-run for an old date reads the
+    state of that date. Falls back to the current table when no snapshot was recorded."""
+    t, audit = names.t(layer, entity), names.t("ref", "load_audit")
+    if not table_exists(spark, t):
+        return None
+    rows = [] if not table_exists(spark, audit) else spark.sql(
+        f"SELECT snapshot_after FROM {audit} WHERE stage = '{layer}' AND entity = '{entity}' "
+        f"AND status = 'COMMITTED' AND snapshot_after IS NOT NULL AND batch_id <= '{batch_id(business_date)}' "
+        f"ORDER BY batch_id DESC, ended_at DESC LIMIT 1").collect()
+    if not rows:
+        return spark.table(t)
+    return spark.read.option("snapshot-id", int(rows[0][0])).table(t)
+
+
 def read_manifests(spark, landing: str, business_date: date) -> dict:
     """source -> the batch's _manifest.json (None when the source sent nothing for the date)."""
     fs, out = HadoopFS(spark), {}

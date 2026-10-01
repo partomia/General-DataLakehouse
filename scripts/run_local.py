@@ -35,7 +35,10 @@ sys.path.insert(0, str(JOBS_DIR))
 sys.path.insert(0, str(ROOT / "scripts"))
 import gdl_common as C  # noqa: E402
 
-ICEBERG_PACKAGE = "org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.0"
+# GDL_ICEBERG_PACKAGE=org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.2 with pyspark 3.5.4
+# and GDL_LOCAL_CATALOG=hadoop reproduces CDE's Spark and Iceberg for the jobs (that Iceberg's
+# JDBC catalog has no views and locks SQLite, so no semantic stage).
+ICEBERG_PACKAGE = os.environ.get("GDL_ICEBERG_PACKAGE", "org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.0")
 SQLITE_PACKAGE = "org.xerial:sqlite-jdbc:3.46.1.3"
 STAGES = {"bronze": "ingest_bronze.py", "silver": "build_silver.py", "mdm": "build_mdm.py",
           "gold": "build_gold.py", "recon": "reconcile.py"}
@@ -50,15 +53,19 @@ def local_spark(warehouse: Path, driver_memory: str = "4g"):
     warehouse.mkdir(parents=True, exist_ok=True)
     # Iceberg JDBC catalog on a SQLite file: unlike the Hadoop catalog it stores views, which
     # the semantic layer needs (CDE and CDW use the Hive metastore for the same).
-    spark = (SparkSession.builder.appName("gdl-local").master("local[4]")
-             .config("spark.driver.host", "127.0.0.1").config("spark.driver.bindAddress", "127.0.0.1")
-             .config("spark.jars.packages", f"{ICEBERG_PACKAGE},{SQLITE_PACKAGE}")
-             .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
-             .config("spark.sql.catalog.local", "org.apache.iceberg.spark.SparkCatalog")
+    b = (SparkSession.builder.appName("gdl-local").master("local[4]")
+         .config("spark.driver.host", "127.0.0.1").config("spark.driver.bindAddress", "127.0.0.1")
+         .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
+         .config("spark.sql.catalog.local", "org.apache.iceberg.spark.SparkCatalog")
+         .config("spark.sql.catalog.local.warehouse", str(warehouse)))
+    if os.environ.get("GDL_LOCAL_CATALOG") == "hadoop":
+        b = b.config("spark.jars.packages", ICEBERG_PACKAGE).config("spark.sql.catalog.local.type", "hadoop")
+    else:
+        b = (b.config("spark.jars.packages", f"{ICEBERG_PACKAGE},{SQLITE_PACKAGE}")
              .config("spark.sql.catalog.local.type", "jdbc")
              .config("spark.sql.catalog.local.uri", f"jdbc:sqlite:{warehouse.resolve() / 'catalog.db'}")
-             .config("spark.sql.catalog.local.jdbc.schema-version", "V1")
-             .config("spark.sql.catalog.local.warehouse", str(warehouse))
+             .config("spark.sql.catalog.local.jdbc.schema-version", "V1"))
+    spark = (b
              .config("spark.sql.defaultCatalog", "local")
              .config("spark.driver.memory", driver_memory)
              .config("spark.sql.shuffle.partitions", "4")

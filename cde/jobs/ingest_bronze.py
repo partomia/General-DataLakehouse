@@ -57,7 +57,21 @@ def parser():
     p.add_argument("--fail-after", default=None, help="entity: commit it, then fail the batch")
     p.add_argument("--fail-during", default=None, help="entity: fail one of its write tasks")
     p.add_argument("--resume", action="store_true", help="skip entities committed since the last COMPLETED run")
+    p.add_argument("--mode", default="normal",
+                   help="the same as one value (an Airflow template fills it): normal, resume, "
+                        "fail-during:<entity> or fail-after:<entity>")
     return p
+
+
+def apply_mode(args):
+    mode, _, entity = args.mode.partition(":")
+    if mode == "resume":
+        args.resume = True
+    elif mode in ("fail-during", "fail-after") and entity:
+        setattr(args, mode.replace("-", "_"), entity)
+    elif mode != "normal":
+        raise SystemExit(f"--mode {args.mode}: use normal, resume, fail-during:<entity> or fail-after:<entity>")
+    return args
 
 
 # ---------------------------------------------------------------- parse
@@ -311,7 +325,7 @@ def ingest_entity(spark, names, audit, contract, contracts, folder, manifest_ent
 
 
 def run(spark, argv=None) -> dict:
-    args = C.parse(parser(), argv)
+    args = apply_mode(C.parse(parser(), argv))
     names = C.Names(args.db_prefix)
     C.ensure_databases(spark, names)
     contracts = C.contracts()

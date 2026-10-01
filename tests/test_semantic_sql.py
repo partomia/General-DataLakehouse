@@ -18,6 +18,9 @@ CONSUMERS = [ROOT / "sql" / "semantic" / "20_mis_views.sql", ROOT / "sql" / "sem
              ROOT / "sql" / "adhoc.sql"]
 NOT_PORTABLE = [r"\bCREATE OR REPLACE\b", r"\bIF\s*\(", r"\bEXCEPT\b", r"\bMINUS\b", r"`", r"\bNVL2?\s*\(",
                 r"\barray_contains\b", r"\bdate_add\s*\(", r"\bLATERAL VIEW\b", r"\bQUALIFY\b"]
+IMPALA_RESERVED = {"change", "column", "comment", "current", "data", "date", "datetime", "default", "end", "first",
+                   "format", "function", "last", "location", "metadata", "over", "partition", "range", "role",
+                   "rows", "schema", "stats", "symbol", "table", "timestamp", "update", "value", "values", "year"}
 
 
 class FakeEngine:
@@ -48,6 +51,8 @@ def test_sql_is_portable(path):
     text = code(path)
     for pattern in NOT_PORTABLE:
         assert not re.search(pattern, text, re.I), f"{path.name}: {pattern} is not in the Impala/Spark common dialect"
+    aliases = {a.lower() for a in re.findall(r"\bAS\s+(\w+)\s*(?:,|$|\))", text, re.I | re.M)}
+    assert not aliases & IMPALA_RESERVED, f"{path.name}: Impala reserved words as aliases: {aliases & IMPALA_RESERVED}"
 
 
 @pytest.mark.parametrize("path", CONSUMERS, ids=lambda p: p.name)

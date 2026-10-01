@@ -52,7 +52,7 @@ SELECT branch_code,
        total_deposits,
        casa_ratio,
        previous_casa_ratio,
-       casa_ratio - previous_casa_ratio AS change,
+       casa_ratio - previous_casa_ratio AS ratio_change,
        CASE WHEN casa_ratio < previous_casa_ratio THEN 'FELL' ELSE 'HELD OR ROSE' END AS movement
 FROM (
     SELECT branch_code, branch_name, region,
@@ -68,7 +68,7 @@ FROM (
     WHERE reporting_date IN (DATE '${reporting_date}', DATE '${previous_date}')
     GROUP BY branch_code, branch_name, region
 ) b
-ORDER BY change, branch_code;
+ORDER BY ratio_change, branch_code;
 
 -- name: party_value_by_product
 -- One customer's relationship value on a reporting date, broken down by component and product.

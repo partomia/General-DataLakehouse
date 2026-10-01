@@ -47,7 +47,7 @@ TOP_N = 25
 
 class SparkEngine:
     name = "spark"
-    now = "current_timestamp()"
+    now = "localtimestamp()"
 
     def __init__(self, spark):
         self.spark = spark

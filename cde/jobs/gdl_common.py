@@ -33,15 +33,17 @@ DEFAULT_REPORTS = "s3a://federal-buk-574bcea0/data/IB/rsingh_gdl/reports"
 LAYERS = ("bronze", "silver", "mdm", "gold", "semantic", "ref")
 SOURCES = ("cbs", "lms", "payments", "crm", "documents")
 
+# Impala writes these ref tables too (scripts/run_semantic.py) and cannot write an Iceberg
+# timestamptz column, so their times are timestamp_ntz holding UTC (the session time zone).
 LOAD_AUDIT_SCHEMA = (
     "run_id string, pipeline_run string, batch_id string, business_date date, stage string, "
     "entity string, status string, rows_in bigint, rows_out bigint, rows_rejected bigint, "
-    "snapshot_before bigint, snapshot_after bigint, started_at timestamp, ended_at timestamp, "
+    "snapshot_before bigint, snapshot_after bigint, started_at timestamp_ntz, ended_at timestamp_ntz, "
     "message string")
 TRANSFORM_LOG_SCHEMA = (
     "run_id string, pipeline_run string, batch_id string, business_date date, job string, "
     "step string, transform_type string, source_tables string, target_table string, "
-    "rows_in bigint, rows_out bigint, snapshot_id bigint, logged_at timestamp, details string")
+    "rows_in bigint, rows_out bigint, snapshot_id bigint, logged_at timestamp_ntz, details string")
 TRANSFORM_TYPES = ("ingest", "validate", "cleanse", "standardise", "deduplicate", "match", "survive",
                    "enrich", "normalise", "aggregate", "historise", "consume")
 

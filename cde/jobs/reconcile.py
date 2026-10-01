@@ -34,7 +34,7 @@ from pyspark.sql import functions as F  # noqa: E402
 
 RESULT_SCHEMA = ("run_id string, batch_id string, business_date date, layer string, entity string, "
                  "check_name string, expected double, actual double, difference double, status string, "
-                 "detail string, checked_at timestamp")
+                 "detail string, checked_at timestamp_ntz")   # Impala writes it too: see gdl_common
 SILVER_DAILY = {   # bronze entity -> (silver table, key, control column)
     "cbs_eod_balance": ("cbs_eod_balance", ["acct_no", "bal_date"], "ledger_balance"),
     "lms_loan": ("lms_loan_daily", ["loan_id"], "principal_outstanding"),

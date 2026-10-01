@@ -16,6 +16,14 @@ def test_job_imports_without_a_spark_session(job):
     assert done.returncode == 0, done.stderr
 
 
+def test_tables_impala_writes_have_no_timestamptz_column():
+    import gdl_common as C
+    import reconcile
+
+    for schema in (C.LOAD_AUDIT_SCHEMA, C.TRANSFORM_LOG_SCHEMA, reconcile.RESULT_SCHEMA):
+        assert not re.search(r"\btimestamp\s*(,|$)", schema), schema
+
+
 @pytest.mark.parametrize("job", [j for j in JOBS if j != "gdl_common"])
 def test_tables_are_created_through_the_iceberg_helper(job):
     """CDE's spark_catalog makes a Hive table of a bare writeTo().create*(), which cannot be replaced."""

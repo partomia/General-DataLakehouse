@@ -9,7 +9,8 @@ files are the ones CDE runs; only the Spark session differs.
   python scripts/run_local.py land
   python scripts/run_local.py bronze --dates 2026-09-23 -- --fail-after lms_loan
   python scripts/run_local.py silver mdm gold recon --dates 2026-09-21,2026-09-22
-  python scripts/run_local.py semantic                         # sql/semantic/*.sql on Spark SQL
+  python scripts/run_local.py semantic                         # sql/semantic/*.sql on Spark SQL, per date
+  python scripts/run_local.py adhoc time-travel                # sql/adhoc.sql, sql/time_travel.sql (last date)
   python scripts/run_local.py history rsingh_gdl_bronze.lms_loan
   python scripts/run_local.py sql "SELECT * FROM rsingh_gdl_ref.load_audit"
 
@@ -25,14 +26,17 @@ import argparse
 import importlib.util
 import os
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 JOBS_DIR = ROOT / "cde" / "jobs"
 sys.path.insert(0, str(JOBS_DIR))
+sys.path.insert(0, str(ROOT / "scripts"))
 import gdl_common as C  # noqa: E402
 
 ICEBERG_PACKAGE = "org.apache.iceberg:iceberg-spark-runtime-4.0_2.13:1.10.0"
+SQLITE_PACKAGE = "org.xerial:sqlite-jdbc:3.46.1.3"
 STAGES = {"bronze": "ingest_bronze.py", "silver": "build_silver.py", "mdm": "build_mdm.py",
           "gold": "build_gold.py", "recon": "reconcile.py"}
 CFG = C.load_json("config/pipeline.json")
@@ -43,12 +47,17 @@ def local_spark(warehouse: Path, driver_memory: str = "4g"):
 
     os.environ.setdefault("PYSPARK_PYTHON", sys.executable)
     os.environ["PYTHONPATH"] = os.pathsep.join([str(JOBS_DIR), os.environ.get("PYTHONPATH", "")])
+    warehouse.mkdir(parents=True, exist_ok=True)
+    # Iceberg JDBC catalog on a SQLite file: unlike the Hadoop catalog it stores views, which
+    # the semantic layer needs (CDE and CDW use the Hive metastore for the same).
     spark = (SparkSession.builder.appName("gdl-local").master("local[4]")
              .config("spark.driver.host", "127.0.0.1").config("spark.driver.bindAddress", "127.0.0.1")
-             .config("spark.jars.packages", ICEBERG_PACKAGE)
+             .config("spark.jars.packages", f"{ICEBERG_PACKAGE},{SQLITE_PACKAGE}")
              .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
              .config("spark.sql.catalog.local", "org.apache.iceberg.spark.SparkCatalog")
-             .config("spark.sql.catalog.local.type", "hadoop")
+             .config("spark.sql.catalog.local.type", "jdbc")
+             .config("spark.sql.catalog.local.uri", f"jdbc:sqlite:{warehouse.resolve() / 'catalog.db'}")
+             .config("spark.sql.catalog.local.jdbc.schema-version", "V1")
              .config("spark.sql.catalog.local.warehouse", str(warehouse))
              .config("spark.sql.defaultCatalog", "local")
              .config("spark.driver.memory", driver_memory)
@@ -113,22 +122,32 @@ def main() -> int:
         land = load_job("land_sources.py")
         for d in dates:
             land.main(["--business-date", d, "--landing", args.landing, "--customers", str(args.customers)])
-    per_date = [s for s in stages if s in STAGES and (JOBS_DIR / STAGES[s]).exists()]
-    unknown = [s for s in stages if s not in STAGES and s not in ("land", "semantic")]
+    per_date = [s for s in stages if s in STAGES or s == "semantic"]
+    once = [s for s in stages if s in ("adhoc", "time-travel")]
+    unknown = [s for s in stages if s not in STAGES and s not in ("land", "semantic", "adhoc", "time-travel")]
     if unknown:
         p.error(f"unknown stages {unknown}")
-    if not per_date and "semantic" not in stages:
+    if not per_date and not once:
         return 0
     spark = local_spark(Path(args.warehouse))
     common = ["--landing", args.landing, "--db-prefix", args.db_prefix]
+    import run_semantic
+
+    engine = run_semantic.SparkEngine(spark)
+    views_done = False
     for d in dates:
         for stage in per_date:
-            run_stage(spark, stage, d, common, extra)
-    if "semantic" in stages and (ROOT / "scripts" / "run_semantic_spark.py").exists():
-        sys.path.insert(0, str(ROOT / "scripts"))
-        import run_semantic_spark
-
-        run_semantic_spark.run(spark, args.db_prefix)
+            if stage == "semantic":
+                print(f"\n=== semantic {d}", flush=True)
+                steps = ("load", "check") if views_done else ("views", "load", "check")
+                run_semantic.run(engine, args.db_prefix, [date.fromisoformat(d)], steps,
+                                 fail_on_mismatch="--fail-on-mismatch" in extra)
+                views_done = True
+            else:
+                run_stage(spark, stage, d, common, extra)
+    if once:
+        print(f"\n=== {' '.join(once)} {dates[-1]}", flush=True)
+        run_semantic.run(engine, args.db_prefix, [date.fromisoformat(dates[-1])], once)
     return 0
 
 

@@ -180,7 +180,8 @@ def ensure_table(spark, table: str, schema: str, partition_cols=()) -> None:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc).replace(tzinfo=None)
+    """Aware UTC: PySpark reads a naive datetime as the driver's local time, not the session's."""
+    return datetime.now(timezone.utc)
 
 
 class Audit:

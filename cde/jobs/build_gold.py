@@ -42,7 +42,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gdl_common as C  # noqa: E402
-from pyspark.sql import DataFrame  # noqa: E402
+from pyspark.sql import DataFrame, Window  # noqa: E402
 from pyspark.sql import functions as F  # noqa: E402
 
 STAGE = "gold"
@@ -89,10 +89,14 @@ def valid_on(df: DataFrame, dlit) -> DataFrame:
 # ---------------------------------------------------------------- SCD2
 
 
-def scd2(ctx: Ctx, name: str, cur: DataFrame, keys: list, tracked: list, sk: str) -> None:
+def scd2(ctx: Ctx, name: str, cur: DataFrame, keys: list, tracked: list, sk: str,
+         held: DataFrame | None = None) -> None:
     """Version table `name` from `cur` (one row per key): new keys open version 1, changed tracked
     attributes close the open version the day before and open the next, keys gone from `cur` are
-    closed; a re-run of the same date restates that date's version instead of adding one."""
+    closed; a re-run of the same date restates that date's version instead of adding one.
+    `held` lists keys whose source record was quarantined on the date: their open version stays
+    open (the source did not remove them, validation held them back). A key that comes back after
+    being closed opens the version after its last one (REAPPEARED), so surrogate keys never repeat."""
     spark, t, d = ctx.spark, ctx.t(name), ctx.dlit
     hashed = F.sha2(F.concat_ws("\u0001", *[F.coalesce(F.col(c).cast("string"), F.lit("\u0000")) for c in tracked]), 256)
     cur = cur.withColumn("record_hash", hashed)
@@ -121,42 +125,56 @@ def scd2(ctx: Ctx, name: str, cur: DataFrame, keys: list, tracked: list, sk: str
     hist = old.where(~F.col("is_current")).drop(sk)
     others = [c for c in old.columns if c not in keys and c != sk]
     o = old.where("is_current").select(*keys, *[F.col(c).alias(f"o_{c}") for c in others])
-    j = cur.withColumn("_present", F.lit(True)).join(o, keys, "full_outer")
+    last = (hist.withColumn("_rn", F.row_number().over(Window.partitionBy(*keys).orderBy(F.desc("version"))))
+            .where("_rn = 1").select(*keys, F.col("version").alias("h_version"),
+                                     *[F.col(c).alias(f"h_{c}") for c in tracked]))
+    j = cur.withColumn("_present", F.lit(True)).join(o, keys, "full_outer").join(last, keys, "left")
+    if held is not None:
+        j = j.join(held.select(*keys).distinct().withColumn("_held", F.lit(True)), keys, "left")
+    else:
+        j = j.withColumn("_held", F.lit(None).cast("boolean"))
     present, is_new = F.col("_present").isNotNull(), F.col("o_version").isNull()
+    reappeared = is_new & F.col("h_version").isNotNull()
     same = present & ~is_new & (F.col("record_hash") == F.col("o_record_hash"))
     changed = present & ~is_new & (F.col("record_hash") != F.col("o_record_hash"))
     restate = changed & (F.col("o_effective_from") == d)
     roll = changed & (F.col("o_effective_from") < d)
-    vanished = ~present
+    carried = ~present & F.col("_held").isNotNull()
+    vanished = ~present & F.col("_held").isNull()
 
     def old_row(df):
         return df.select(*keys, *[F.col(f"o_{c}").alias(c) for c in others])
 
-    kept = old_row(j.where(same))
+    kept = old_row(j.where(same | carried))
     closed = (old_row(j.where(roll)).withColumn("effective_to", prev_day).withColumn("is_current", F.lit(False))
               .withColumn("end_reason", F.lit("SUPERSEDED")))
     gone = (old_row(j.where(vanished)).withColumn("effective_to", prev_day).withColumn("is_current", F.lit(False))
             .withColumn("end_reason", F.lit("REMOVED_AT_SOURCE")))
-    diffs = F.filter(F.array(*[F.when(~F.col(c).eqNullSafe(F.col(f"o_{c}")), F.lit(c)) for c in tracked]),
-                     lambda x: x.isNotNull())
+
+    def diffs(prefix):
+        return F.filter(F.array(*[F.when(~F.col(c).eqNullSafe(F.col(f"{prefix}{c}")), F.lit(c)) for c in tracked]),
+                        lambda x: x.isNotNull())
+
     new = (j.where(is_new | changed)
-           .withColumn("version", F.when(is_new, F.lit(1)).when(restate, F.col("o_version"))
-                       .otherwise(F.col("o_version") + 1))
+           .withColumn("version", F.when(reappeared, F.col("h_version") + 1).when(is_new, F.lit(1))
+                       .when(restate, F.col("o_version")).otherwise(F.col("o_version") + 1))
            .withColumn("effective_from", F.when(restate, F.col("o_effective_from")).otherwise(d))
            .withColumn("effective_to", end).withColumn("is_current", F.lit(True))
-           .withColumn("change_reason", F.when(is_new, F.lit("NEW"))
+           .withColumn("change_reason", F.when(reappeared, F.lit("REAPPEARED")).when(is_new, F.lit("NEW"))
                        .when(restate, F.coalesce(F.col("o_change_reason"), F.lit("CHANGED")))
                        .otherwise(F.lit("CHANGED")))
-           .withColumn("changed_attributes", F.when(is_new, empty_changes).otherwise(diffs))
+           .withColumn("changed_attributes", F.when(reappeared, diffs("h_")).when(is_new, empty_changes)
+                       .otherwise(diffs("o_")))
            .withColumn("end_reason", F.lit(None).cast("string")).withColumn("created_batch_id", F.lit(ctx.bid))
            .select(*data_cols, *SCD_META))
     out = finish(hist.unionByName(kept).unionByName(closed).unionByName(gone).unionByName(new)).localCheckpoint()
     out.writeTo(t).overwrite(F.lit(True))
-    counts = j.select(F.sum(is_new.cast("int")), F.sum(roll.cast("int")), F.sum(restate.cast("int")),
-                      F.sum(vanished.cast("int"))).collect()[0]
+    counts = j.select(*[F.sum(c.cast("int")) for c in (is_new & ~reappeared, roll, restate, vanished, carried,
+                                                        reappeared)]).collect()[0]
+    n = [x or 0 for x in counts]
     ctx.committed(name, rows_in, out.count(), before,
-                  f"{counts[0] or 0} new, {counts[1] or 0} new versions, {counts[2] or 0} restated, "
-                  f"{counts[3] or 0} closed")
+                  f"{n[0]} new, {n[1]} new versions, {n[2]} restated, {n[3]} closed, "
+                  f"{n[4]} held open (record quarantined), {n[5]} reappeared")
 
 
 # ---------------------------------------------------------------- conformed dimensions
@@ -288,7 +306,17 @@ def dim_loan(ctx: Ctx) -> None:
                    F.col("_src_record_hash").alias("src_record_hash")))
     scd2(ctx, "dim_loan", cur, ["loan_key"],
          ["party_id", "product_code", "branch_code", "interest_rate", "tenure_months", "emi_amount",
-          "restructured_flag", "loan_status"], "loan_sk")
+          "restructured_flag", "loan_status"], "loan_sk",
+         held=quarantined_keys(ctx, "lms_loan", "loan_id", "LN:LMS:", "loan_key"))
+
+
+def quarantined_keys(ctx: Ctx, entity: str, field: str, key_prefix: str, key: str) -> DataFrame:
+    """Keys of the entity's records quarantined at bronze on the date (a daily snapshot feed
+    misses them, but the source still has them)."""
+    q = ctx.spark.table(ctx.names.t("bronze", "quarantine"))
+    return (q.where((F.col("_entity") == entity) & (F.col("_business_date") == ctx.dlit))
+            .select(F.concat(F.lit(key_prefix), F.get_json_object("_record", f"$.{field}")).alias(key))
+            .where(F.col(key).isNotNull()))
 
 
 def bridge(ctx: Ctx) -> None:

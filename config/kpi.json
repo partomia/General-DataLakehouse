@@ -34,8 +34,8 @@
     {
       "kpi_code": "NPA",
       "name": "NPA exposure",
-      "definition": "Outstanding principal of loans that are non-performing on the reporting date under the RBI IRAC norms: 90 or more days past due. Asset class from the age of the NPA (sub-standard up to 12 months, doubtful 1 / 2 / 3, loss when flagged). Gross NPA ratio = gross NPA / gross advances.",
-      "formula": "gross_npa = SUM(principal_outstanding) WHERE dpd > 90; gross_npa_ratio = gross_npa / SUM(principal_outstanding); provision = SUM(principal_outstanding * provision_rate[asset_class])",
+      "definition": "Outstanding principal of loans that are non-performing on the reporting date under the RBI IRAC norms: overdue for more than 90 days, or classified as a loss asset. Asset class from the age of the NPA (sub-standard up to 12 months, doubtful 1 / 2 / 3, loss when flagged). Gross NPA ratio = gross NPA / gross advances.",
+      "formula": "gross_npa = SUM(principal_outstanding) WHERE dpd > 90 OR loss-flagged; gross_npa_ratio = gross_npa / SUM(principal_outstanding); provision = SUM(principal_outstanding * provision_rate[asset_class])",
       "grain": "loan x reporting date",
       "certified_view": "kpi_npa_exposure",
       "owner": "Credit Risk",

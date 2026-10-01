@@ -21,7 +21,7 @@ days of batches, so a full run takes minutes and a laptop runs it too.
 | 2 | Structured, semi-structured, unstructured sources | MySQL dump + CSV (structured); CDC JSON + nested JSON (semi); emails, KYC text, images (unstructured) |
 | 3 | Medallion on Iceberg | `rsingh_gdl_{bronze,silver,mdm,gold,semantic,ref}`, Iceberg v2 throughout |
 | 4, 9 | MDM: standardise, match, de-duplicate, survivorship, golden record, one truth across layers | `cde/jobs/build_mdm.py`, `mdm.party_xref` (source id -> `party_id`), every silver and gold row carries `party_id` |
-| 5 | Time travel | `sql/time_travel.sql` (Impala `FOR SYSTEM_TIME / SYSTEM_VERSION AS OF`), Spark `VERSION AS OF`, snapshot ids recorded per batch |
+| 5 | Time travel | `sql/time_travel.sql` (`FOR SYSTEM_TIME / SYSTEM_VERSION AS OF`, which Impala and Spark both accept), snapshot ids recorded per batch |
 | 6 | SCD2 with versions, timestamps, link to original records | `gold.dim_party`, `gold.dim_account`: `version`, `effective_from/to`, `is_current`, `record_hash`, `src_batch_id`, `src_record_id` |
 | 7 | Metadata and lineage across ingest, transform, consume | Atlas (Spark on CDE, Impala views), `ref.transform_log` (cleanse / standardise / deduplicate / enrich / normalise / aggregate / consume), Atlas glossary terms on the KPI columns, Atlas PII classifications + Ranger tag masking (`governance/`) |
 | 8 | Reconciliation, failed-batch re-run, automated mismatch report | Batch manifests with control counts, `ref.load_audit`, `ref.recon_results`, `cde/jobs/reconcile.py`, `--fail-during` / `--fail-after` / `--resume` flags, `docs/FAILED_BATCH_DEMO.md` |
@@ -172,11 +172,20 @@ consumer only selects from (aggregates) that view; none re-derives the formula.
 |---|---|---|---|
 | MIS report (CDV dashboard "Banking KPIs MIS") | by branch, product, asset class, trend | by branch, segment, trend | by segment, branch, value band; top relationships |
 | Ad-hoc query (`sql/adhoc.sql`, Hue) | NPA borrowers with their golden record and other relationships | branches whose CASA ratio fell between two batches (time travel) | a party's value broken down by product |
-| Regulatory / external dataset (Impala table per reporting date) | `reg_asset_classification`: borrower, facility, asset class, outstanding, provision | `reg_deposit_composition`: deposits by type, branch and residency | `rpt_customer_profitability`: management reporting extract (no regulator uses this KPI; it is the third consumer) |
+| Regulatory / external dataset (Impala table per reporting date) | `reg_asset_classification`: borrower, facility, asset class, outstanding, provision | `reg_deposit_composition`: deposits by type, branch and size band (every synthetic account is INR, so there is no residency split) | `rpt_customer_profitability`: management reporting extract (no regulator uses this KPI; it is the third consumer) |
 
-**Consistency check**: `reconcile.py --kpi` asserts that the MIS, ad-hoc and regulatory totals
-for a reporting date equal the certified view's, for all three KPIs, and writes the result to
-`ref.recon_results` (shown on the Reconciliation dashboard).
+Customer relationship value is certified at two grains from one definition:
+`kpi_crv_component` (party x component x product, so the ad-hoc product breakdown aggregates it
+rather than re-deriving spreads) and `kpi_customer_relationship_value` (its sum per party).
+
+All semantic SQL (`sql/semantic/*.sql`, `sql/adhoc.sql`, `sql/time_travel.sql`) is written once
+in the dialect Impala and Spark share; `scripts/run_semantic.py --engine impala|spark` runs it
+(Spark locally and in CI, on an Iceberg JDBC catalog because the Hadoop catalog has no views).
+
+**Consistency check**: `run_semantic.py --steps check` asserts that the MIS, ad-hoc and regulatory
+totals for a reporting date equal the certified view's, for all three KPIs (23 checks, including
+certified provision vs the rate gold applied), and writes the result to `ref.recon_results` with
+layer `semantic` (shown on the Reconciliation dashboard). Plain SQL, so it runs on either engine.
 
 ## Reconciliation and the failed-batch demo
 
@@ -202,9 +211,11 @@ for a reporting date equal the certified view's, for all three KPIs, and writes 
 ## Time travel
 
 Each batch records snapshot ids per table. `sql/time_travel.sql` shows a customer's golden record
-before and after the D3 address change (`FOR SYSTEM_TIME AS OF`), the bronze table before the
-failed batch, a diff between two snapshots, and `DESCRIBE HISTORY`. Time travel (what a table
-held at a moment) is set against SCD2 (business history kept as rows).
+before and after a scanned address-change request (`FOR SYSTEM_VERSION AS OF` with the snapshot
+ids from `load_audit`, and `FOR SYSTEM_TIME AS OF`), a diff between two snapshots, the parties a
+batch added, a regulatory dataset as it was submitted, and `DESCRIBE HISTORY`. Time travel (what
+a table held at a moment) is set against SCD2 (business history kept as rows). The bronze table
+before the failed batch is in the drill (`docs/FAILED_BATCH_DEMO.md`).
 
 ## Metadata and lineage
 
@@ -230,16 +241,16 @@ held at a moment) is set against SCD2 (business history kept as rows).
 
 ## Phases
 
-- [ ] **0. Scaffold**: layout, config, contracts, requirement files, local Spark + Iceberg runner,
+- [x] **0. Scaffold**: layout, config, contracts, requirement files, local Spark + Iceberg runner,
   commit hook, CI skeleton.
-- [ ] **1. Sources + landing**: generator for the five systems, 5 business days, manifests,
+- [x] **1. Sources + landing**: generator for the five systems, 5 business days, manifests,
   injected faults; tests.
-- [ ] **2. Bronze**: ingest with contract validation, quarantine, schema drift, `load_audit`,
+- [x] **2. Bronze**: ingest with contract validation, quarantine, schema drift, `load_audit`,
   `--fail-during` / `--fail-after` / `--resume`; recon at bronze.
-- [ ] **3. Silver**: typing, standardisation, CDC MERGE, document extraction; `transform_log`.
-- [ ] **4. MDM**: candidates, matching, clustering, survivorship, `party_xref`, `golden_party`.
-- [ ] **5. Gold**: banking model, SCD2 dims, facts, conformed dims, source mappings check.
-- [ ] **6. Semantic + KPIs**: three certified views, MIS / ad-hoc / regulatory consumers,
+- [x] **3. Silver**: typing, standardisation, CDC MERGE, document extraction; `transform_log`.
+- [x] **4. MDM**: candidates, matching, clustering, survivorship, `party_xref`, `golden_party`.
+- [x] **5. Gold**: banking model, SCD2 dims, facts, conformed dims, source mappings check.
+- [x] **6. Semantic + KPIs**: three certified views, MIS / ad-hoc / regulatory consumers,
   consistency check, time-travel SQL.
 - [ ] **7. Cloudera live**: CDE jobs + DAG, CDW views, five batches end to end, the failed-batch
   drill on the cluster, Atlas lineage checked.

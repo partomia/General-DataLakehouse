@@ -1,8 +1,8 @@
 name: CI
 
 # Every push to main, every pull request, or by hand from the Actions tab.
-# Unit tests, then the CDE jobs on local Spark + Iceberg for all five business
-# dates, then the failed-batch drill (a run dies mid-write, the partial batch is
+# Unit tests, then the CDE jobs and the semantic SQL on local Spark + Iceberg for
+# all five business dates, the KPI consistency check, then the failed-batch drill (a run dies mid-write, the partial batch is
 # inspected, and --resume finishes it). Nothing here talks to Cloudera.
 on:
   push:
@@ -39,6 +39,12 @@ jobs:
       # The generator is deterministic, so every run sees the same data and faults.
       - name: Pipeline, all business dates
         run: python scripts/run_local.py all
+
+      # Every MIS view, regulatory dataset and ad-hoc query must give the certified KPI figure.
+      - name: KPI consistency, ad-hoc and time-travel SQL
+        run: |
+          python scripts/run_semantic.py --steps check --fail-on-mismatch
+          python scripts/run_local.py adhoc time-travel
 
       - name: Failed batch drill
         run: |

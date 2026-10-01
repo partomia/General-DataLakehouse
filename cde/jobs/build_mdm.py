@@ -300,6 +300,8 @@ def attribute_rows(cand: DataFrame, xref: DataFrame, docs: DataFrame | None) -> 
             rows("dob", F.col("dob"), F.lit(1), -epoch("document_ts"), src=kyc),
             rows("pan", F.col("pan_std"), F.lit(1), -epoch("document_ts"), src=kyc),
             rows("address", F.col("address_text"), F.lit(0), -epoch("document_ts"), pincode=F.col("pincode_std"),
+                 city=F.nullif(F.regexp_extract("address_text", r",\s*([A-Za-z][A-Za-z ]*?)\s*-?\s*\d{6}\s*$", 1),
+                               F.lit("")),
                  src=moved),
         ]
     out = parts[0]

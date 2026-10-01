@@ -434,6 +434,9 @@ def run(spark, argv=None) -> dict:
         print(msg, flush=True)
         audit.load(STAGE, "party_xref", "COMMITTED", rows_in=n_cand, rows_out=n_party, snapshot_before=before,
                    snapshot_after=C.snapshot_id(spark, t("party_xref")), message=msg)
+        for name in ("golden_party", "golden_attribute", "document_party", "match_pair"):
+            if C.table_exists(spark, t(name)):
+                audit.load(STAGE, name, "COMMITTED", snapshot_after=C.snapshot_id(spark, t(name)))
         audit.load(STAGE, "*", "COMPLETED", rows_in=n_cand, rows_out=n_golden)
         summary = {"candidates": n_cand, "parties": n_party, "golden": n_golden, "pairs": by_rule}
     except Exception as e:

@@ -710,7 +710,8 @@ class World:
                         repayments.append((lid, loan["emi_amount"], "NACH"))
                     continue
                 cure = (lid == self.upgrade and idx == 4) or (
-                    lid not in self.slipping and lid != self.upgrade and rng.random() < 0.03)
+                    lid not in self.slipping and lid != self.upgrade and loan["loss_flag"] == "N"
+                    and rng.random() < 0.03)
                 if cure:
                     repayments.append((lid, round(loan["principal_overdue"] + loan["interest_overdue"], 2),
                                        "BRANCH_CASH"))

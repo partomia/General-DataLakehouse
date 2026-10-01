@@ -1,0 +1,71 @@
+{
+  "_comment": "Certified KPI definitions and their parameters. build_gold.py loads them into ref.kpi_definition and ref.kpi_parameter; the semantic views read only those tables, so a rate changes here and nowhere else. Rates are demo values, not RBI's full secured/unsecured schedule.",
+  "irac": {
+    "npa_dpd": 90,
+    "sma": [
+      {"class": "SMA-0", "dpd_from": 1, "dpd_to": 30},
+      {"class": "SMA-1", "dpd_from": 31, "dpd_to": 60},
+      {"class": "SMA-2", "dpd_from": 61, "dpd_to": 90}
+    ],
+    "npa_classes": [
+      {"class": "SUBSTANDARD", "npa_days_to": 365},
+      {"class": "DOUBTFUL_1", "npa_days_to": 730},
+      {"class": "DOUBTFUL_2", "npa_days_to": 1460},
+      {"class": "DOUBTFUL_3", "npa_days_to": null}
+    ],
+    "loss_flag_class": "LOSS"
+  },
+  "provision_rates": {
+    "STANDARD": 0.004,
+    "SUBSTANDARD": 0.15,
+    "DOUBTFUL_1": 0.25,
+    "DOUBTFUL_2": 0.40,
+    "DOUBTFUL_3": 1.00,
+    "LOSS": 1.00
+  },
+  "crv": {
+    "casa_spread": 0.030,
+    "td_spread": 0.015,
+    "lending_margin": {"HL01": 0.020, "AL01": 0.030, "PL01": 0.050, "BL01": 0.040},
+    "fee_window_days": 30,
+    "annualisation_factor": 12
+  },
+  "kpis": [
+    {
+      "kpi_code": "NPA",
+      "name": "NPA exposure",
+      "definition": "Outstanding principal of loans that are non-performing on the reporting date under the RBI IRAC norms: 90 or more days past due. Asset class from the age of the NPA (sub-standard up to 12 months, doubtful 1 / 2 / 3, loss when flagged). Gross NPA ratio = gross NPA / gross advances.",
+      "formula": "gross_npa = SUM(principal_outstanding) WHERE dpd > 90; gross_npa_ratio = gross_npa / SUM(principal_outstanding); provision = SUM(principal_outstanding * provision_rate[asset_class])",
+      "grain": "loan x reporting date",
+      "certified_view": "kpi_npa_exposure",
+      "owner": "Credit Risk",
+      "version": "1.0",
+      "certified_on": "2026-10-01",
+      "glossary_term": "NPA exposure"
+    },
+    {
+      "kpi_code": "CASA",
+      "name": "CASA ratio",
+      "definition": "Share of current and savings account balances in total deposits (current + savings + term), from end-of-day ledger balances in INR on the reporting date.",
+      "formula": "casa_ratio = SUM(balance_inr WHERE deposit_type IN ('SAVINGS','CURRENT')) / SUM(balance_inr)",
+      "grain": "account x reporting date",
+      "certified_view": "kpi_casa_ratio",
+      "owner": "Treasury / ALM",
+      "version": "1.0",
+      "certified_on": "2026-10-01",
+      "glossary_term": "CASA ratio"
+    },
+    {
+      "kpi_code": "CRV",
+      "name": "Customer relationship value",
+      "definition": "Annualised value of a customer's whole relationship with the bank: CASA balances at the CASA spread, term deposits at the TD spread, loans outstanding at the product's lending margin (non-performing loans earn nothing), and fee income of the last 30 days annualised.",
+      "formula": "crv = casa_balance * casa_spread + td_balance * td_spread + SUM(performing loan_outstanding * lending_margin[product]) + fees_last_30_days * 12",
+      "grain": "party x reporting date",
+      "certified_view": "kpi_customer_relationship_value",
+      "owner": "Retail Banking",
+      "version": "1.0",
+      "certified_on": "2026-10-01",
+      "glossary_term": "Customer relationship value"
+    }
+  ]
+}

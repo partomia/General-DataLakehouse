@@ -1,0 +1,196 @@
+target_table,target_column,source_system,source_entity,source_field,transform_type,rule
+bridge_party_account,party_id,mdm,party_xref,party_id,match,"owner (PRIMARY), joint holder (JOINT) or borrower (BORROWER)"
+bridge_party_account,account_key,gold,dim_account / dim_loan,account_key / loan_key,normalise,canonical account or loan key
+bridge_party_account,role,gold,,,enrich,"PRIMARY, JOINT or BORROWER"
+bridge_party_account,domain,gold,,,enrich,DEPOSITS or LENDING
+bridge_party_account,as_of_date,gold,,,enrich,business date of the build
+dim_account,account_sk,gold,,,historise,"xxhash64(account_key, version)"
+dim_account,account_key,cbs,account,acct_no,normalise,'ACC:CBS:' || acct_no
+dim_account,acct_no,cbs,account,acct_no,cleanse,as received
+dim_account,party_id,mdm,party_xref,party_id,match,CBS cust_id -> party_xref; UNKNOWN when the customer record never loaded
+dim_account,joint_party_id,mdm,party_xref,party_id,match,CBS joint_cust_id -> party_xref
+dim_account,cbs_cust_id,cbs,account,cust_id,cleanse,as received
+dim_account,product_code,cbs,account,product_code,cleanse,"dump, then CDC after-image in ts_ms order"
+dim_account,branch_code,cbs,account,branch_code,cleanse,"dump, then CDC after-image in ts_ms order"
+dim_account,currency,cbs,account,currency,cleanse,"dump, then CDC after-image in ts_ms order"
+dim_account,status,cbs,account,status,cleanse,"dump, then CDC after-image in ts_ms order"
+dim_account,open_date,cbs,account,open_date,cleanse,yyyy-MM-dd
+dim_account,close_date,cbs,account,close_date,cleanse,yyyy-MM-dd
+dim_account,interest_rate,cbs,account,interest_rate,cleanse,"decimal(18,2)"
+dim_account,src_system,cbs,account,,ingest,source system of the record
+dim_account,src_record_id,cbs,account,,ingest,key of the source record
+dim_account,src_position,cbs,account,_source_file:_source_row or binlog file:pos,ingest,where the record was read
+dim_account,src_batch_id,cbs,account,_batch_id,ingest,batch that delivered the record
+dim_account,src_record_hash,cbs,account,_record_hash,ingest,bronze hash of the record as received
+dim_account,record_hash,gold,,,historise,SHA-256 of the tracked attributes; a change opens a new version
+dim_account,version,gold,,,historise,"1 for a new key, +1 per change of a tracked attribute"
+dim_account,effective_from,gold,,,historise,business date the version took effect
+dim_account,effective_to,gold,,,historise,day before the next version; 9999-12-31 while open
+dim_account,is_current,gold,,,historise,true for the open version
+dim_account,change_reason,gold,,,historise,NEW or CHANGED
+dim_account,changed_attributes,gold,,,historise,tracked attributes that differ from the previous version
+dim_account,end_reason,gold,,,historise,SUPERSEDED or REMOVED_AT_SOURCE once closed
+dim_account,created_batch_id,gold,,,historise,batch that created the version
+dim_branch,branch_code,cbs,branch,branch_code,cleanse,as received
+dim_branch,ifsc,cbs,branch,ifsc,cleanse,as received
+dim_branch,branch_name,cbs,branch,branch_name,cleanse,as received
+dim_branch,city,cbs,branch,city,cleanse,as received
+dim_branch,state,cbs,branch,state,cleanse,as received
+dim_branch,region,cbs,branch,region,cleanse,as received
+dim_branch,opened_on,cbs,branch,opened_on,cleanse,yyyy-MM-dd
+dim_branch,src_system,cbs,branch,,ingest,source system
+dim_branch,src_batch_id,cbs,branch,_batch_id,ingest,batch that delivered the record
+dim_currency,currency_code,config,pipeline.json,currencies.code,enrich,ISO 4217 code
+dim_currency,currency_name,config,pipeline.json,currencies.name,enrich,
+dim_currency,inr_rate,config,pipeline.json,currencies.inr_rate,enrich,"INR per unit, used for every *_inr column"
+dim_date,date_key,gold,calendar,,enrich,yyyymmdd
+dim_date,calendar_date,gold,calendar,,enrich,generated 2015-01-01 to 2027-12-31
+dim_date,year,gold,calendar,,enrich,
+dim_date,quarter,gold,calendar,,enrich,calendar quarter
+dim_date,month,gold,calendar,,enrich,
+dim_date,month_name,gold,calendar,,enrich,
+dim_date,day_of_month,gold,calendar,,enrich,
+dim_date,day_name,gold,calendar,,enrich,
+dim_date,is_weekend,gold,calendar,,enrich,Saturday or Sunday
+dim_date,is_month_end,gold,calendar,,enrich,
+dim_date,fiscal_year,gold,calendar,,enrich,"Indian fiscal year, April to March (FY2026-27)"
+dim_date,fiscal_quarter,gold,calendar,,enrich,Q1 = April-June
+dim_loan,loan_sk,gold,,,historise,"xxhash64(loan_key, version)"
+dim_loan,loan_key,lms,loan,loan_id,normalise,'LN:LMS:' || loan_id
+dim_loan,loan_id,lms,loan,loan_id,cleanse,as received
+dim_loan,party_id,mdm,party_xref,party_id,match,LMS borrower_id -> party_xref
+dim_loan,borrower_id,lms,loan,borrower_id,cleanse,as received
+dim_loan,product_code,lms,loan,product_code,cleanse,as received
+dim_loan,branch_code,lms,loan,branch_code,cleanse,as received
+dim_loan,restructured_flag,lms,loan,restructured_flag,cleanse,as received
+dim_loan,loan_status,lms,loan,loan_status,cleanse,as received
+dim_loan,sanction_date,lms,loan,sanction_date,cleanse,dd/MM/yyyy parsed
+dim_loan,sanction_amount,lms,loan,sanction_amount,cleanse,"decimal(18,2)"
+dim_loan,interest_rate,lms,loan,interest_rate,cleanse,"decimal(18,2)"
+dim_loan,emi_amount,lms,loan,emi_amount,cleanse,"decimal(18,2)"
+dim_loan,tenure_months,lms,loan,tenure_months,cleanse,integer
+dim_loan,src_system,lms,loan,,ingest,source system of the record
+dim_loan,src_record_id,lms,loan,,ingest,key of the source record
+dim_loan,src_position,lms,loan,_source_file:_source_row or binlog file:pos,ingest,where the record was read
+dim_loan,src_batch_id,lms,loan,_batch_id,ingest,batch that delivered the record
+dim_loan,src_record_hash,lms,loan,_record_hash,ingest,bronze hash of the record as received
+dim_loan,record_hash,gold,,,historise,SHA-256 of the tracked attributes; a change opens a new version
+dim_loan,version,gold,,,historise,"1 for a new key, +1 per change of a tracked attribute"
+dim_loan,effective_from,gold,,,historise,business date the version took effect
+dim_loan,effective_to,gold,,,historise,day before the next version; 9999-12-31 while open
+dim_loan,is_current,gold,,,historise,true for the open version
+dim_loan,change_reason,gold,,,historise,NEW or CHANGED
+dim_loan,changed_attributes,gold,,,historise,tracked attributes that differ from the previous version
+dim_loan,end_reason,gold,,,historise,SUPERSEDED or REMOVED_AT_SOURCE once closed
+dim_loan,created_batch_id,gold,,,historise,batch that created the version
+dim_party,party_sk,gold,,,historise,"xxhash64(party_id, version)"
+dim_party,party_id,mdm,golden_party,party_id,match,canonical customer key from MDM; UNKNOWN is the unresolved member
+dim_party,full_name,cbs/lms/crm/documents,golden_party,name_std,survive,"survived: most trusted source, a full name over initials"
+dim_party,dob,cbs/lms/crm/documents,golden_party,dob,survive,"survived: KYC-verified CBS, KYC declaration, CBS, LMS, CRM"
+dim_party,gender,cbs/lms/crm/documents,golden_party,gender,survive,survived: CBS first
+dim_party,pan,cbs/lms/crm/documents,golden_party,pan_std,survive,"survived: KYC-verified CBS, KYC declaration, CBS, LMS, CRM"
+dim_party,mobile,cbs/lms/crm/documents,golden_party,mobile_e164,survive,"survived: most recent valid, E.164"
+dim_party,email,cbs/lms/crm/documents,golden_party,email_std,survive,"survived: most recent valid, lower case"
+dim_party,address,cbs/lms/crm/documents,golden_party,address,survive,survived: newest of CBS address and the customer's change request
+dim_party,pincode,cbs/lms/crm/documents,golden_party,pincode_std,survive,pincode of the survived address
+dim_party,address_city,cbs/lms/crm/documents,golden_party,city,survive,city of the survived address
+dim_party,segment,cbs/lms/crm/documents,golden_party,segment,survive,CBS
+dim_party,kyc_status,cbs/lms/crm/documents,golden_party,kyc_status,survive,CBS
+dim_party,home_branch,cbs/lms/crm/documents,golden_party,home_branch,survive,CBS
+dim_party,source_systems,mdm,party_xref,src_system,match,systems holding a record of the party
+dim_party,member_records,mdm,party_xref,,aggregate,active source records in the party
+dim_party,cbs_cust_ids,mdm,party_xref,src_key,match,CBS customer ids in the party
+dim_party,lms_borrower_ids,mdm,party_xref,src_key,match,LMS borrower ids in the party
+dim_party,crm_ids,mdm,party_xref,src_key,match,CRM ids in the party
+dim_party,has_pan_conflict,mdm,party_candidate,pan_std,match,more than one distinct PAN among members
+dim_party,src_system,mdm,golden_party,,survive,mdm
+dim_party,src_record_ids,mdm,golden_attribute,src_system:src_key,survive,JSON: attribute -> source record it was survived from
+dim_party,src_batch_id,mdm,golden_party,batch_id,survive,MDM batch of the golden record
+dim_party,src_record_hash,mdm,golden_party,record_hash,survive,hash of the golden record
+dim_party,record_hash,gold,,,historise,SHA-256 of the tracked attributes; a change opens a new version
+dim_party,version,gold,,,historise,"1 for a new key, +1 per change of a tracked attribute"
+dim_party,effective_from,gold,,,historise,business date the version took effect
+dim_party,effective_to,gold,,,historise,day before the next version; 9999-12-31 while open
+dim_party,is_current,gold,,,historise,true for the open version
+dim_party,change_reason,gold,,,historise,NEW or CHANGED
+dim_party,changed_attributes,gold,,,historise,tracked attributes that differ from the previous version
+dim_party,end_reason,gold,,,historise,SUPERSEDED or REMOVED_AT_SOURCE once closed
+dim_party,created_batch_id,gold,,,historise,batch that created the version
+dim_product,product_code,cbs,product,product_code,cleanse,as received
+dim_product,product_name,cbs,product,product_name,cleanse,as received
+dim_product,product_type,cbs,product,product_type,cleanse,as received
+dim_product,domain,cbs,product,domain,cleanse,as received
+dim_product,deposit_type,cbs,product,product_type,normalise,"SA -> SAVINGS, CA -> CURRENT, TD -> TERM"
+dim_product,is_casa,cbs,product,product_type,enrich,SA or CA
+dim_product,base_rate,cbs,product,base_rate,cleanse,"decimal(18,2)"
+dim_product,src_system,cbs,product,,ingest,source system
+dim_product,src_batch_id,cbs,product,_batch_id,ingest,batch that delivered the record
+fact_deposit_balance_daily,date_key,gold,dim_date,date_key,normalise,yyyymmdd of the business date
+fact_deposit_balance_daily,party_id,mdm,party_xref,party_id,match,owner of the account version valid on the date
+fact_deposit_balance_daily,party_sk,gold,dim_party,party_sk,historise,party version valid on the business date
+fact_deposit_balance_daily,business_date,gold,,,normalise,partition: the batch's business date
+fact_deposit_balance_daily,src_system,cbs,eod_balance,,ingest,source system
+fact_deposit_balance_daily,src_position,cbs,eod_balance,_source_file:_source_row,ingest,where the record was read
+fact_deposit_balance_daily,src_batch_id,cbs,eod_balance,_batch_id,ingest,batch that delivered the record
+fact_deposit_balance_daily,src_record_hash,cbs,eod_balance,_record_hash,ingest,bronze hash of the record as received
+fact_deposit_balance_daily,account_key,cbs,eod_balance,acct_no,normalise,'ACC:CBS:' || acct_no
+fact_deposit_balance_daily,account_sk,gold,dim_account,account_sk,historise,account version valid on the date
+fact_deposit_balance_daily,product_code,gold,dim_account,product_code,enrich,from the account version
+fact_deposit_balance_daily,branch_code,gold,dim_account,branch_code,enrich,from the account version
+fact_deposit_balance_daily,currency,cbs,eod_balance,currency,cleanse,as received
+fact_deposit_balance_daily,deposit_type,gold,dim_product,deposit_type,enrich,"SAVINGS, CURRENT or TERM"
+fact_deposit_balance_daily,is_casa,gold,dim_product,is_casa,enrich,SAVINGS or CURRENT
+fact_deposit_balance_daily,balance,cbs,eod_balance,ledger_balance,cleanse,"end-of-day ledger balance, account currency; duplicates removed in silver"
+fact_deposit_balance_daily,balance_inr,cbs,eod_balance,ledger_balance,enrich,ledger_balance x INR rate
+fact_deposit_balance_daily,available_balance_inr,cbs,eod_balance,available_balance,enrich,available_balance x INR rate
+fact_deposit_balance_daily,fx_rate,config,pipeline.json,currencies.inr_rate,enrich,rate applied
+fact_loan_position_daily,date_key,gold,dim_date,date_key,normalise,yyyymmdd of the business date
+fact_loan_position_daily,party_id,mdm,party_xref,party_id,match,borrower_id -> party_xref
+fact_loan_position_daily,party_sk,gold,dim_party,party_sk,historise,party version valid on the business date
+fact_loan_position_daily,business_date,gold,,,normalise,partition: the batch's business date
+fact_loan_position_daily,src_system,lms,loan,,ingest,source system
+fact_loan_position_daily,src_position,lms,loan,_source_file:_source_row,ingest,where the record was read
+fact_loan_position_daily,src_batch_id,lms,loan,_batch_id,ingest,batch that delivered the record
+fact_loan_position_daily,src_record_hash,lms,loan,_record_hash,ingest,bronze hash of the record as received
+fact_loan_position_daily,loan_key,lms,loan,loan_id,normalise,'LN:LMS:' || loan_id
+fact_loan_position_daily,loan_sk,gold,dim_loan,loan_sk,historise,loan version valid on the date
+fact_loan_position_daily,product_code,lms,loan,product_code,cleanse,as received
+fact_loan_position_daily,branch_code,lms,loan,branch_code,cleanse,as received
+fact_loan_position_daily,loan_status,lms,loan,loan_status,cleanse,as received
+fact_loan_position_daily,principal_outstanding,lms,loan,principal_outstanding,cleanse,"decimal(18,2)"
+fact_loan_position_daily,principal_overdue,lms,loan,principal_overdue,cleanse,"decimal(18,2)"
+fact_loan_position_daily,interest_overdue,lms,loan,interest_overdue,cleanse,"decimal(18,2)"
+fact_loan_position_daily,dpd,lms,loan,dpd,cleanse,days past due; non-numeric values quarantined in bronze
+fact_loan_position_daily,sma_status,lms,loan,dpd,enrich,"REGULAR, SMA-0 (1-30), SMA-1 (31-60), SMA-2 (61-90), NPA"
+fact_loan_position_daily,asset_class,lms,loan,"dpd, loss_flag",enrich,"IRAC from DPD (config/kpi.json): STANDARD, SUBSTANDARD, DOUBTFUL_1/2/3, LOSS"
+fact_loan_position_daily,is_npa,lms,loan,dpd,enrich,DPD above 90 or loss-flagged
+fact_loan_position_daily,npa_since,lms,loan,"as_of_date, dpd",enrich,as_of_date - (dpd - 90) days
+fact_loan_position_daily,provision_rate,config,kpi.json,provision_rates,enrich,rate for the asset class
+fact_loan_position_daily,provision_amount,lms,loan,principal_outstanding,enrich,principal_outstanding x provision_rate
+fact_loan_position_daily,source_asset_class,lms,loan,src_asset_class,cleanse,"the source's own class, kept for comparison"
+fact_loan_position_daily,class_differs_from_source,lms,loan,src_asset_class,validate,"computed class differs from the source's, at the source's granularity (DOUBTFUL_n = DOUBTFUL)"
+fact_payment,date_key,gold,dim_date,date_key,normalise,yyyymmdd of the business date
+fact_payment,party_id,mdm,party_xref,party_id,match,own account -> account version -> party
+fact_payment,party_sk,gold,dim_party,party_sk,historise,party version valid on the business date
+fact_payment,business_date,gold,,,normalise,partition: the batch's business date
+fact_payment,src_system,payments,pay_transaction,,ingest,source system
+fact_payment,src_position,payments,pay_transaction,_source_file:_source_row,ingest,where the record was read
+fact_payment,src_batch_id,payments,pay_transaction,_batch_id,ingest,batch that delivered the record
+fact_payment,src_record_hash,payments,pay_transaction,_record_hash,ingest,bronze hash of the record as received
+fact_payment,msg_id,payments,pay_transaction,msg_id,deduplicate,one row per msg_id (re-sends removed)
+fact_payment,account_key,payments,pay_transaction,debtor/creditor.account.number,normalise,"own side by direction, 'ACC:CBS:' || number"
+fact_payment,account_sk,gold,dim_account,account_sk,historise,account version valid on the date
+fact_payment,value_date,payments,pay_transaction,value_date,cleanse,yyyy-MM-dd
+fact_payment,created_at,payments,pay_transaction,created_at,cleanse,"ISO 8601 with offset, stored UTC"
+fact_payment,channel,payments,pay_transaction,channel,cleanse,as received
+fact_payment,direction,payments,pay_transaction,direction,cleanse,as received
+fact_payment,status,payments,pay_transaction,status,cleanse,as received
+fact_payment,currency,payments,pay_transaction,amount.ccy,cleanse,as received
+fact_payment,amount,payments,pay_transaction,amount.value,cleanse,"decimal(18,2)"
+fact_payment,amount_inr,payments,pay_transaction,amount.value,enrich,amount x INR rate
+fact_payment,fee_amount,payments,pay_transaction,charges[type=TXN_FEE].amount,aggregate,sum of transaction fees
+fact_payment,gst_amount,payments,pay_transaction,charges[type=GST].amount,aggregate,sum of GST on fees
+fact_payment,counterparty_bank,payments,pay_transaction,debtor/creditor.account.ifsc,enrich,first 4 characters of the counterparty IFSC
+fact_payment,is_on_us,payments,pay_transaction,debtor/creditor.account.ifsc,enrich,counterparty bank is this bank
+fact_payment,purpose_code,payments,pay_transaction,remittance.purpose,normalise,flattened
+fact_payment,device_id,payments,pay_transaction,device.id,normalise,field new from 2026-09-24 (schema drift)

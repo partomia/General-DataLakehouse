@@ -8,6 +8,10 @@ control figures (the batch manifests), never against what Spark happened to read
            load_status      every manifest entity COMMITTED by a COMPLETED bronze run
   silver   silver_records   bronze accepted = silver rows, or EXPLAINED by duplicates removed
            silver_total     bronze accepted total = silver total, or EXPLAINED the same way
+  gold     gold_records     silver rows = fact rows, or EXPLAINED by rows the fact excludes by design
+           gold_total       silver total = fact total (INR), explained the same way
+           dimension_link   every fact row found its dimension version valid on the date
+           party_resolved   every fact row resolved to a golden party (not UNKNOWN)
 
 Each check is MATCHED, EXPLAINED (the difference is fully accounted for, and the detail
 says by what) or MISMATCH. Results replace the date's rows in ref.recon_results; the
@@ -37,6 +41,11 @@ SILVER_DAILY = {   # bronze entity -> (silver table, key, control column)
     "lms_repayment": ("lms_repayment", ["txn_id"], "amount"),
     "pay_transaction": ("pay_transaction", ["msg_id"], "amount"),
     "doc_document": ("doc_extract", ["file_name"], None),
+}
+GOLD_FACTS = {   # fact -> (silver table, silver total, fact total, dimension surrogate, rows the fact excludes)
+    "fact_deposit_balance_daily": ("cbs_eod_balance", "ledger_balance_inr", "balance_inr", "account_sk", None),
+    "fact_loan_position_daily": ("lms_loan_daily", "principal_outstanding", "principal_outstanding", "loan_sk", None),
+    "fact_payment": ("pay_transaction", "amount_inr", "amount_inr", "account_sk", "account_key IS NULL"),
 }
 TOLERANCE = 0.005
 
@@ -177,6 +186,65 @@ def silver_checks(r: Recon) -> None:
                   detail=f"bronze {b_sum:,.2f}, duplicates {dup_sum:,.2f}, silver {s_sum:,.2f} ({ctl})")
 
 
+# ---------------------------------------------------------------- gold
+
+
+def gold_checks(r: Recon) -> None:
+    for fact, (table, s_col, g_col, sk, excluded) in GOLD_FACTS.items():
+        s, g = r.table("silver", table), r.table("gold", fact)
+        if s is None or g is None:
+            continue
+        s, g = r.on_date(s, "business_date"), r.on_date(g, "business_date")
+        n_s, n_g = s.count(), g.count()
+        if n_g == 0:
+            continue
+        out = s.where(excluded) if excluded else None
+        n_out = out.count() if out is not None else 0
+        why = f", {n_out} excluded ({excluded})" if excluded else ""
+        r.add("gold", fact, "gold_records", n_s, n_g, explained_by=-n_out if n_out else None,
+              detail=f"silver {table} {n_s}{why}, gold {n_g}")
+        s_sum, g_sum, out_sum = _sum(s, s_col), _sum(g, g_col), _sum(out, s_col) if out is not None else 0.0
+        r.add("gold", fact, "gold_total", s_sum, g_sum, explained_by=-out_sum if out_sum else None,
+              detail=f"silver {s_sum:,.2f} ({s_col}){f', excluded {out_sum:,.2f}' if excluded else ''}, "
+                     f"gold {g_sum:,.2f} ({g_col})")
+        unlinked = g.where(F.col(sk).isNull()).count()
+        r.add("gold", fact, "dimension_link", 0, unlinked,
+              detail=f"{unlinked} row(s) without a {sk} valid on {r.d.isoformat()}")
+        unknown = g.where((F.col("party_id") == "UNKNOWN") | F.col("party_sk").isNull())
+        n_unknown = unknown.count()
+        absent = absent_owner_accounts(r) if "account_key" in g.columns else None
+        if absent is None:
+            r.add("gold", fact, "party_resolved", 0, n_unknown, detail=f"{n_unknown} row(s) on the UNKNOWN party")
+            continue
+        why = {x["reason"]: x["n"] for x in unknown.join(absent, "account_key").groupBy("reason")
+               .agg(F.count("*").alias("n")).collect()}
+        n_why = sum(why.values())
+        r.add("gold", fact, "party_resolved", 0, n_unknown, explained_by=n_why if n_why else None,
+              detail=f"{n_unknown} row(s) on the UNKNOWN party; owner customer not in silver as of the batch: "
+                     f"{why.get('QUARANTINED', 0)} quarantined at bronze, {why.get('NOT_YET_RECEIVED', 0)} not yet "
+                     f"received; {n_unknown - n_why} with the owner in silver but no golden party")
+
+
+def absent_owner_accounts(r: Recon):
+    """account_key -> reason, for accounts whose owning CBS customer is not in silver as of the batch."""
+    acc = r.table("silver", "cbs_account")
+    if acc is None or r.table("silver", "cbs_customer") is None:
+        return None
+    cust = C.read_as_of_batch(r.spark, r.names, "silver", "cbs_customer", r.d).where("NOT _is_deleted")
+    q = r.table("bronze", "quarantine")
+    held = (q.where((F.col("_entity") == "cbs_customer") & (F.col("_business_date") <= F.lit(r.d.isoformat()).cast("date")))
+            .select(F.get_json_object("_record", "$.cust_id").alias("cust_src_key")).distinct()
+            .withColumn("held", F.lit(True))) if q is not None else None
+    absent = acc.select("account_key", "cust_src_key").join(
+        cust.select(F.col("cust_id").cast("string").alias("cust_src_key")), "cust_src_key", "left_anti")
+    if held is not None:
+        absent = absent.join(held, "cust_src_key", "left")
+    else:
+        absent = absent.withColumn("held", F.lit(None))
+    return absent.select("account_key", F.when(F.col("held"), "QUARANTINED").otherwise("NOT_YET_RECEIVED")
+                         .alias("reason")).distinct()
+
+
 # ---------------------------------------------------------------- output
 
 
@@ -211,6 +279,7 @@ def run(spark, argv=None) -> dict:
     try:
         bronze_checks(r, C.read_manifests(spark, landing, args.business_date))
         silver_checks(r)
+        gold_checks(r)
         bad = write(r, reports)
         counts = {s: sum(1 for row in r.rows if row[9] == s) for s in ("MATCHED", "EXPLAINED", "MISMATCH")}
         print(f"reconcile {r.bid}: " + ", ".join(f"{k} {v}" for k, v in counts.items()), flush=True)
@@ -219,7 +288,7 @@ def run(spark, argv=None) -> dict:
         for row in r.rows:
             if row[9] == "EXPLAINED":
                 print(f"  EXPLAINED {row[3]}.{row[4]} {row[5]}: {row[10]}", flush=True)
-        audit.transform("reconcile", "validate", "ref.load_audit,bronze.*,silver.*", names.t("ref", "recon_results"),
+        audit.transform("reconcile", "validate", "ref.load_audit,bronze.*,silver.*,gold.*", names.t("ref", "recon_results"),
                         len(r.rows), len(bad), ", ".join(f"{k} {v}" for k, v in counts.items()))
         status = "COMPLETED"
         audit.load("reconcile", "*", status, rows_in=len(r.rows), rows_out=counts["MATCHED"] + counts["EXPLAINED"],

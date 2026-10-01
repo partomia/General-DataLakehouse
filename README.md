@@ -47,11 +47,11 @@ flowchart LR
 | `cde/jobs/` | The CDE Spark jobs, one per stage: `land_sources.py` (the source systems), `ingest_bronze.py`, `build_silver.py`, `build_mdm.py`, `build_gold.py`, `reconcile.py`; shared helpers in `gdl_common.py` |
 | `cde/dags/gdl_dag.py`, `cde/scripts/` | The Airflow DAG (one run per business date) and the deploy scripts |
 | `contracts/` | One data contract per source entity: format, key, columns, types, checks |
-| `config/` | `pipeline.json` (dates, entities, endpoints), `kpi.json` (certified KPI definitions and parameters), `aml_rules.json`, `governance.json` |
+| `config/` | `pipeline.json` (dates, entities, endpoints), `kpi.json` (certified KPI definitions and parameters), `aml_rules.json`, `governance.json`, `profiler_tag_rules.json` (Data Catalog auto-classification) |
 | `model/source_mapping.csv` | Source of every gold column, rendered in [docs/BANKING_MODEL.md](docs/BANKING_MODEL.md) |
 | `sql/semantic/` | Certified KPI views, MIS views, regulatory datasets, dashboard views (one SQL dialect for Impala and Spark) |
 | `sql/adhoc.sql`, `sql/time_travel.sql` | Ad-hoc questions (Hue) and Iceberg time travel |
-| `scripts/` | `run_local.py` (the jobs on local Spark), `run_semantic.py` (the semantic layer and KPI consistency check, Impala or Spark), `governance.py` (Atlas and Ranger), `render_mapping.py` |
+| `scripts/` | `run_local.py` (the jobs on local Spark), `run_semantic.py` (the semantic layer and KPI consistency check, Impala or Spark), `governance.py` (Atlas and Ranger), `profiler_rules.py` (profiler tag rules: render, check on Impala), `render_mapping.py` |
 | `dataviz/` | The dashboards as code, and the export file they build |
 | `tests/` | pytest: contracts, generator, parsers, SQL portability, governance config, docs |
 
@@ -82,7 +82,7 @@ per business date, the semantic layer on Impala, governance, dashboards, and wha
 | [PLAN.md](PLAN.md) | Requirements map, platform mapping, design, decisions |
 | [docs/BANKING_MODEL.md](docs/BANKING_MODEL.md) | Entities, canonical keys, SCD2, golden record, source mappings, extending the model (AML) |
 | [docs/FAILED_BATCH_DEMO.md](docs/FAILED_BATCH_DEMO.md) | A batch that dies mid-write: what it leaves, the mismatch report, the re-run |
-| [docs/GOVERNANCE.md](docs/GOVERNANCE.md) | PII classifications, Ranger masking, the KPI glossary, lineage |
+| [docs/GOVERNANCE.md](docs/GOVERNANCE.md) | PII classifications, Ranger masking, auto-classification with Data Catalog profilers, the KPI glossary, lineage |
 | [docs/DATAVIZ.md](docs/DATAVIZ.md) | The four dashboards, build, import and verify |
 | [docs/DEMO_RUNBOOK.md](docs/DEMO_RUNBOOK.md) | Deploy, run and present the demo |
 | [docs/PROJECT_LOG.md](docs/PROJECT_LOG.md) | What ran on the cluster, and the results |

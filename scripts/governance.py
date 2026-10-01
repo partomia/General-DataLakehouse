@@ -56,14 +56,18 @@ def column_tag(gov: dict, name: str, col_type: str) -> str | None:
 
 
 def classification_changes(gov: dict, columns: list[dict]) -> tuple[list, list]:
-    """columns: {guid, qualifiedName, name, type, tags} -> (adds, removes) of (guid, qualifiedName, tag)."""
+    """columns: {guid, qualifiedName, name, type, tags, entity} -> (adds, removes) of (guid, qualifiedName,
+    tag). With profiler_tags_on_tables, a GDL tag on a table column that the name rules do not ask for is
+    the profiler's (config/profiler_tag_rules.json) and is kept."""
+    keep = gov.get("profiler_tags_on_tables", False)
     adds, removes = [], []
     for c in columns:
         want = column_tag(gov, c["name"], c["type"])
         have = {t for t in c["tags"] if t.startswith(TAG_PREFIX)}
         if want and want not in have:
             adds.append((c["guid"], c["qualifiedName"], want))
-        removes += [(c["guid"], c["qualifiedName"], t) for t in sorted(have - {want})]
+        if not (keep and c.get("entity") == "iceberg_column"):
+            removes += [(c["guid"], c["qualifiedName"], t) for t in sorted(have - {want})]
     return adds, removes
 
 
@@ -146,7 +150,8 @@ def _columns(api: Api, db: str, type_name: str) -> list[dict]:
         page = r.get("entities") or []
         out += [{"guid": e["guid"], "qualifiedName": e["attributes"]["qualifiedName"],
                  "name": e["attributes"].get("name") or e["attributes"]["qualifiedName"].split("@")[0].split(".")[-1],
-                 "type": e["attributes"].get("type") or "", "tags": e.get("classificationNames") or []}
+                 "type": e["attributes"].get("type") or "", "tags": e.get("classificationNames") or [],
+                 "entity": type_name}
                 for e in page]
         if len(page) < PAGE:
             return out

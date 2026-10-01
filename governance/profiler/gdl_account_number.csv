@@ -1,0 +1,4 @@
+regex,matchType,threshold
+^[0-9]{14}$,columnValue,70
+(?i)^acct_no$,columnName,70
+(?i)^account_(no|number)$,columnName,70

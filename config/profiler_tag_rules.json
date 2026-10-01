@@ -1,0 +1,71 @@
+{
+  "_comment": "Data Compliance profiler tag rules (Cloudera Data Catalog, compute-cluster profilers) that apply the GDL_PII_* classifications automatically. scripts/profiler_rules.py renders the upload files under governance/profiler/ and checks the rules against the data. Score of a column = value_weight x share of its non-empty values matching any value regex + (100 - value_weight) if its name matches any name regex; the tag is applied at threshold or above. A low value_weight makes the column name decide (free text, or a format other columns share).",
+  "threshold": 70,
+  "sample_rows": 1000,
+  "databases": ["rsingh_gdl_bronze", "rsingh_gdl_silver", "rsingh_gdl_mdm", "rsingh_gdl_gold"],
+  "asset_filter": {"list": "allow", "key": "Database name", "operator": "starts with", "value": "rsingh_gdl_"},
+  "rules": [
+    {
+      "name": "GDL PAN",
+      "tag": "GDL_PII_LAST_4",
+      "description": "Indian Permanent Account Number (AAAAA9999A), by value",
+      "value_weight": 85,
+      "values": ["^[A-Za-z]{5}[0-9]{4}[A-Za-z]$"],
+      "names": ["(?i)(^|_)pan($|_)"]
+    },
+    {
+      "name": "GDL Aadhaar",
+      "tag": "GDL_PII_LAST_4",
+      "description": "Aadhaar number: 12 digits, optionally in groups of 4. Needs the name too: counterparty account numbers are 12 digits as well",
+      "value_weight": 50,
+      "values": ["^[2-9][0-9]{3} ?[0-9]{4} ?[0-9]{4}$"],
+      "names": ["(?i)aadh?aar"]
+    },
+    {
+      "name": "GDL Mobile",
+      "tag": "GDL_PII_LAST_4",
+      "description": "Indian mobile number in the formats the source systems use (+91, 0 prefix, spaces, dashes)",
+      "value_weight": 85,
+      "values": ["^(\\+91[- ]?|0)?[6-9][0-9]{4} ?[0-9]{5}$"],
+      "names": ["(?i)mobile|phone"]
+    },
+    {
+      "name": "GDL Account number",
+      "tag": "GDL_PII_LAST_4",
+      "description": "Bank account number (14 digits) in a column named for it. Name-led: account keys used in joins carry the same values and stay unmasked",
+      "value_weight": 30,
+      "values": ["^[0-9]{14}$"],
+      "names": ["(?i)^acct_no$", "(?i)^account_(no|number)$"]
+    },
+    {
+      "name": "GDL E-mail",
+      "tag": "GDL_PII_HASH",
+      "description": "E-mail address, by value",
+      "value_weight": 85,
+      "values": ["^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"],
+      "names": ["(?i)e-?mail"]
+    },
+    {
+      "name": "GDL Person name",
+      "tag": "GDL_PII_HASH",
+      "description": "A person's name. Name-led: product, branch and rule names are text of the same shape",
+      "value_weight": 20,
+      "values": ["^[A-Za-z][A-Za-z.' ,-]*$"],
+      "names": ["(?i)^(first|middle|last|full)_name$", "(?i)^name_(std|key|a|b)$",
+                "(?i)^(party|debtor|creditor|counterparty|borrower|customer)_name$"]
+    },
+    {
+      "name": "GDL Postal address",
+      "tag": "GDL_PII_REDACT",
+      "description": "Street address. Name-led: free text",
+      "value_weight": 20,
+      "values": ["[0-9].*[A-Za-z]{3,}"],
+      "names": ["(?i)^addr(ess)?(_line[0-9]|_std|_text|_display)?$"]
+    }
+  ],
+  "left_to_governance_py": {
+    "dob": "the mask depends on the column type (YEAR on a DATE, REDACT on a bronze string), which a tag rule cannot see; bronze cbs_customer.dob holds the same yyyy-MM-dd text as the silver DATE",
+    "date_of_birth": "as dob",
+    "views": "the profilers profile tables; the semantic views keep the classifications governance.py applies"
+  }
+}

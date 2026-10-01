@@ -1,6 +1,7 @@
 {
   "_comment": "Atlas classifications, glossary and Ranger tag masking for the rsingh_gdl_* databases, applied by scripts/governance.py. Only GDL_* classifications and rsingh-gdl-* policies are created or changed; the PII_* tags and policies of the other projects are left alone.",
   "atlas_cluster": "cm",
+  "profiler_tags_on_tables": false,
   "databases": ["rsingh_gdl_bronze", "rsingh_gdl_silver", "rsingh_gdl_mdm", "rsingh_gdl_gold", "rsingh_gdl_semantic"],
   "classifications": {
     "GDL_PII_LAST_4": {"description": "Identifier (PAN, Aadhaar, mobile, account number): masked users see the last 4 characters",
@@ -23,7 +24,9 @@
     "debtor_name": "GDL_PII_HASH", "creditor_name": "GDL_PII_HASH", "counterparty_name": "GDL_PII_HASH",
     "borrower_name": "GDL_PII_HASH", "customer_name": "GDL_PII_HASH",
     "email": "GDL_PII_HASH", "email_std": "GDL_PII_HASH", "sender_email": "GDL_PII_HASH",
-    "address": "GDL_PII_REDACT", "address_std": "GDL_PII_REDACT", "address_text": "GDL_PII_REDACT",
+    "address": "GDL_PII_REDACT",
+    "addr_line1": "GDL_PII_REDACT",
+    "addr_line2": "GDL_PII_REDACT", "address_std": "GDL_PII_REDACT", "address_text": "GDL_PII_REDACT",
     "address_display": "GDL_PII_REDACT",
     "dob": {"date": "GDL_PII_YEAR", "string": "GDL_PII_REDACT"},
     "date_of_birth": {"date": "GDL_PII_YEAR", "string": "GDL_PII_REDACT"}

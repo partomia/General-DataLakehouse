@@ -62,6 +62,70 @@ SELECT acct_no, full_name, pan, dob FROM rsingh_gdl_silver.cbs_customer c
 JOIN rsingh_gdl_silver.cbs_account a USING (cust_id) LIMIT 5;
 ```
 
+## Auto-classification: Data Catalog profiler tag rules
+
+The Data Compliance profiler of Cloudera Data Catalog can apply the same `GDL_PII_*`
+classifications by itself, on its schedule, from the data: a new source or column is classified
+without anyone editing the name map or running `governance.py`. The masking policies are tag
+based, so a column the profiler tags is masked for `federal01` and `federal07` straight away.
+
+The rules are code, in `config/profiler_tag_rules.json`; `scripts/profiler_rules.py` renders them
+and checks them against the data:
+
+```bash
+python scripts/profiler_rules.py render     # governance/profiler/*.csv and test_data.csv
+python scripts/profiler_rules.py evaluate   # score every table column on Impala (GDL_IMPALA_*)
+```
+
+| Tag rule | Tag | Value regex (weight) | Column name |
+|---|---|---|---|
+| GDL PAN | `GDL_PII_LAST_4` | `AAAAA9999A` (85%) | `pan` |
+| GDL Aadhaar | `GDL_PII_LAST_4` | 12 digits (50%) | `aadhaar` |
+| GDL Mobile | `GDL_PII_LAST_4` | Indian mobile, any of the source formats (85%) | `mobile`, `phone` |
+| GDL Account number | `GDL_PII_LAST_4` | 14 digits (30%) | `acct_no`, `account_no` |
+| GDL E-mail | `GDL_PII_HASH` | e-mail address (85%) | `email` |
+| GDL Person name | `GDL_PII_HASH` | letters (20%) | `first_name` ... `customer_name` |
+| GDL Postal address | `GDL_PII_REDACT` | digits and words (20%) | `address`, `addr_line1`, ... |
+
+A column's score for a rule is the value weight times the share of its values that match, plus
+the rest of 100 if its name matches; the tag is applied at 70 or more, the profiler's own
+threshold. With a high weight the values decide: a PAN, mobile or e-mail is found whatever the
+column is called. With a low weight the name decides, for three reasons:
+
+- Names and addresses are free text, shaped like product, branch and rule names.
+- Account numbers also fill join keys (`account_key`, `debtor_account`); masking a join key
+  would break joins for the masked users.
+- Counterparty account numbers in payments are 12 digits, like an Aadhaar number.
+
+Two things stay with `governance.py`: the date-of-birth columns, because the mask depends on
+the column type (YEAR on a DATE, REDACT on a bronze string), which a tag rule cannot see; and
+the semantic views, because the profilers profile tables.
+
+**Checked against the data.** `evaluate` on the five loaded dates (844 columns in bronze,
+silver, MDM and gold) agreed with the name map on every PII column apart from the 13
+date-of-birth columns and an empty one (`lms_borrower.email_std`; loan borrowers have no
+e-mail). It also found a gap in the map: `addr_line1` and `addr_line2` in `cbs_customer` (bronze
+and silver) and silver `crm_customer` were not classified, so `federal01` saw street addresses.
+They are in the map now, and tagged. No other column was tagged by mistake. A test runs the
+same comparison on the generator's landing files.
+
+**Setting it up** (Data Catalog, on the environment's data lake; compute-cluster profilers):
+
+1. A Power User launches the profilers once (UI: Profilers > Setup Profiler, or
+   `cdp datacatalog launch-profilers --datalake <crn>`). The Kubernetes node group takes 15 to 30
+   minutes.
+2. Data Compliance profiler > Configuration: an allow-list rule, Database name starts with
+   `rsingh_gdl_`. Incremental profiling on, which reads only new Iceberg data.
+3. Tag Rules > Create Tag Rule, once per rule. Pick the tag and upload
+   `governance/profiler/<rule>.csv` as the regular-expression file, or type the expressions
+   from the table above. Set the column value weightage, then use `test_data.csv` in Test Tag
+   Rule.
+4. Dry Run on up to 10 tables, then Enable.
+5. Review the suggested tags under Job History > Profiled Assets and approve them.
+6. Set `"profiler_tags_on_tables": true` in `config/governance.json`. `governance.py apply` then
+   leaves the profiler's tags on table columns, and keeps tagging the date-of-birth columns and
+   the views.
+
 ## Glossary
 
 Glossary `GDL Banking KPIs`, one term per certified KPI from `config/kpi.json` (definition,

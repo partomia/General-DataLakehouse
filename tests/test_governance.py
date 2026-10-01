@@ -9,7 +9,7 @@ import governance as G  # noqa: E402
 
 GOV, KPI, _ = G.load_config()
 CLEAR = {"pincode", "ifsc", "branch_name", "product_name", "file_name", "list_name"}   # not personal data, kept clear
-PII = re.compile(r"name|pan|aadhaar|mobile|phone|email|dob|birth|address|passport|acct_no", re.I)
+PII = re.compile(r"name|pan|aadhaar|mobile|phone|email|dob|birth|addr|passport|acct_no", re.I)
 
 
 def test_every_personal_column_of_the_sources_is_classified():

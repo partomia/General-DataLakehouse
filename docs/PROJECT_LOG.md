@@ -26,6 +26,7 @@ Each fix has a test, so it cannot come back.
 | Atlas searches returned nothing | Iceberg tables are `iceberg_table` / `iceberg_column` in Atlas, views `hive_table` / `hive_column` | `scripts/governance.py` searches both |
 | Data Visualization API: HTTP 401 with a password | the instance signs users in with SAML | a Data Visualization API key (`GDL_VIZ_API_KEY`) |
 | `cde job run --wait` hung on a dropped network | client-side wait | submit without `--wait`, then poll the run |
+| Masking gap: `addr_line1` / `addr_line2` not classified | the name map listed `address` but not the CBS address lines; found by the profiler tag rules check (`scripts/profiler_rules.py evaluate`) | added to `config/governance.json`, 6 columns tagged; the governance test now treats `addr*` as personal |
 | Atlas: `fact_aml_alert` had no Spark lineage | the `is_new` lookup reads the table being written; the Spark Atlas hook logs "Detected cycle - same entity observed to both input and output" and drops the outputs | only that lookup is checkpointed, so the rest of the plan, and its lineage, stays visible |
 
 Found later on the laptop: the generator planted its AML structuring deposits on a different

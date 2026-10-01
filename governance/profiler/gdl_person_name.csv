@@ -1,0 +1,5 @@
+regex,matchType,threshold
+"^[A-Za-z][A-Za-z.' ,-]*$",columnValue,70
+(?i)^(first|middle|last|full)_name$,columnName,70
+(?i)^name_(std|key|a|b)$,columnName,70
+(?i)^(party|debtor|creditor|counterparty|borrower|customer)_name$,columnName,70

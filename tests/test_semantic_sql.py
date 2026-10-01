@@ -18,9 +18,13 @@ CONSUMERS = [ROOT / "sql" / "semantic" / "20_mis_views.sql", ROOT / "sql" / "sem
              ROOT / "sql" / "adhoc.sql"]
 NOT_PORTABLE = [r"\bCREATE OR REPLACE\b", r"\bIF\s*\(", r"\bEXCEPT\b", r"\bMINUS\b", r"`", r"\bNVL2?\s*\(",
                 r"\barray_contains\b", r"\bdate_add\s*\(", r"\bLATERAL VIEW\b", r"\bQUALIFY\b"]
-IMPALA_RESERVED = {"change", "column", "comment", "current", "data", "date", "datetime", "default", "end", "first",
-                   "format", "function", "last", "location", "metadata", "over", "partition", "range", "role",
-                   "rows", "schema", "stats", "symbol", "table", "timestamp", "update", "value", "values", "year"}
+# Words a column alias could plausibly be, reserved in Impala 4 (impala_reserved_words, plus MATCHED from MERGE)
+IMPALA_RESERVED = {"change", "column", "comment", "current", "cycle", "data", "date", "datetime", "default", "delete",
+                   "each", "element", "empty", "end", "every", "filter", "first", "format", "function", "groups",
+                   "hash", "last", "location", "match", "matched", "matches", "merge", "metadata", "over",
+                   "partition", "percent", "position", "range", "ref", "role", "row", "rows", "schema", "sort",
+                   "spec", "stats", "symbol", "table", "timestamp", "unique", "unknown", "update", "values",
+                   "window", "within", "without"}
 
 
 class FakeEngine:

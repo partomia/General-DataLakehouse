@@ -242,7 +242,7 @@ before the failed batch is in the drill (`docs/FAILED_BATCH_DEMO.md`).
 
 - [x] **0. Scaffold**: layout, config, contracts, requirement files, local Spark + Iceberg runner,
   commit hook, CI skeleton.
-- [x] **1. Sources + landing**: generator for the five systems, 5 business days, manifests,
+- [x] **1. Sources + landing**: generator for the six systems, 5 business days, manifests,
   injected faults; tests.
 - [x] **2. Bronze**: ingest with contract validation, quarantine, schema drift, `load_audit`,
   `--fail-during` / `--fail-after` / `--resume`; recon at bronze.
@@ -251,13 +251,13 @@ before the failed batch is in the drill (`docs/FAILED_BATCH_DEMO.md`).
 - [x] **5. Gold**: banking model, SCD2 dims, facts, conformed dims, source mappings check.
 - [x] **6. Semantic + KPIs**: three certified views, MIS / ad-hoc / regulatory consumers,
   consistency check, time-travel SQL.
-- [ ] **7. Cloudera live**: CDE jobs + DAG, CDW views, five batches end to end, the failed-batch
+- [x] **7. Cloudera live**: CDE jobs + DAG, CDW views, five batches end to end, the failed-batch
   drill on the cluster, Atlas lineage checked.
 - [ ] **8. Governance**: Atlas classifications, glossary and terms; Ranger tag masking policies;
   verified as a masked and a clear user.
-- [ ] **9. Data Visualization**: Banking KPIs MIS, Reconciliation & Data Quality, MDM & Golden
-  Record dashboards as code.
-- [ ] **10. Docs + extension**: README, `BANKING_MODEL.md`, `FAILED_BATCH_DEMO.md`,
+- [x] **9. Data Visualization**: Banking KPIs MIS, Reconciliation & Data Quality, MDM & Golden
+  Record and AML Alerts dashboards as code.
+- [x] **10. Docs + extension**: README, `BANKING_MODEL.md`, `FAILED_BATCH_DEMO.md`,
   `DEMO_RUNBOOK.md`; AML added as the worked extension example.
 
 ## How we work

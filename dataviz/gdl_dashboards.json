@@ -61,6 +61,26 @@
     "has_css_styles": false,
     "report_search_text": null
    }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9003,
+   "fields": {
+    "report_name": "GDL AML Alerts",
+    "report_description": "docs/DATAVIZ.md",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "dashboard",
+    "report_mode": null,
+    "dashboard_url_name": "",
+    "report_data": "{\"report_title\": \"GDL AML Alerts\", \"numColumns\": 64, \"report_subtitle\": \"Cash structuring, pass-through and screening-list alerts (the AML extension domain)\", \"dashboard_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-9501\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-9502\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-9503\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-9504\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-5-widget-9505\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-9506\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-7-widget-9507\"}], \"dashboard_sheets\": [{\"sheet_id\": 1, \"order\": 1, \"sheet_handle_title\": \"Alerts\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-9501\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-9502\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-9503\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-9504\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-5-widget-9505\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-9506\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-7-widget-9507\"}], \"control_widgets\": []}, {\"sheet_id\": 2, \"order\": 2, \"sheet_handle_title\": \"New alerts by date\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 64, \"size_y\": 30, \"id\": \"uri-1-widget-9508\"}], \"control_widgets\": []}], \"user_settings\": {\"dashboard_width\": \"1280\", \"display_filters\": \"true\", \"permit_csv_download_dashboard\": \"true\"}, \"global_control_widgets\": [], \"control_widgets\": [], \"click_behavior\": {}}",
+    "shared_visual_dashboards": "[]",
+    "parent_report": null,
+    "uuid": "4d98f3f6-6ac1-5f29-9fea-ce8d62b20211",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": null
+   }
   }
  ],
  "appgroupmembership": [],
@@ -1209,6 +1229,166 @@
     "has_css_styles": false,
     "report_search_text": ""
    }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9501,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / Alerts",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Alerts on the latest date\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([alerts])\", \"expression_for_trigger\": \"sum([alerts])\", \"expr_hasagg\": true, \"col_alias\": \"Alerts\", \"dataset_colname\": \"Alerts\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([alerts]) as 'sub:Alerts'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "faddd659-032c-52ec-8390-b5fe2f5a43d6",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9502,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / Alerts",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"New alerts (not raised on an earlier date)\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([is_new])\", \"expression_for_trigger\": \"sum([is_new])\", \"expr_hasagg\": true, \"col_alias\": \"New\", \"dataset_colname\": \"New\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([is_new]) as 'sub:New'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "12e5a823-f2b4-5220-a1e3-ffaf460dc873",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9503,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / Alerts",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Critical: screening-list match on PAN\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([is_critical])\", \"expression_for_trigger\": \"sum([is_critical])\", \"expr_hasagg\": true, \"col_alias\": \"Critical\", \"dataset_colname\": \"Critical\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([is_critical]) as 'sub:Critical'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "10348f89-bb75-5250-9d05-3568eda5244c",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9504,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / Alerts",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Amount under alert (lakh)\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([amount_inr]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([amount_inr]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Amount lakh\", \"dataset_colname\": \"Amount lakh\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([amount_inr]) / 100000.0, 2) as 'sub:Amount lakh'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "fda2e76f-c678-5d38-992f-085616ab9438",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9505,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / Alerts",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Alerts per business date and rule\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\"}], \"y_shelf\": [{\"custom_expr\": \"sum([alerts])\", \"expression_for_trigger\": \"sum([alerts])\", \"expr_hasagg\": true, \"col_alias\": \"Alerts\", \"dataset_colname\": \"Alerts\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"rule_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[rule_name]\", \"col_alias\": \"Rule\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"x_shelf\", \"sum([alerts]) as 'sub:Alerts'\": \"y_shelf\", \"[rule_name] as 'sub:Rule'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "3d3cd853-070a-5d47-a64b-b806944912f4",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9506,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / Alerts",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Alerts by region and severity (latest date)\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"region\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[region]\", \"col_alias\": \"Region\"}], \"y_shelf\": [{\"custom_expr\": \"sum([alerts])\", \"expression_for_trigger\": \"sum([alerts])\", \"expr_hasagg\": true, \"col_alias\": \"Alerts\", \"dataset_colname\": \"Alerts\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"severity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[severity]\", \"col_alias\": \"Severity\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[region] as 'sub:Region'\": \"x_shelf\", \"sum([alerts]) as 'sub:Alerts'\": \"y_shelf\", \"[severity] as 'sub:Severity'\": \"color_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "bf766af3-4fea-5db7-a638-27b7b16a3482",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9507,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / Alerts",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Alert queue (latest date)\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"alert_id\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[alert_id]\", \"col_alias\": \"Alert\"}, {\"dataset_colname\": \"rule_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[rule_name]\", \"col_alias\": \"Rule\"}, {\"dataset_colname\": \"severity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[severity]\", \"col_alias\": \"Severity\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"party_id\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[party_id]\", \"col_alias\": \"Party\"}, {\"dataset_colname\": \"full_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[full_name]\", \"col_alias\": \"Name\"}, {\"dataset_colname\": \"account_key\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[account_key]\", \"col_alias\": \"Account\"}, {\"dataset_colname\": \"branch_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[branch_name]\", \"col_alias\": \"Branch\"}, {\"dataset_colname\": \"list_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[list_name]\", \"col_alias\": \"List\"}, {\"dataset_colname\": \"match_basis\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[match_basis]\", \"col_alias\": \"Matched on\"}, {\"dataset_colname\": \"window_from\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[window_from]\", \"col_alias\": \"From\"}, {\"dataset_colname\": \"window_to\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[window_to]\", \"col_alias\": \"To\"}, {\"dataset_colname\": \"evidence\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[evidence]\", \"col_alias\": \"Evidence\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([txn_count])\", \"expression_for_trigger\": \"sum([txn_count])\", \"expr_hasagg\": true, \"col_alias\": \"Payments\", \"dataset_colname\": \"Payments\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([amount_inr])\", \"expression_for_trigger\": \"sum([amount_inr])\", \"expr_hasagg\": true, \"col_alias\": \"Amount INR\", \"dataset_colname\": \"Amount INR\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[alert_id] as 'sub:Alert'\": \"dimensions_shelf\", \"[rule_name] as 'sub:Rule'\": \"dimensions_shelf\", \"[severity] as 'sub:Severity'\": \"dimensions_shelf\", \"[party_id] as 'sub:Party'\": \"dimensions_shelf\", \"[full_name] as 'sub:Name'\": \"dimensions_shelf\", \"[account_key] as 'sub:Account'\": \"dimensions_shelf\", \"[branch_name] as 'sub:Branch'\": \"dimensions_shelf\", \"[list_name] as 'sub:List'\": \"dimensions_shelf\", \"[match_basis] as 'sub:Matched on'\": \"dimensions_shelf\", \"[window_from] as 'sub:From'\": \"dimensions_shelf\", \"[window_to] as 'sub:To'\": \"dimensions_shelf\", \"[evidence] as 'sub:Evidence'\": \"dimensions_shelf\", \"sum([txn_count]) as 'sub:Payments'\": \"aggregates_shelf\", \"sum([amount_inr]) as 'sub:Amount INR'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "0da9f0f8-ea84-5d02-8f20-414fd0704b69",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9508,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL AML Alerts / New alerts by date",
+    "dataset": 9112,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Every new alert, by the date it was first raised\", \"report_subtitle\": \"\", \"dashboard_id\": 9003, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\", \"order\": {\"priority\": 1, \"ascending\": false}}, {\"dataset_colname\": \"alert_id\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[alert_id]\", \"col_alias\": \"Alert\"}, {\"dataset_colname\": \"rule_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[rule_name]\", \"col_alias\": \"Rule\"}, {\"dataset_colname\": \"severity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[severity]\", \"col_alias\": \"Severity\"}, {\"dataset_colname\": \"party_id\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[party_id]\", \"col_alias\": \"Party\"}, {\"dataset_colname\": \"full_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[full_name]\", \"col_alias\": \"Name\"}, {\"dataset_colname\": \"account_key\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[account_key]\", \"col_alias\": \"Account\"}, {\"dataset_colname\": \"branch_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[branch_name]\", \"col_alias\": \"Branch\"}, {\"dataset_colname\": \"list_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[list_name]\", \"col_alias\": \"List\"}, {\"dataset_colname\": \"match_basis\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[match_basis]\", \"col_alias\": \"Matched on\"}, {\"dataset_colname\": \"window_from\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[window_from]\", \"col_alias\": \"From\"}, {\"dataset_colname\": \"window_to\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[window_to]\", \"col_alias\": \"To\"}, {\"dataset_colname\": \"evidence\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[evidence]\", \"col_alias\": \"Evidence\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([txn_count])\", \"expression_for_trigger\": \"sum([txn_count])\", \"expr_hasagg\": true, \"col_alias\": \"Payments\", \"dataset_colname\": \"Payments\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([amount_inr])\", \"expression_for_trigger\": \"sum([amount_inr])\", \"expr_hasagg\": true, \"col_alias\": \"Amount INR\", \"dataset_colname\": \"Amount INR\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_new] = 1\", \"expression_for_trigger\": \"[is_new] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"dimensions_shelf\", \"[alert_id] as 'sub:Alert'\": \"dimensions_shelf\", \"[rule_name] as 'sub:Rule'\": \"dimensions_shelf\", \"[severity] as 'sub:Severity'\": \"dimensions_shelf\", \"[party_id] as 'sub:Party'\": \"dimensions_shelf\", \"[full_name] as 'sub:Name'\": \"dimensions_shelf\", \"[account_key] as 'sub:Account'\": \"dimensions_shelf\", \"[branch_name] as 'sub:Branch'\": \"dimensions_shelf\", \"[list_name] as 'sub:List'\": \"dimensions_shelf\", \"[match_basis] as 'sub:Matched on'\": \"dimensions_shelf\", \"[window_from] as 'sub:From'\": \"dimensions_shelf\", \"[window_to] as 'sub:To'\": \"dimensions_shelf\", \"[evidence] as 'sub:Evidence'\": \"dimensions_shelf\", \"sum([txn_count]) as 'sub:Payments'\": \"aggregates_shelf\", \"sum([amount_inr]) as 'sub:Amount INR'\": \"aggregates_shelf\", \"[is_new] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "5f5f3c8c-4b1d-52ea-aeba-90e7eaac215e",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
   }
  ],
  "colorpalette": [],
@@ -1521,6 +1701,32 @@
     ],
     "version_id": 9111,
     "version_group_id": 9111,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9112,
+   "fields": {
+    "dataconnection": 2,
+    "dataset_name": "GDL - AML alerts",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.dash_aml_alert",
+    "dataset_description": "rsingh_gdl_semantic.dash_aml_alert (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.dash_aml_alert\", \"columns\": [{\"alias\": \"business_date\", \"type\": \"DATE\", \"name\": \"business_date\", \"isdim\": true}, {\"alias\": \"alert_id\", \"type\": \"STRING\", \"name\": \"alert_id\", \"isdim\": true}, {\"alias\": \"rule_code\", \"type\": \"STRING\", \"name\": \"rule_code\", \"isdim\": true}, {\"alias\": \"rule_name\", \"type\": \"STRING\", \"name\": \"rule_name\", \"isdim\": true}, {\"alias\": \"severity\", \"type\": \"STRING\", \"name\": \"severity\", \"isdim\": true}, {\"alias\": \"subject_type\", \"type\": \"STRING\", \"name\": \"subject_type\", \"isdim\": true}, {\"alias\": \"party_id\", \"type\": \"STRING\", \"name\": \"party_id\", \"isdim\": true}, {\"alias\": \"full_name\", \"type\": \"STRING\", \"name\": \"full_name\", \"isdim\": true}, {\"alias\": \"segment\", \"type\": \"STRING\", \"name\": \"segment\", \"isdim\": true}, {\"alias\": \"account_key\", \"type\": \"STRING\", \"name\": \"account_key\", \"isdim\": true}, {\"alias\": \"branch_code\", \"type\": \"STRING\", \"name\": \"branch_code\", \"isdim\": true}, {\"alias\": \"branch_name\", \"type\": \"STRING\", \"name\": \"branch_name\", \"isdim\": true}, {\"alias\": \"region\", \"type\": \"STRING\", \"name\": \"region\", \"isdim\": true}, {\"alias\": \"window_from\", \"type\": \"DATE\", \"name\": \"window_from\", \"isdim\": true}, {\"alias\": \"window_to\", \"type\": \"DATE\", \"name\": \"window_to\", \"isdim\": true}, {\"alias\": \"txn_count\", \"type\": \"BIGINT\", \"name\": \"txn_count\", \"isdim\": false}, {\"alias\": \"amount_inr\", \"type\": \"DECIMAL(18,2)\", \"name\": \"amount_inr\", \"isdim\": false}, {\"alias\": \"entry_id\", \"type\": \"STRING\", \"name\": \"entry_id\", \"isdim\": true}, {\"alias\": \"list_name\", \"type\": \"STRING\", \"name\": \"list_name\", \"isdim\": true}, {\"alias\": \"match_basis\", \"type\": \"STRING\", \"name\": \"match_basis\", \"isdim\": true}, {\"alias\": \"evidence\", \"type\": \"STRING\", \"name\": \"evidence\", \"isdim\": true}, {\"alias\": \"alerts\", \"type\": \"TINYINT\", \"name\": \"alerts\", \"isdim\": false}, {\"alias\": \"is_new\", \"type\": \"TINYINT\", \"name\": \"is_new\", \"isdim\": false}, {\"alias\": \"is_critical\", \"type\": \"TINYINT\", \"name\": \"is_critical\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.dash_aml_alert\"]",
+    "uuid": "0d89b3e7-2b9e-5b8f-80f6-619ed3ce6e80",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9003
+    ],
+    "version_id": 9112,
+    "version_group_id": 9112,
     "is_active_version": true,
     "version_name": "general-datalakehouse",
     "is_named_version": false

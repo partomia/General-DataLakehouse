@@ -221,6 +221,31 @@ class Audit:
 # ---------------------------------------------------------------- fs
 
 
+def read_manifests(spark, landing: str, business_date: date) -> dict:
+    """source -> the batch's _manifest.json (None when the source sent nothing for the date)."""
+    fs, out = HadoopFS(spark), {}
+    for source in SOURCES:
+        uri = f"{landing}/{source}/{business_date.isoformat()}/_manifest.json"
+        out[source] = json.loads(fs.read_text(uri)) if fs.exists(uri) else None
+    return out
+
+
+def reports_for(landing: str) -> str:
+    """The reports folder next to the landing folder."""
+    return landing.rstrip("/").rsplit("/", 1)[0] + "/reports"
+
+
+def require_completed(spark, names: Names, stage: str, business_date: date) -> None:
+    """Refuse to build on a batch whose upstream stage has not COMPLETED since it last STARTED."""
+    t, bid = names.t("ref", "load_audit"), batch_id(business_date)
+    rows = [] if not table_exists(spark, t) else spark.sql(
+        f"SELECT status FROM {t} WHERE batch_id = '{bid}' AND stage = '{stage}' AND entity = '*' "
+        f"AND status IN ('STARTED', 'COMPLETED', 'FAILED') ORDER BY ended_at DESC LIMIT 1").collect()
+    if not rows or rows[0][0] != "COMPLETED":
+        state = rows[0][0] if rows else "not run"
+        raise RuntimeError(f"{stage} is {state} for {bid}; run or re-run it first")
+
+
 class HadoopFS:
     """Files on the landing zone through the Hadoop FileSystem of the Spark session."""
 
@@ -414,6 +439,122 @@ def parse_json_array(path: str, text: str):
         return
     for no, doc in enumerate(docs, 1):
         yield (_basename(path), no, json.dumps(doc, separators=(",", ":"), sort_keys=False), None)
+
+
+# ---------------------------------------------------------------- typing and standardisation (Spark columns)
+
+DECIMAL = "decimal(18,2)"
+SOURCE_TZ = "Asia/Kolkata"
+PAN_RE = r"^[A-Z]{5}[0-9]{4}[A-Z]$"
+TITLE_RE = r"^(MR|MRS|MS|MISS|DR|SHRI|SMT|PROF) "
+ADDRESS_ABBREVIATIONS = ((r"\bRD\.", "ROAD"), (r"\bST\.", "STREET"), (r"\bNGR\b", "NAGAR"),
+                         (r"\bMG\.", "MARG"), (r"\bNR\.", "NEAR"))
+NAME_VARIANTS = ((r"\bMOHD\b", "MOHAMMED"), (r"\bMOHAMMAD\b", "MOHAMMED"))
+
+
+def typed(value, coldef: dict):
+    """A bronze string as the contract's type; blank -> NULL; dates in any of the source's formats."""
+    from pyspark.sql import functions as F
+
+    v = F.trim(value)
+    v = F.when(v != "", v)
+    kind = coldef["type"]
+    fmts = coldef.get("formats") or ([coldef["format"]] if coldef.get("format") else [])
+    if kind in ("int", "bigint"):
+        return v.cast(kind)
+    if kind == "decimal":
+        return v.cast(DECIMAL)
+    if kind == "date":
+        return F.coalesce(*[F.to_date(v, f) for f in fmts]) if fmts else v.cast("date")
+    if kind == "timestamp":
+        return F.to_timestamp(v, fmts[0]) if fmts else v.cast("timestamp")
+    return v
+
+
+def typed_columns(contract: dict, value_of=None) -> list:
+    from pyspark.sql import functions as F
+
+    value_of = value_of or (lambda c: F.col(c["name"]))
+    return [typed(value_of(c), c).alias(c["name"]) for c in contract["columns"]]
+
+
+def source_ts(col):
+    """A source-local (IST) wall-clock timestamp as UTC."""
+    from pyspark.sql import functions as F
+
+    return F.to_utc_timestamp(col, SOURCE_TZ)
+
+
+def _squash(x):
+    from pyspark.sql import functions as F
+
+    return F.trim(F.regexp_replace(x, r"\s+", " "))
+
+
+def std_name(col):
+    """Upper case, letters only, no title, common spelling variants folded."""
+    from pyspark.sql import functions as F
+
+    x = _squash(F.regexp_replace(F.upper(col), r"[^A-Z ]", " "))
+    x = F.regexp_replace(x, TITLE_RE, "")
+    for pattern, repl in NAME_VARIANTS:
+        x = F.regexp_replace(x, pattern, repl)
+    return F.when(x != "", x)
+
+
+def name_key(std):
+    """Order-free form of a standardised name ('AGARWAL AJAY' == 'AJAY AGARWAL')."""
+    from pyspark.sql import functions as F
+
+    return F.array_join(F.array_sort(F.split(std, " ")), " ")
+
+
+def std_mobile(col):
+    """Indian mobile in E.164 (+91 and 10 digits from 6-9), or NULL."""
+    from pyspark.sql import functions as F
+
+    d = F.regexp_replace(col, r"[^0-9]", "")
+    d = (F.when((F.length(d) == 12) & d.startswith("91"), F.substring(d, 3, 10))
+         .when((F.length(d) == 11) & d.startswith("0"), F.substring(d, 2, 10)).otherwise(d))
+    return F.when(d.rlike(r"^[6-9][0-9]{9}$"), F.concat(F.lit("+91"), d))
+
+
+def std_pan(col):
+    from pyspark.sql import functions as F
+
+    p = F.upper(F.trim(col))
+    return F.when(p.rlike(PAN_RE), p)
+
+
+def std_email(col):
+    from pyspark.sql import functions as F
+
+    e = F.lower(F.trim(col))
+    return F.when(e.rlike(r"^[^@\s]+@[^@\s]+\.[a-z]{2,}$"), e)
+
+
+def std_address(col):
+    """Upper case, the sources' abbreviations expanded, punctuation dropped."""
+    from pyspark.sql import functions as F
+
+    x = F.upper(col)
+    for pattern, repl in ADDRESS_ABBREVIATIONS:
+        x = F.regexp_replace(x, pattern, repl)
+    x = _squash(F.regexp_replace(x, r"[^A-Z0-9 ]", " "))
+    return F.when(x != "", x)
+
+
+def std_pincode(col):
+    from pyspark.sql import functions as F
+
+    p = F.regexp_extract(col, r"(\d{6})", 1)
+    return F.when(p != "", p)
+
+
+def fx_rates(spark):
+    """currency -> INR rate from config/pipeline.json, as a small DataFrame."""
+    rates = load_json("config/pipeline.json")["currencies"]
+    return spark.createDataFrame([(c["code"], float(c["inr_rate"])) for c in rates], "currency string, fx_rate_inr double")
 
 
 def fail_on_partition(partition_id: int, target: int = 1) -> int:

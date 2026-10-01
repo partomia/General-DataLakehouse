@@ -34,9 +34,7 @@ Usage:
 
 from __future__ import annotations
 
-import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -62,14 +60,6 @@ def parser():
     return p
 
 
-def read_manifests(spark, landing: str, business_date) -> dict:
-    fs, out = C.HadoopFS(spark), {}
-    for source in C.SOURCES:
-        uri = f"{landing}/{source}/{business_date.isoformat()}/_manifest.json"
-        out[source] = json.loads(fs.read_text(uri)) if fs.exists(uri) else None
-    return out
-
-
 # ---------------------------------------------------------------- parse
 
 
@@ -79,7 +69,20 @@ def _json_cols(df: DataFrame, contract: dict) -> DataFrame:
     return df
 
 
-def raw_frame(spark, contract: dict, folder: str) -> tuple[DataFrame, list]:
+def unread_files(spark, df: DataFrame, manifest_files: list) -> DataFrame | None:
+    """Manifest files the binary reader did not return (Spark skips zero-byte files), as rows."""
+    read = {r[0] for r in df.select("_source_file").collect()}
+    missing = [f for f in manifest_files if f["file"] not in read and not f["file"].startswith("_")]
+    if not missing:
+        return None
+    rows = [(f["file"], 1, f["file"], f["file"].split("-")[0], str(f["bytes"]), f["sha256"], None, None, None)
+            for f in missing]
+    return spark.createDataFrame(rows, "_source_file string, _source_row int, file_name string, doc_type string, "
+                                       "bytes string, sha256 string, mime_type string, text_content string, "
+                                       "content binary")
+
+
+def raw_frame(spark, contract: dict, folder: str, manifest_files=()) -> tuple[DataFrame, list]:
     """The entity's records as strings, with _source_file / _source_row; and file stats (CSV trailers)."""
     fmt, cols = contract["format"], [c["name"] for c in contract["columns"]]
     files = spark.sparkContext.wholeTextFiles(f"{folder}/{contract['file_glob']}") if fmt != "binary" else None
@@ -113,6 +116,9 @@ def raw_frame(spark, contract: dict, folder: str) -> tuple[DataFrame, list]:
                       .when(ext == "png", "image/png").otherwise("application/octet-stream").alias("mime_type"),
                       F.when(ext.isin("eml", "txt"), F.decode("content", "UTF-8")).alias("text_content"),
                       "content"))
+        extra = unread_files(spark, df, list(manifest_files))
+        if extra is not None:
+            df = df.unionByName(extra)
     else:
         raise ValueError(f"unknown format {fmt}")
     return df, stats
@@ -165,6 +171,9 @@ def validate(df: DataFrame, contract: dict, contracts: dict) -> DataFrame:
     rejects, warns = _checks(contract["columns"], lambda c: F.col(c["name"]))
     if "payload" in df.columns:
         rejects.append(F.when(F.col("_parse_error").isNotNull(), F.lit("payload:MALFORMED_JSON")))
+    if "content" in df.columns:
+        rejects.append(F.when(F.col("content").isNull() & (F.col("bytes").cast("bigint") > 0),
+                              F.lit("content:NOT_READ")))
     for table, image in contract.get("image_contracts", {}).items():
         img = contracts[image]
         is_table = F.col("table") == table
@@ -244,19 +253,21 @@ def committed_since_complete(spark, names: C.Names, bid: str) -> set:
     t = names.t("ref", "load_audit")
     if not C.table_exists(spark, t):
         return set()
-    last = spark.sql(f"SELECT max(started_at) FROM {t} WHERE batch_id = '{bid}' AND stage = '{STAGE}' "
-                     f"AND entity = '*' AND status = 'COMPLETED'").collect()[0][0]
-    cond = f"AND started_at > TIMESTAMP '{last}'" if last else ""
-    return {r[0] for r in spark.sql(f"SELECT DISTINCT entity FROM {t} WHERE batch_id = '{bid}' AND stage = '{STAGE}' "
-                                    f"AND status = 'COMMITTED' {cond}").collect()}
+    scope = f"batch_id = '{bid}' AND stage = '{STAGE}'"
+    return {r[0] for r in spark.sql(f"""
+        SELECT DISTINCT entity FROM {t}
+        WHERE {scope} AND status = 'COMMITTED'
+          AND started_at > coalesce((SELECT max(started_at) FROM {t}
+                                     WHERE {scope} AND entity = '*' AND status = 'COMPLETED'),
+                                    TIMESTAMP '1970-01-01 00:00:00')""").collect()}
 
 
-def ingest_entity(spark, names, audit, contract, contracts, folder, manifest_entity, args) -> dict:
+def ingest_entity(spark, names, audit, contract, contracts, folder, manifest_entity, args, manifest_files=()) -> dict:
     entity, d, bid = contract["entity"], args.business_date, C.batch_id(args.business_date)
     started = C._now()
     target, quarantine = names.t("bronze", entity), names.t("bronze", "quarantine")
     before = C.snapshot_id(spark, target)
-    raw, stats = raw_frame(spark, contract, folder)
+    raw, stats = raw_frame(spark, contract, folder, manifest_files)
     meta = [F.lit(bid).alias("_batch_id"), F.lit(d).cast("date").alias("_business_date"),
             F.lit(contract["source"]).alias("_source_system"), "_source_file", "_source_row",
             F.current_timestamp().alias("_ingested_at")]
@@ -308,7 +319,7 @@ def run(spark, argv=None) -> dict:
     landing = C.as_uri(args.landing)
     audit = C.Audit(spark, names, "ingest_bronze", d, args.pipeline_run)
     audit.load(STAGE, "*", "STARTED", message=f"landing {landing}")
-    manifests = read_manifests(spark, landing, d)
+    manifests = C.read_manifests(spark, landing, d)
     skip = committed_since_complete(spark, names, bid) if args.resume else set()
     summary = {}
     try:
@@ -325,7 +336,8 @@ def run(spark, argv=None) -> dict:
                 audit.load(STAGE, entity, "SKIPPED", message="committed by an earlier attempt (--resume)")
                 continue
             folder = f"{landing}/{contract['source']}/{d.isoformat()}"
-            summary[entity] = ingest_entity(spark, names, audit, contract, contracts, folder, listed, args)
+            summary[entity] = ingest_entity(spark, names, audit, contract, contracts, folder, listed, args,
+                                            m.get("files", []))
             if args.fail_after == entity:
                 raise RuntimeError(f"simulated failure after committing {entity} (--fail-after)")
         audit.load(STAGE, "*", "COMPLETED", rows_in=sum(s["rows_in"] for s in summary.values()),

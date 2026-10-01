@@ -44,5 +44,9 @@ jobs:
         run: |
           python scripts/run_local.py land bronze --dates 2026-09-21,2026-09-22 --landing /tmp/drill/landing --warehouse /tmp/drill/warehouse
           python scripts/run_local.py land --dates 2026-09-23 --landing /tmp/drill/landing
-          ! python scripts/run_local.py bronze --dates 2026-09-23 --landing /tmp/drill/landing --warehouse /tmp/drill/warehouse -- --fail-during lms_loan
-          python scripts/run_local.py bronze --dates 2026-09-23 --landing /tmp/drill/landing --warehouse /tmp/drill/warehouse -- --resume
+          D3="--dates 2026-09-23 --landing /tmp/drill/landing --warehouse /tmp/drill/warehouse"
+          ! python scripts/run_local.py bronze $D3 -- --fail-during lms_loan
+          ! python scripts/run_local.py recon $D3 -- --fail-on-mismatch        # the failed batch is reported
+          ! python scripts/run_local.py silver $D3                             # and silver refuses to build on it
+          python scripts/run_local.py bronze $D3 -- --resume
+          python scripts/run_local.py silver recon $D3

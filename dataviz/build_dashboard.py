@@ -46,7 +46,7 @@ DASHBOARD_PK0 = 9000
 DATASET_PK0 = 9100
 VISUAL_PK0 = 9200
 # The export format version, used when the instance's own cannot be read (no API key).
-DEFAULT_VERSION = {"Arcviz Version": "8.1.7", "Description": "8.1.7-b36"}
+DEFAULT_VERSION = {"Arcviz Version": "8.1.4.1000", "Description": "8.1.4.1000-4"}
 
 DATASETS = {                          # key: (name, view, integer columns that are dimensions)
     "npa_trend": ("GDL - NPA trend", "mis_npa_trend", {"is_latest"}),

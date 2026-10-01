@@ -1,0 +1,1534 @@
+{
+ "segments": [],
+ "staticasset": [],
+ "dashboards": [
+  {
+   "model": "reports.report",
+   "pk": 9000,
+   "fields": {
+    "report_name": "GDL Banking KPIs MIS",
+    "report_description": "docs/DATAVIZ.md",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "dashboard",
+    "report_mode": null,
+    "dashboard_url_name": "",
+    "report_data": "{\"report_title\": \"GDL Banking KPIs MIS\", \"numColumns\": 64, \"report_subtitle\": \"NPA exposure, CASA ratio and customer relationship value from the certified KPI views\", \"dashboard_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-1-widget-9201\"}, {\"col\": 14, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-2-widget-9202\"}, {\"col\": 27, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-3-widget-9203\"}, {\"col\": 40, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-4-widget-9204\"}, {\"col\": 53, \"row\": 1, \"size_x\": 12, \"size_y\": 10, \"id\": \"uri-5-widget-9205\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-9206\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-7-widget-9207\"}, {\"col\": 1, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-8-widget-9208\"}, {\"col\": 33, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-9-widget-9209\"}], \"dashboard_sheets\": [{\"sheet_id\": 1, \"order\": 1, \"sheet_handle_title\": \"NPA exposure\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-1-widget-9201\"}, {\"col\": 14, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-2-widget-9202\"}, {\"col\": 27, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-3-widget-9203\"}, {\"col\": 40, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-4-widget-9204\"}, {\"col\": 53, \"row\": 1, \"size_x\": 12, \"size_y\": 10, \"id\": \"uri-5-widget-9205\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-9206\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-7-widget-9207\"}, {\"col\": 1, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-8-widget-9208\"}, {\"col\": 33, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-9-widget-9209\"}], \"control_widgets\": []}, {\"sheet_id\": 2, \"order\": 2, \"sheet_handle_title\": \"CASA ratio\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-9210\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-9211\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-9212\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-9213\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-5-widget-9214\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-9215\"}, {\"col\": 1, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-7-widget-9216\"}, {\"col\": 33, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-8-widget-9217\"}], \"control_widgets\": []}, {\"sheet_id\": 3, \"order\": 3, \"sheet_handle_title\": \"Customer relationship value\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 21, \"size_y\": 10, \"id\": \"uri-1-widget-9218\"}, {\"col\": 22, \"row\": 1, \"size_x\": 21, \"size_y\": 10, \"id\": \"uri-2-widget-9219\"}, {\"col\": 43, \"row\": 1, \"size_x\": 22, \"size_y\": 10, \"id\": \"uri-3-widget-9220\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-4-widget-9221\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-5-widget-9222\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-6-widget-9223\"}], \"control_widgets\": []}, {\"sheet_id\": 4, \"order\": 4, \"sheet_handle_title\": \"Trends\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-1-widget-9224\"}, {\"col\": 33, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-2-widget-9225\"}, {\"col\": 1, \"row\": 23, \"size_x\": 64, \"size_y\": 22, \"id\": \"uri-3-widget-9226\"}], \"control_widgets\": []}], \"user_settings\": {\"dashboard_width\": \"1280\", \"display_filters\": \"true\", \"permit_csv_download_dashboard\": \"true\"}, \"global_control_widgets\": [], \"control_widgets\": [], \"click_behavior\": {}}",
+    "shared_visual_dashboards": "[]",
+    "parent_report": null,
+    "uuid": "70b072a6-32df-51cd-889f-65ccd6d1ecfb",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": null
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9001,
+   "fields": {
+    "report_name": "GDL Reconciliation & Data Quality",
+    "report_description": "docs/DATAVIZ.md",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "dashboard",
+    "report_mode": null,
+    "dashboard_url_name": "",
+    "report_data": "{\"report_title\": \"GDL Reconciliation & Data Quality\", \"numColumns\": 64, \"report_subtitle\": \"Reconciliation per layer and batch, KPI consistency, load audit and failed batches\", \"dashboard_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-9301\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-9302\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-9303\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-9304\"}, {\"col\": 1, \"row\": 11, \"size_x\": 24, \"size_y\": 22, \"id\": \"uri-5-widget-9305\"}, {\"col\": 25, \"row\": 11, \"size_x\": 40, \"size_y\": 22, \"id\": \"uri-6-widget-9306\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-7-widget-9307\"}], \"dashboard_sheets\": [{\"sheet_id\": 1, \"order\": 1, \"sheet_handle_title\": \"Latest batch\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-9301\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-9302\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-9303\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-9304\"}, {\"col\": 1, \"row\": 11, \"size_x\": 24, \"size_y\": 22, \"id\": \"uri-5-widget-9305\"}, {\"col\": 25, \"row\": 11, \"size_x\": 40, \"size_y\": 22, \"id\": \"uri-6-widget-9306\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-7-widget-9307\"}], \"control_widgets\": []}, {\"sheet_id\": 2, \"order\": 2, \"sheet_handle_title\": \"By business date\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-1-widget-9308\"}, {\"col\": 33, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-2-widget-9309\"}, {\"col\": 1, \"row\": 23, \"size_x\": 64, \"size_y\": 22, \"id\": \"uri-3-widget-9310\"}], \"control_widgets\": []}, {\"sheet_id\": 3, \"order\": 3, \"sheet_handle_title\": \"Load audit\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 21, \"size_y\": 10, \"id\": \"uri-1-widget-9311\"}, {\"col\": 22, \"row\": 1, \"size_x\": 21, \"size_y\": 10, \"id\": \"uri-2-widget-9312\"}, {\"col\": 43, \"row\": 1, \"size_x\": 22, \"size_y\": 10, \"id\": \"uri-3-widget-9313\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-4-widget-9314\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-5-widget-9315\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 18, \"id\": \"uri-6-widget-9316\"}, {\"col\": 1, \"row\": 51, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-7-widget-9317\"}], \"control_widgets\": []}], \"user_settings\": {\"dashboard_width\": \"1280\", \"display_filters\": \"true\", \"permit_csv_download_dashboard\": \"true\"}, \"global_control_widgets\": [], \"control_widgets\": [], \"click_behavior\": {}}",
+    "shared_visual_dashboards": "[]",
+    "parent_report": null,
+    "uuid": "1d64de8c-29fa-56c9-ad4e-b5daf4c39dd3",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": null
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9002,
+   "fields": {
+    "report_name": "GDL MDM & Golden Record",
+    "report_description": "docs/DATAVIZ.md",
+    "dataset": 9111,
+    "workspace": 1,
+    "report_type": "dashboard",
+    "report_mode": null,
+    "dashboard_url_name": "",
+    "report_data": "{\"report_title\": \"GDL MDM & Golden Record\", \"numColumns\": 64, \"report_subtitle\": \"Golden records, match rules and decisions, review queue, match quality\", \"dashboard_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-1-widget-9401\"}, {\"col\": 14, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-2-widget-9402\"}, {\"col\": 27, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-3-widget-9403\"}, {\"col\": 40, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-4-widget-9404\"}, {\"col\": 53, \"row\": 1, \"size_x\": 12, \"size_y\": 10, \"id\": \"uri-5-widget-9405\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-9406\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-7-widget-9407\"}, {\"col\": 1, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-8-widget-9408\"}, {\"col\": 33, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-9-widget-9409\"}], \"dashboard_sheets\": [{\"sheet_id\": 1, \"order\": 1, \"sheet_handle_title\": \"Golden records\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-1-widget-9401\"}, {\"col\": 14, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-2-widget-9402\"}, {\"col\": 27, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-3-widget-9403\"}, {\"col\": 40, \"row\": 1, \"size_x\": 13, \"size_y\": 10, \"id\": \"uri-4-widget-9404\"}, {\"col\": 53, \"row\": 1, \"size_x\": 12, \"size_y\": 10, \"id\": \"uri-5-widget-9405\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-9406\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-7-widget-9407\"}, {\"col\": 1, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-8-widget-9408\"}, {\"col\": 33, \"row\": 33, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-9-widget-9409\"}], \"control_widgets\": []}, {\"sheet_id\": 2, \"order\": 2, \"sheet_handle_title\": \"Matching\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-1-widget-9410\"}, {\"col\": 33, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-2-widget-9411\"}, {\"col\": 1, \"row\": 23, \"size_x\": 64, \"size_y\": 18, \"id\": \"uri-3-widget-9412\"}, {\"col\": 1, \"row\": 41, \"size_x\": 64, \"size_y\": 18, \"id\": \"uri-4-widget-9413\"}, {\"col\": 1, \"row\": 59, \"size_x\": 64, \"size_y\": 16, \"id\": \"uri-5-widget-9414\"}], \"control_widgets\": []}], \"user_settings\": {\"dashboard_width\": \"1280\", \"display_filters\": \"true\", \"permit_csv_download_dashboard\": \"true\"}, \"global_control_widgets\": [], \"control_widgets\": [], \"click_behavior\": {}}",
+    "shared_visual_dashboards": "[]",
+    "parent_report": null,
+    "uuid": "e33c80b1-9c3d-5c8b-a6dd-d2b4b2244d18",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": null
+   }
+  }
+ ],
+ "appgroupmembership": [],
+ "reportannotation": [],
+ "events": [],
+ "customcss": [],
+ "reportimage": [],
+ "dateranges": [],
+ "visuals": [
+  {
+   "model": "reports.report",
+   "pk": 9201,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Gross NPA ratio %\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(100 * max([gross_npa_ratio]), 2)\", \"expression_for_trigger\": \"round(100 * max([gross_npa_ratio]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA %\", \"dataset_colname\": \"Gross NPA %\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(100 * max([gross_npa_ratio]), 2) as 'sub:Gross NPA %'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "0e8422cb-1447-5fee-b9a3-f6f849ca5122",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9202,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Gross NPA (lakh)\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA lakh\", \"dataset_colname\": \"Gross NPA lakh\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([gross_npa]) / 100000.0, 2) as 'sub:Gross NPA lakh'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "37227a92-9849-56e2-866f-0adcae22f4da",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9203,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Net NPA (lakh)\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([net_npa]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([net_npa]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Net NPA lakh\", \"dataset_colname\": \"Net NPA lakh\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([net_npa]) / 100000.0, 2) as 'sub:Net NPA lakh'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "d24589e4-30e0-5aaa-afe4-39be7dfcb685",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9204,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Provision coverage %\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(100 * max([provision_coverage]), 2)\", \"expression_for_trigger\": \"round(100 * max([provision_coverage]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"Coverage %\", \"dataset_colname\": \"Coverage %\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(100 * max([provision_coverage]), 2) as 'sub:Coverage %'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "3fb42404-8b23-5ff1-8506-9b830bc1c2f4",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9205,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"NPA loans\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([npa_loans])\", \"expression_for_trigger\": \"sum([npa_loans])\", \"expr_hasagg\": true, \"col_alias\": \"NPA loans\", \"dataset_colname\": \"NPA loans\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([npa_loans]) as 'sub:NPA loans'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "ffd2a612-3eb9-5684-aac6-7ec254853578",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9206,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Gross NPA ratio % by reporting date\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"reporting_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[reporting_date]\", \"col_alias\": \"Reporting date\"}], \"y_shelf\": [{\"custom_expr\": \"round(100 * max([gross_npa_ratio]), 2)\", \"expression_for_trigger\": \"round(100 * max([gross_npa_ratio]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA %\", \"dataset_colname\": \"Gross NPA %\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[reporting_date] as 'sub:Reporting date'\": \"x_shelf\", \"round(100 * max([gross_npa_ratio]), 2) as 'sub:Gross NPA %'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "1804a914-68cf-5382-806e-35b06b1b0d5c",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9207,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9101,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Gross NPA (lakh) by region and asset class\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"region\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[region]\", \"col_alias\": \"Region\"}], \"y_shelf\": [{\"custom_expr\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA lakh\", \"dataset_colname\": \"Gross NPA lakh\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"asset_class\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[asset_class]\", \"col_alias\": \"Asset class\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[asset_class] <> 'STANDARD'\", \"expression_for_trigger\": \"[asset_class] <> 'STANDARD'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[region] as 'sub:Region'\": \"x_shelf\", \"round(sum([gross_npa]) / 100000.0, 2) as 'sub:Gross NPA lakh'\": \"y_shelf\", \"[asset_class] as 'sub:Asset class'\": \"color_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[asset_class] <> 'STANDARD'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a391541f-209b-54c6-b23e-d06e01e272c5",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9208,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9101,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Gross NPA ratio % by product\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"product_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[product_name]\", \"col_alias\": \"Product\"}], \"y_shelf\": [{\"custom_expr\": \"round(100 * sum([gross_npa]) / sum([gross_advances]), 2)\", \"expression_for_trigger\": \"round(100 * sum([gross_npa]) / sum([gross_advances]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA %\", \"dataset_colname\": \"Gross NPA %\", \"dataset_coltype\": \"DOUBLE\", \"order\": {\"priority\": 1, \"ascending\": false}}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[product_name] as 'sub:Product'\": \"x_shelf\", \"round(100 * sum([gross_npa]) / sum([gross_advances]), 2) as 'sub:Gross NPA %'\": \"y_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "3573b623-0f91-5633-8832-8e95e5f88aea",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9209,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / NPA exposure",
+    "dataset": 9101,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"NPA by branch (latest reporting date)\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"region\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[region]\", \"col_alias\": \"Region\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"branch_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[branch_name]\", \"col_alias\": \"Branch\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([loans])\", \"expression_for_trigger\": \"sum([loans])\", \"expr_hasagg\": true, \"col_alias\": \"Loans\", \"dataset_colname\": \"Loans\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([gross_advances]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([gross_advances]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Advances lakh\", \"dataset_colname\": \"Advances lakh\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA lakh\", \"dataset_colname\": \"Gross NPA lakh\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(100 * sum([gross_npa]) / sum([gross_advances]), 2)\", \"expression_for_trigger\": \"round(100 * sum([gross_npa]) / sum([gross_advances]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA %\", \"dataset_colname\": \"Gross NPA %\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([provision_amount]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([provision_amount]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Provision lakh\", \"dataset_colname\": \"Provision lakh\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[region] as 'sub:Region'\": \"dimensions_shelf\", \"[branch_name] as 'sub:Branch'\": \"dimensions_shelf\", \"sum([loans]) as 'sub:Loans'\": \"aggregates_shelf\", \"round(sum([gross_advances]) / 100000.0, 2) as 'sub:Advances lakh'\": \"aggregates_shelf\", \"round(sum([gross_npa]) / 100000.0, 2) as 'sub:Gross NPA lakh'\": \"aggregates_shelf\", \"round(100 * sum([gross_npa]) / sum([gross_advances]), 2) as 'sub:Gross NPA %'\": \"aggregates_shelf\", \"round(sum([provision_amount]) / 100000.0, 2) as 'sub:Provision lakh'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "3e90a1b6-a62d-5521-9a42-acc9f88119b5",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9210,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9102,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"CASA ratio %\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(100 * max([casa_ratio]), 2)\", \"expression_for_trigger\": \"round(100 * max([casa_ratio]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA %\", \"dataset_colname\": \"CASA %\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(100 * max([casa_ratio]), 2) as 'sub:CASA %'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "fff416ca-73f3-5370-82b0-5804ae561ca7",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9211,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9102,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Total deposits (crore)\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([total_deposits]) / 10000000.0, 2)\", \"expression_for_trigger\": \"round(sum([total_deposits]) / 10000000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Deposits crore\", \"dataset_colname\": \"Deposits crore\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([total_deposits]) / 10000000.0, 2) as 'sub:Deposits crore'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "b0b5be7c-6621-5d4a-931f-287460f0c837",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9212,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9102,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"CASA balances (crore)\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([casa_balance]) / 10000000.0, 2)\", \"expression_for_trigger\": \"round(sum([casa_balance]) / 10000000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA crore\", \"dataset_colname\": \"CASA crore\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([casa_balance]) / 10000000.0, 2) as 'sub:CASA crore'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "7eb04d66-d6fc-531a-95dc-b8d3e85aca96",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9213,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9102,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Deposit accounts\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([accounts])\", \"expression_for_trigger\": \"sum([accounts])\", \"expr_hasagg\": true, \"col_alias\": \"Accounts\", \"dataset_colname\": \"Accounts\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([accounts]) as 'sub:Accounts'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "acc1448d-699a-55e8-859a-bd31180f724b",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9214,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9102,
+    "workspace": 1,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"CASA ratio % by reporting date\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"reporting_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[reporting_date]\", \"col_alias\": \"Reporting date\"}], \"y_shelf\": [{\"custom_expr\": \"round(100 * max([casa_ratio]), 2)\", \"expression_for_trigger\": \"round(100 * max([casa_ratio]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA %\", \"dataset_colname\": \"CASA %\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[reporting_date] as 'sub:Reporting date'\": \"x_shelf\", \"round(100 * max([casa_ratio]), 2) as 'sub:CASA %'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "895a55fc-dfed-5803-9730-72c6daa59565",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9215,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9103,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"CASA ratio % by region\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"region\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[region]\", \"col_alias\": \"Region\"}], \"y_shelf\": [{\"custom_expr\": \"round(100 * sum([casa_balance]) / sum([total_deposits]), 2)\", \"expression_for_trigger\": \"round(100 * sum([casa_balance]) / sum([total_deposits]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA %\", \"dataset_colname\": \"CASA %\", \"dataset_coltype\": \"DOUBLE\", \"order\": {\"priority\": 1, \"ascending\": false}}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[region] as 'sub:Region'\": \"x_shelf\", \"round(100 * sum([casa_balance]) / sum([total_deposits]), 2) as 'sub:CASA %'\": \"y_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "d3d3fa43-cd36-5b88-aa07-9b1535f74bc6",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9216,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9103,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Deposits (crore) by customer segment: CASA and term\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"segment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[segment]\", \"col_alias\": \"Segment\"}], \"y_shelf\": [{\"custom_expr\": \"round(sum([casa_balance]) / 10000000.0, 2)\", \"expression_for_trigger\": \"round(sum([casa_balance]) / 10000000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA crore\", \"dataset_colname\": \"CASA crore\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([term_balance]) / 10000000.0, 2)\", \"expression_for_trigger\": \"round(sum([term_balance]) / 10000000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Term crore\", \"dataset_colname\": \"Term crore\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[segment] as 'sub:Segment'\": \"x_shelf\", \"round(sum([casa_balance]) / 10000000.0, 2) as 'sub:CASA crore'\": \"y_shelf\", \"round(sum([term_balance]) / 10000000.0, 2) as 'sub:Term crore'\": \"y_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "c8d461e3-e79c-5522-a5bf-5b9aa1ae9911",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9217,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / CASA ratio",
+    "dataset": 9103,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"CASA ratio by branch (latest reporting date)\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"region\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[region]\", \"col_alias\": \"Region\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"branch_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[branch_name]\", \"col_alias\": \"Branch\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([accounts])\", \"expression_for_trigger\": \"sum([accounts])\", \"expr_hasagg\": true, \"col_alias\": \"Accounts\", \"dataset_colname\": \"Accounts\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([total_deposits]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([total_deposits]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Deposits lakh\", \"dataset_colname\": \"Deposits lakh\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(100 * sum([casa_balance]) / sum([total_deposits]), 2)\", \"expression_for_trigger\": \"round(100 * sum([casa_balance]) / sum([total_deposits]), 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA %\", \"dataset_colname\": \"CASA %\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[region] as 'sub:Region'\": \"dimensions_shelf\", \"[branch_name] as 'sub:Branch'\": \"dimensions_shelf\", \"sum([accounts]) as 'sub:Accounts'\": \"aggregates_shelf\", \"round(sum([total_deposits]) / 100000.0, 2) as 'sub:Deposits lakh'\": \"aggregates_shelf\", \"round(100 * sum([casa_balance]) / sum([total_deposits]), 2) as 'sub:CASA %'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "67b65e12-5ac5-55a4-994e-a43b7f8e9701",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9218,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Customer relationship value",
+    "dataset": 9104,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Customers valued\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([parties])\", \"expression_for_trigger\": \"sum([parties])\", \"expr_hasagg\": true, \"col_alias\": \"Parties\", \"dataset_colname\": \"Parties\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([parties]) as 'sub:Parties'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "b2a84d0f-a9a8-5a95-883a-f57d94598386",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9219,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Customer relationship value",
+    "dataset": 9104,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Total relationship value (lakh a year)\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([crv_total]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([crv_total]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"CRV lakh\", \"dataset_colname\": \"CRV lakh\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([crv_total]) / 100000.0, 2) as 'sub:CRV lakh'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "831acdaf-a070-5a8f-92fc-928d1be396ef",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9220,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Customer relationship value",
+    "dataset": 9104,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Average value per customer\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([crv_total]) / sum([parties]), 0)\", \"expression_for_trigger\": \"round(sum([crv_total]) / sum([parties]), 0)\", \"expr_hasagg\": true, \"col_alias\": \"Average CRV\", \"dataset_colname\": \"Average CRV\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([crv_total]) / sum([parties]), 0) as 'sub:Average CRV'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "ce117c86-f3fd-5045-bc58-5bc158a726c5",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9221,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Customer relationship value",
+    "dataset": 9104,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Relationship value (lakh) by segment and component\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"segment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[segment]\", \"col_alias\": \"Segment\"}], \"y_shelf\": [{\"custom_expr\": \"round(sum([casa_value]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([casa_value]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA\", \"dataset_colname\": \"CASA\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([td_value]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([td_value]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Term\", \"dataset_colname\": \"Term\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([lending_value]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([lending_value]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Lending\", \"dataset_colname\": \"Lending\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([fee_value]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([fee_value]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Fees\", \"dataset_colname\": \"Fees\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[segment] as 'sub:Segment'\": \"x_shelf\", \"round(sum([casa_value]) / 100000.0, 2) as 'sub:CASA'\": \"y_shelf\", \"round(sum([td_value]) / 100000.0, 2) as 'sub:Term'\": \"y_shelf\", \"round(sum([lending_value]) / 100000.0, 2) as 'sub:Lending'\": \"y_shelf\", \"round(sum([fee_value]) / 100000.0, 2) as 'sub:Fees'\": \"y_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "0fed093a-928e-55e3-a83d-07126ee3a7f7",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9222,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Customer relationship value",
+    "dataset": 9104,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Customers by value band\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"value_band\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[value_band]\", \"col_alias\": \"Value band\"}], \"y_shelf\": [{\"custom_expr\": \"sum([parties])\", \"expression_for_trigger\": \"sum([parties])\", \"expr_hasagg\": true, \"col_alias\": \"Parties\", \"dataset_colname\": \"Parties\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"segment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[segment]\", \"col_alias\": \"Segment\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[value_band] as 'sub:Value band'\": \"x_shelf\", \"sum([parties]) as 'sub:Parties'\": \"y_shelf\", \"[segment] as 'sub:Segment'\": \"color_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "b48c384d-d751-5869-bfde-c073e87e0e88",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9223,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Customer relationship value",
+    "dataset": 9105,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"The 25 most valuable relationships\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 25, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"crv_rank\", \"dataset_coltype\": \"BIGINT\", \"expression_for_trigger\": \"[crv_rank]\", \"col_alias\": \"Rank\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"party_id\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[party_id]\", \"col_alias\": \"Party\"}, {\"dataset_colname\": \"full_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[full_name]\", \"col_alias\": \"Name\"}, {\"dataset_colname\": \"segment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[segment]\", \"col_alias\": \"Segment\"}, {\"dataset_colname\": \"home_branch\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[home_branch]\", \"col_alias\": \"Home branch\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([casa_value])\", \"expression_for_trigger\": \"sum([casa_value])\", \"expr_hasagg\": true, \"col_alias\": \"CASA\", \"dataset_colname\": \"CASA\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([td_value])\", \"expression_for_trigger\": \"sum([td_value])\", \"expr_hasagg\": true, \"col_alias\": \"Term\", \"dataset_colname\": \"Term\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([lending_value])\", \"expression_for_trigger\": \"sum([lending_value])\", \"expr_hasagg\": true, \"col_alias\": \"Lending\", \"dataset_colname\": \"Lending\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([fee_value])\", \"expression_for_trigger\": \"sum([fee_value])\", \"expr_hasagg\": true, \"col_alias\": \"Fees\", \"dataset_colname\": \"Fees\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([crv])\", \"expression_for_trigger\": \"sum([crv])\", \"expr_hasagg\": true, \"col_alias\": \"CRV\", \"dataset_colname\": \"CRV\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[crv_rank] as 'sub:Rank'\": \"dimensions_shelf\", \"[party_id] as 'sub:Party'\": \"dimensions_shelf\", \"[full_name] as 'sub:Name'\": \"dimensions_shelf\", \"[segment] as 'sub:Segment'\": \"dimensions_shelf\", \"[home_branch] as 'sub:Home branch'\": \"dimensions_shelf\", \"sum([casa_value]) as 'sub:CASA'\": \"aggregates_shelf\", \"sum([td_value]) as 'sub:Term'\": \"aggregates_shelf\", \"sum([lending_value]) as 'sub:Lending'\": \"aggregates_shelf\", \"sum([fee_value]) as 'sub:Fees'\": \"aggregates_shelf\", \"sum([crv]) as 'sub:CRV'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "bbb86251-1c60-5cea-a93c-07ca2fe08961",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9224,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Trends",
+    "dataset": 9100,
+    "workspace": 1,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Gross and net NPA (lakh) by reporting date\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"reporting_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[reporting_date]\", \"col_alias\": \"Reporting date\"}], \"y_shelf\": [{\"custom_expr\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([gross_npa]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Gross NPA\", \"dataset_colname\": \"Gross NPA\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([net_npa]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([net_npa]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Net NPA\", \"dataset_colname\": \"Net NPA\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[reporting_date] as 'sub:Reporting date'\": \"x_shelf\", \"round(sum([gross_npa]) / 100000.0, 2) as 'sub:Gross NPA'\": \"y_shelf\", \"round(sum([net_npa]) / 100000.0, 2) as 'sub:Net NPA'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "8155c0cf-dc5f-56f3-a5b9-cc3d8cac286e",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9225,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Trends",
+    "dataset": 9102,
+    "workspace": 1,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"CASA and term balances (crore) by reporting date\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"reporting_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[reporting_date]\", \"col_alias\": \"Reporting date\"}], \"y_shelf\": [{\"custom_expr\": \"round(sum([casa_balance]) / 10000000.0, 2)\", \"expression_for_trigger\": \"round(sum([casa_balance]) / 10000000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"CASA\", \"dataset_colname\": \"CASA\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(sum([term_balance]) / 10000000.0, 2)\", \"expression_for_trigger\": \"round(sum([term_balance]) / 10000000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Term\", \"dataset_colname\": \"Term\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[reporting_date] as 'sub:Reporting date'\": \"x_shelf\", \"round(sum([casa_balance]) / 10000000.0, 2) as 'sub:CASA'\": \"y_shelf\", \"round(sum([term_balance]) / 10000000.0, 2) as 'sub:Term'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "db78b0e4-dffe-5842-a7af-bdfdb0dc1221",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9226,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Banking KPIs MIS / Trends",
+    "dataset": 9104,
+    "workspace": 1,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Relationship value (lakh) by reporting date and segment\", \"report_subtitle\": \"\", \"dashboard_id\": 9000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"reporting_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[reporting_date]\", \"col_alias\": \"Reporting date\"}], \"y_shelf\": [{\"custom_expr\": \"round(sum([crv_total]) / 100000.0, 2)\", \"expression_for_trigger\": \"round(sum([crv_total]) / 100000.0, 2)\", \"expr_hasagg\": true, \"col_alias\": \"CRV lakh\", \"dataset_colname\": \"CRV lakh\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"segment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[segment]\", \"col_alias\": \"Segment\"}], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[reporting_date] as 'sub:Reporting date'\": \"x_shelf\", \"round(sum([crv_total]) / 100000.0, 2) as 'sub:CRV lakh'\": \"y_shelf\", \"[segment] as 'sub:Segment'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "f1573c8b-3c7f-59e3-8c02-26cae2e09848",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9301,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Latest batch",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Checks on the latest batch\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Checks\", \"dataset_colname\": \"Checks\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(1) as 'sub:Checks'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "2a3b5d12-0a50-5a80-8142-736d5b141bef",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9302,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Latest batch",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Matched\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([is_matched])\", \"expression_for_trigger\": \"sum([is_matched])\", \"expr_hasagg\": true, \"col_alias\": \"Matched\", \"dataset_colname\": \"Matched\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([is_matched]) as 'sub:Matched'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "8ec00c75-67d4-58c8-9876-38001b985ced",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9303,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Latest batch",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Explained (difference with a known cause)\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([is_explained])\", \"expression_for_trigger\": \"sum([is_explained])\", \"expr_hasagg\": true, \"col_alias\": \"Explained\", \"dataset_colname\": \"Explained\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([is_explained]) as 'sub:Explained'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "81327b6b-06bd-5cbf-bd47-978e2239aa7d",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9304,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Latest batch",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Mismatches\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([is_mismatch])\", \"expression_for_trigger\": \"sum([is_mismatch])\", \"expr_hasagg\": true, \"col_alias\": \"Mismatches\", \"dataset_colname\": \"Mismatches\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([is_mismatch]) as 'sub:Mismatches'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "bd0f08ae-bf07-589e-933d-9ec1f456f94b",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9305,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Latest batch",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Checks by layer\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"layer_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer_label]\", \"col_alias\": \"Layer\"}], \"y_shelf\": [{\"custom_expr\": \"sum([is_matched])\", \"expression_for_trigger\": \"sum([is_matched])\", \"expr_hasagg\": true, \"col_alias\": \"Matched\", \"dataset_colname\": \"Matched\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([is_explained])\", \"expression_for_trigger\": \"sum([is_explained])\", \"expr_hasagg\": true, \"col_alias\": \"Explained\", \"dataset_colname\": \"Explained\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([is_mismatch])\", \"expression_for_trigger\": \"sum([is_mismatch])\", \"expr_hasagg\": true, \"col_alias\": \"Mismatch\", \"dataset_colname\": \"Mismatch\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[layer_label] as 'sub:Layer'\": \"x_shelf\", \"sum([is_matched]) as 'sub:Matched'\": \"y_shelf\", \"sum([is_explained]) as 'sub:Explained'\": \"y_shelf\", \"sum([is_mismatch]) as 'sub:Mismatch'\": \"y_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "f5564df2-b1d8-5d1f-9939-bc30d7618ceb",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9306,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Latest batch",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Explained and mismatched checks, with the reason\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"layer_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer_label]\", \"col_alias\": \"Layer\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"entity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[entity]\", \"col_alias\": \"Entity\"}, {\"dataset_colname\": \"check_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[check_name]\", \"col_alias\": \"Check\"}, {\"dataset_colname\": \"status\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[status]\", \"col_alias\": \"Status\"}, {\"dataset_colname\": \"detail\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[detail]\", \"col_alias\": \"Detail\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([expected])\", \"expression_for_trigger\": \"sum([expected])\", \"expr_hasagg\": true, \"col_alias\": \"Expected\", \"dataset_colname\": \"Expected\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([actual])\", \"expression_for_trigger\": \"sum([actual])\", \"expr_hasagg\": true, \"col_alias\": \"Actual\", \"dataset_colname\": \"Actual\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([difference])\", \"expression_for_trigger\": \"sum([difference])\", \"expr_hasagg\": true, \"col_alias\": \"Difference\", \"dataset_colname\": \"Difference\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[status] <> 'MATCHED'\", \"expression_for_trigger\": \"[status] <> 'MATCHED'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[layer_label] as 'sub:Layer'\": \"dimensions_shelf\", \"[entity] as 'sub:Entity'\": \"dimensions_shelf\", \"[check_name] as 'sub:Check'\": \"dimensions_shelf\", \"[status] as 'sub:Status'\": \"dimensions_shelf\", \"[detail] as 'sub:Detail'\": \"dimensions_shelf\", \"sum([expected]) as 'sub:Expected'\": \"aggregates_shelf\", \"sum([actual]) as 'sub:Actual'\": \"aggregates_shelf\", \"sum([difference]) as 'sub:Difference'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[status] <> 'MATCHED'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a67a7569-c8ca-54e3-949c-e0100d6ea336",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9307,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Latest batch",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"KPI consistency: every consumer against the certified view\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"entity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[entity]\", \"col_alias\": \"KPI\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"check_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[check_name]\", \"col_alias\": \"Consumer\"}, {\"dataset_colname\": \"status\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[status]\", \"col_alias\": \"Status\"}, {\"dataset_colname\": \"detail\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[detail]\", \"col_alias\": \"What\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([expected])\", \"expression_for_trigger\": \"sum([expected])\", \"expr_hasagg\": true, \"col_alias\": \"Certified\", \"dataset_colname\": \"Certified\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([actual])\", \"expression_for_trigger\": \"sum([actual])\", \"expr_hasagg\": true, \"col_alias\": \"Consumer\", \"dataset_colname\": \"Consumer\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([difference])\", \"expression_for_trigger\": \"sum([difference])\", \"expr_hasagg\": true, \"col_alias\": \"Difference\", \"dataset_colname\": \"Difference\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[layer] = 'semantic'\", \"expression_for_trigger\": \"[layer] = 'semantic'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[entity] as 'sub:KPI'\": \"dimensions_shelf\", \"[check_name] as 'sub:Consumer'\": \"dimensions_shelf\", \"[status] as 'sub:Status'\": \"dimensions_shelf\", \"[detail] as 'sub:What'\": \"dimensions_shelf\", \"sum([expected]) as 'sub:Certified'\": \"aggregates_shelf\", \"sum([actual]) as 'sub:Consumer'\": \"aggregates_shelf\", \"sum([difference]) as 'sub:Difference'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[layer] = 'semantic'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "ea5d8431-0ec5-5c87-81f2-cac480df2b91",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9308,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / By business date",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Checks per business date\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\"}], \"y_shelf\": [{\"custom_expr\": \"sum([is_matched])\", \"expression_for_trigger\": \"sum([is_matched])\", \"expr_hasagg\": true, \"col_alias\": \"Matched\", \"dataset_colname\": \"Matched\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([is_explained])\", \"expression_for_trigger\": \"sum([is_explained])\", \"expr_hasagg\": true, \"col_alias\": \"Explained\", \"dataset_colname\": \"Explained\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([is_mismatch])\", \"expression_for_trigger\": \"sum([is_mismatch])\", \"expr_hasagg\": true, \"col_alias\": \"Mismatch\", \"dataset_colname\": \"Mismatch\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"x_shelf\", \"sum([is_matched]) as 'sub:Matched'\": \"y_shelf\", \"sum([is_explained]) as 'sub:Explained'\": \"y_shelf\", \"sum([is_mismatch]) as 'sub:Mismatch'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "5b2e8bf0-5c3a-543f-8478-4143582ce160",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9309,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / By business date",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Mismatches per business date and layer\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\"}], \"y_shelf\": [{\"custom_expr\": \"sum([is_mismatch])\", \"expression_for_trigger\": \"sum([is_mismatch])\", \"expr_hasagg\": true, \"col_alias\": \"Mismatches\", \"dataset_colname\": \"Mismatches\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"layer_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer_label]\", \"col_alias\": \"Layer\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"x_shelf\", \"sum([is_mismatch]) as 'sub:Mismatches'\": \"y_shelf\", \"[layer_label] as 'sub:Layer'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "3c8e13cb-4324-526b-9570-7f3cc01ec768",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9310,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / By business date",
+    "dataset": 9106,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Every mismatch (the planted trailer error and any failed batch)\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\", \"order\": {\"priority\": 1, \"ascending\": false}}, {\"dataset_colname\": \"layer_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer_label]\", \"col_alias\": \"Layer\"}, {\"dataset_colname\": \"entity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[entity]\", \"col_alias\": \"Entity\"}, {\"dataset_colname\": \"check_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[check_name]\", \"col_alias\": \"Check\"}, {\"dataset_colname\": \"detail\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[detail]\", \"col_alias\": \"Detail\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([expected])\", \"expression_for_trigger\": \"sum([expected])\", \"expr_hasagg\": true, \"col_alias\": \"Expected\", \"dataset_colname\": \"Expected\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([actual])\", \"expression_for_trigger\": \"sum([actual])\", \"expr_hasagg\": true, \"col_alias\": \"Actual\", \"dataset_colname\": \"Actual\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([difference])\", \"expression_for_trigger\": \"sum([difference])\", \"expr_hasagg\": true, \"col_alias\": \"Difference\", \"dataset_colname\": \"Difference\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[status] = 'MISMATCH'\", \"expression_for_trigger\": \"[status] = 'MISMATCH'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"dimensions_shelf\", \"[layer_label] as 'sub:Layer'\": \"dimensions_shelf\", \"[entity] as 'sub:Entity'\": \"dimensions_shelf\", \"[check_name] as 'sub:Check'\": \"dimensions_shelf\", \"[detail] as 'sub:Detail'\": \"dimensions_shelf\", \"sum([expected]) as 'sub:Expected'\": \"aggregates_shelf\", \"sum([actual]) as 'sub:Actual'\": \"aggregates_shelf\", \"sum([difference]) as 'sub:Difference'\": \"aggregates_shelf\", \"[status] = 'MISMATCH'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "b0241fbc-7403-5227-bda6-89db267c13b8",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9311,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Load audit",
+    "dataset": 9107,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Failed attempts (all batches)\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([failed])\", \"expression_for_trigger\": \"sum([failed])\", \"expr_hasagg\": true, \"col_alias\": \"Failed\", \"dataset_colname\": \"Failed\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([failed]) as 'sub:Failed'\": \"aggregates_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a4c8dff1-47c9-597f-b9fe-fd175463937f",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9312,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Load audit",
+    "dataset": 9107,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Entities committed on the latest batch\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(case when [status] = 'COMMITTED' then 1 else 0 end)\", \"expression_for_trigger\": \"sum(case when [status] = 'COMMITTED' then 1 else 0 end)\", \"expr_hasagg\": true, \"col_alias\": \"Committed\", \"dataset_colname\": \"Committed\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[is_final] = 1\", \"expression_for_trigger\": \"[is_final] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(case when [status] = 'COMMITTED' then 1 else 0 end) as 'sub:Committed'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[is_final] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "6eb6e4e0-23fb-54da-9447-d585ff01807c",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9313,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Load audit",
+    "dataset": 9107,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Rows rejected to quarantine (latest batch)\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([rows_rejected])\", \"expression_for_trigger\": \"sum([rows_rejected])\", \"expr_hasagg\": true, \"col_alias\": \"Rejected\", \"dataset_colname\": \"Rejected\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[stage] = 'bronze'\", \"expression_for_trigger\": \"[stage] = 'bronze'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[entity] <> '*'\", \"expression_for_trigger\": \"[entity] <> '*'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([rows_rejected]) as 'sub:Rejected'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[stage] = 'bronze'\": \"filters_shelf\", \"[entity] <> '*'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "c9dcb0ab-24ff-5a6f-be19-0320114a2c6c",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9314,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Load audit",
+    "dataset": 9107,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Rows written per business date and stage\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\"}], \"y_shelf\": [{\"custom_expr\": \"sum([rows_out])\", \"expression_for_trigger\": \"sum([rows_out])\", \"expr_hasagg\": true, \"col_alias\": \"Rows\", \"dataset_colname\": \"Rows\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"stage_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[stage_label]\", \"col_alias\": \"Stage\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_final] = 1\", \"expression_for_trigger\": \"[is_final] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[entity] <> '*'\", \"expression_for_trigger\": \"[entity] <> '*'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"x_shelf\", \"sum([rows_out]) as 'sub:Rows'\": \"y_shelf\", \"[stage_label] as 'sub:Stage'\": \"color_shelf\", \"[is_final] = 1\": \"filters_shelf\", \"[entity] <> '*'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "b5315f47-5133-5fb3-82a0-d468f826f834",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9315,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Load audit",
+    "dataset": 9107,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Bronze rows rejected per entity (all batches)\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"entity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[entity]\", \"col_alias\": \"Entity\"}], \"y_shelf\": [{\"custom_expr\": \"sum([rows_rejected])\", \"expression_for_trigger\": \"sum([rows_rejected])\", \"expr_hasagg\": true, \"col_alias\": \"Rejected\", \"dataset_colname\": \"Rejected\", \"dataset_coltype\": \"DOUBLE\", \"order\": {\"priority\": 1, \"ascending\": false}}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[stage] = 'bronze'\", \"expression_for_trigger\": \"[stage] = 'bronze'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[entity] <> '*'\", \"expression_for_trigger\": \"[entity] <> '*'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[is_final] = 1\", \"expression_for_trigger\": \"[is_final] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[entity] as 'sub:Entity'\": \"x_shelf\", \"sum([rows_rejected]) as 'sub:Rejected'\": \"y_shelf\", \"[stage] = 'bronze'\": \"filters_shelf\", \"[entity] <> '*'\": \"filters_shelf\", \"[is_final] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "14b731b6-44c8-5fc1-9172-f26d316e6634",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9316,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Load audit",
+    "dataset": 9107,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"The failed-batch trail: every failed attempt and its error\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\"}, {\"dataset_colname\": \"stage_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[stage_label]\", \"col_alias\": \"Stage\"}, {\"dataset_colname\": \"entity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[entity]\", \"col_alias\": \"Entity\"}, {\"dataset_colname\": \"logged_at\", \"dataset_coltype\": \"TIMESTAMP\", \"expression_for_trigger\": \"[logged_at]\", \"col_alias\": \"Logged at\", \"order\": {\"priority\": 1, \"ascending\": false}}, {\"dataset_colname\": \"message\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[message]\", \"col_alias\": \"Error\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([rows_out])\", \"expression_for_trigger\": \"sum([rows_out])\", \"expr_hasagg\": true, \"col_alias\": \"Rows\", \"dataset_colname\": \"Rows\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[status] = 'FAILED'\", \"expression_for_trigger\": \"[status] = 'FAILED'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"dimensions_shelf\", \"[stage_label] as 'sub:Stage'\": \"dimensions_shelf\", \"[entity] as 'sub:Entity'\": \"dimensions_shelf\", \"[logged_at] as 'sub:Logged at'\": \"dimensions_shelf\", \"[message] as 'sub:Error'\": \"dimensions_shelf\", \"sum([rows_out]) as 'sub:Rows'\": \"aggregates_shelf\", \"[status] = 'FAILED'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "cf66a349-4714-528e-b6c7-c2e113949769",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9317,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL Reconciliation & Data Quality / Load audit",
+    "dataset": 9107,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Stage results of the latest batch\", \"report_subtitle\": \"\", \"dashboard_id\": 9001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"stage_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[stage_label]\", \"col_alias\": \"Stage\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"entity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[entity]\", \"col_alias\": \"Entity\"}, {\"dataset_colname\": \"status\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[status]\", \"col_alias\": \"Status\"}, {\"dataset_colname\": \"logged_at\", \"dataset_coltype\": \"TIMESTAMP\", \"expression_for_trigger\": \"[logged_at]\", \"col_alias\": \"Logged at\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([rows_in])\", \"expression_for_trigger\": \"sum([rows_in])\", \"expr_hasagg\": true, \"col_alias\": \"Rows in\", \"dataset_colname\": \"Rows in\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([rows_out])\", \"expression_for_trigger\": \"sum([rows_out])\", \"expr_hasagg\": true, \"col_alias\": \"Rows out\", \"dataset_colname\": \"Rows out\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([rows_rejected])\", \"expression_for_trigger\": \"sum([rows_rejected])\", \"expr_hasagg\": true, \"col_alias\": \"Rejected\", \"dataset_colname\": \"Rejected\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[is_final] = 1\", \"expression_for_trigger\": \"[is_final] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[stage_label] as 'sub:Stage'\": \"dimensions_shelf\", \"[entity] as 'sub:Entity'\": \"dimensions_shelf\", \"[status] as 'sub:Status'\": \"dimensions_shelf\", \"[logged_at] as 'sub:Logged at'\": \"dimensions_shelf\", \"sum([rows_in]) as 'sub:Rows in'\": \"aggregates_shelf\", \"sum([rows_out]) as 'sub:Rows out'\": \"aggregates_shelf\", \"sum([rows_rejected]) as 'sub:Rejected'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[is_final] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "e0ba7479-8241-5ebc-91f2-d13e202f38be",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9401,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9111,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Golden parties\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Parties\", \"dataset_colname\": \"Parties\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(1) as 'sub:Parties'\": \"aggregates_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "5b74a724-b2d4-5e50-a9f5-935cc8f8685c",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9402,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9111,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Parties merged from 2+ records\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([is_merged])\", \"expression_for_trigger\": \"sum([is_merged])\", \"expr_hasagg\": true, \"col_alias\": \"Merged\", \"dataset_colname\": \"Merged\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([is_merged]) as 'sub:Merged'\": \"aggregates_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "4f09692a-5aaf-5561-b5c8-6313d37899f1",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9403,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9110,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Active source records\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([is_active])\", \"expression_for_trigger\": \"sum([is_active])\", \"expr_hasagg\": true, \"col_alias\": \"Records\", \"dataset_colname\": \"Records\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([is_active]) as 'sub:Records'\": \"aggregates_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a46093a5-8ac9-56e5-91ee-f6d097dac66f",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9404,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9108,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Match precision (vs generator truth)\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"max([match_precision])\", \"expression_for_trigger\": \"max([match_precision])\", \"expr_hasagg\": true, \"col_alias\": \"Precision\", \"dataset_colname\": \"Precision\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"max([match_precision]) as 'sub:Precision'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "fd9b61a2-30b4-5288-8179-60d4ec0e0694",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9405,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9108,
+    "workspace": 1,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Match recall (vs generator truth)\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"max([match_recall])\", \"expression_for_trigger\": \"max([match_recall])\", \"expr_hasagg\": true, \"col_alias\": \"Recall\", \"dataset_colname\": \"Recall\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"max([match_recall]) as 'sub:Recall'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "950ea0b4-0559-512a-9e01-1b8abd13defe",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9406,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9110,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Source records by resolving rule and system\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"match_rule\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[match_rule]\", \"col_alias\": \"Rule\"}], \"y_shelf\": [{\"custom_expr\": \"sum([is_active])\", \"expression_for_trigger\": \"sum([is_active])\", \"expr_hasagg\": true, \"col_alias\": \"Records\", \"dataset_colname\": \"Records\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"src_system\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[src_system]\", \"col_alias\": \"Source\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[match_rule] as 'sub:Rule'\": \"x_shelf\", \"sum([is_active]) as 'sub:Records'\": \"y_shelf\", \"[src_system] as 'sub:Source'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "f778c6ee-77e1-5d06-bc84-2f80c2f4b468",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9407,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9111,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Golden parties by segment and KYC status\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"segment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[segment]\", \"col_alias\": \"Segment\"}], \"y_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Parties\", \"dataset_colname\": \"Parties\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"kyc_status\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[kyc_status]\", \"col_alias\": \"KYC\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[segment] as 'sub:Segment'\": \"x_shelf\", \"sum(1) as 'sub:Parties'\": \"y_shelf\", \"[kyc_status] as 'sub:KYC'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "992277c6-7f0c-5dbd-acf4-d11216e8829a",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9408,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9111,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Golden parties by number of source records\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"member_records\", \"dataset_coltype\": \"BIGINT\", \"expression_for_trigger\": \"[member_records]\", \"col_alias\": \"Source records\"}], \"y_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Parties\", \"dataset_colname\": \"Parties\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[member_records] as 'sub:Source records'\": \"x_shelf\", \"sum(1) as 'sub:Parties'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "858f91db-153d-5513-9f50-4ece20dc36b5",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9409,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Golden records",
+    "dataset": 9111,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Parties with conflicting PANs across sources\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"party_id\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[party_id]\", \"col_alias\": \"Party\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"full_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[full_name]\", \"col_alias\": \"Name\"}, {\"dataset_colname\": \"segment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[segment]\", \"col_alias\": \"Segment\"}, {\"dataset_colname\": \"home_branch\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[home_branch]\", \"col_alias\": \"Branch\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([member_records])\", \"expression_for_trigger\": \"sum([member_records])\", \"expr_hasagg\": true, \"col_alias\": \"Records\", \"dataset_colname\": \"Records\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[has_pan_conflict] = 1\", \"expression_for_trigger\": \"[has_pan_conflict] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[party_id] as 'sub:Party'\": \"dimensions_shelf\", \"[full_name] as 'sub:Name'\": \"dimensions_shelf\", \"[segment] as 'sub:Segment'\": \"dimensions_shelf\", \"[home_branch] as 'sub:Branch'\": \"dimensions_shelf\", \"sum([member_records]) as 'sub:Records'\": \"aggregates_shelf\", \"[has_pan_conflict] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "cf881e23-3eb3-58d5-aa5d-ee4e9a1f661f",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9410,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Matching",
+    "dataset": 9109,
+    "workspace": 1,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Candidate pairs by rule and decision\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"rule\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[rule]\", \"col_alias\": \"Rule\"}], \"y_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Pairs\", \"dataset_colname\": \"Pairs\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"decision\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[decision]\", \"col_alias\": \"Decision\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[rule] as 'sub:Rule'\": \"x_shelf\", \"sum(1) as 'sub:Pairs'\": \"y_shelf\", \"[decision] as 'sub:Decision'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "ee8e4234-2919-5121-8538-fa32fa61ed0a",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9411,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Matching",
+    "dataset": 9108,
+    "workspace": 1,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Precision and recall per batch\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\"}], \"y_shelf\": [{\"custom_expr\": \"max([match_precision])\", \"expression_for_trigger\": \"max([match_precision])\", \"expr_hasagg\": true, \"col_alias\": \"Precision\", \"dataset_colname\": \"Precision\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([match_recall])\", \"expression_for_trigger\": \"max([match_recall])\", \"expr_hasagg\": true, \"col_alias\": \"Recall\", \"dataset_colname\": \"Recall\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"x_shelf\", \"max([match_precision]) as 'sub:Precision'\": \"y_shelf\", \"max([match_recall]) as 'sub:Recall'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "853f1891-5d11-53fe-9b9e-a9d4c232d025",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9412,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Matching",
+    "dataset": 9109,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Review queue: similar name and DOB, kept apart\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"id_a\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[id_a]\", \"col_alias\": \"Record A\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"name_a\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[name_a]\", \"col_alias\": \"Name A\"}, {\"dataset_colname\": \"id_b\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[id_b]\", \"col_alias\": \"Record B\"}, {\"dataset_colname\": \"name_b\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[name_b]\", \"col_alias\": \"Name B\"}, {\"dataset_colname\": \"rule\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[rule]\", \"col_alias\": \"Rule\"}], \"aggregates_shelf\": [{\"custom_expr\": \"max([score])\", \"expression_for_trigger\": \"max([score])\", \"expr_hasagg\": true, \"col_alias\": \"Score\", \"dataset_colname\": \"Score\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([name_similarity])\", \"expression_for_trigger\": \"max([name_similarity])\", \"expr_hasagg\": true, \"col_alias\": \"Name similarity\", \"dataset_colname\": \"Name similarity\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[for_review] = 1\", \"expression_for_trigger\": \"[for_review] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[id_a] as 'sub:Record A'\": \"dimensions_shelf\", \"[name_a] as 'sub:Name A'\": \"dimensions_shelf\", \"[id_b] as 'sub:Record B'\": \"dimensions_shelf\", \"[name_b] as 'sub:Name B'\": \"dimensions_shelf\", \"[rule] as 'sub:Rule'\": \"dimensions_shelf\", \"max([score]) as 'sub:Score'\": \"aggregates_shelf\", \"max([name_similarity]) as 'sub:Name similarity'\": \"aggregates_shelf\", \"[for_review] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a1565457-1c80-5608-9630-f3dccc4f48ed",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9413,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Matching",
+    "dataset": 9109,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Same person, different PANs: not merged\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"id_a\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[id_a]\", \"col_alias\": \"Record A\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"name_a\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[name_a]\", \"col_alias\": \"Name A\"}, {\"dataset_colname\": \"id_b\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[id_b]\", \"col_alias\": \"Record B\"}, {\"dataset_colname\": \"name_b\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[name_b]\", \"col_alias\": \"Name B\"}], \"aggregates_shelf\": [{\"custom_expr\": \"max([name_similarity])\", \"expression_for_trigger\": \"max([name_similarity])\", \"expr_hasagg\": true, \"col_alias\": \"Name similarity\", \"dataset_colname\": \"Name similarity\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([same_dob])\", \"expression_for_trigger\": \"sum([same_dob])\", \"expr_hasagg\": true, \"col_alias\": \"Same DOB\", \"dataset_colname\": \"Same DOB\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([same_mobile])\", \"expression_for_trigger\": \"sum([same_mobile])\", \"expr_hasagg\": true, \"col_alias\": \"Same mobile\", \"dataset_colname\": \"Same mobile\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[rule] = 'PAN_CONFLICT'\", \"expression_for_trigger\": \"[rule] = 'PAN_CONFLICT'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[id_a] as 'sub:Record A'\": \"dimensions_shelf\", \"[name_a] as 'sub:Name A'\": \"dimensions_shelf\", \"[id_b] as 'sub:Record B'\": \"dimensions_shelf\", \"[name_b] as 'sub:Name B'\": \"dimensions_shelf\", \"max([name_similarity]) as 'sub:Name similarity'\": \"aggregates_shelf\", \"sum([same_dob]) as 'sub:Same DOB'\": \"aggregates_shelf\", \"sum([same_mobile]) as 'sub:Same mobile'\": \"aggregates_shelf\", \"[rule] = 'PAN_CONFLICT'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a340180c-1ba6-5eb7-854b-2c1400780f16",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 9414,
+   "fields": {
+    "report_name": "",
+    "report_description": "GDL MDM & Golden Record / Matching",
+    "dataset": 9108,
+    "workspace": 1,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Match quality per batch\", \"report_subtitle\": \"\", \"dashboard_id\": 9002, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"business_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[business_date]\", \"col_alias\": \"Business date\", \"order\": {\"priority\": 1, \"ascending\": true}}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([source_records])\", \"expression_for_trigger\": \"sum([source_records])\", \"expr_hasagg\": true, \"col_alias\": \"Source records\", \"dataset_colname\": \"Source records\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([parties])\", \"expression_for_trigger\": \"sum([parties])\", \"expr_hasagg\": true, \"col_alias\": \"Parties\", \"dataset_colname\": \"Parties\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([true_pairs])\", \"expression_for_trigger\": \"sum([true_pairs])\", \"expr_hasagg\": true, \"col_alias\": \"True pairs\", \"dataset_colname\": \"True pairs\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([predicted_pairs])\", \"expression_for_trigger\": \"sum([predicted_pairs])\", \"expr_hasagg\": true, \"col_alias\": \"Predicted pairs\", \"dataset_colname\": \"Predicted pairs\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([correct_pairs])\", \"expression_for_trigger\": \"sum([correct_pairs])\", \"expr_hasagg\": true, \"col_alias\": \"Correct\", \"dataset_colname\": \"Correct\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([match_precision])\", \"expression_for_trigger\": \"max([match_precision])\", \"expr_hasagg\": true, \"col_alias\": \"Precision\", \"dataset_colname\": \"Precision\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([match_recall])\", \"expression_for_trigger\": \"max([match_recall])\", \"expr_hasagg\": true, \"col_alias\": \"Recall\", \"dataset_colname\": \"Recall\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([split_persons])\", \"expression_for_trigger\": \"sum([split_persons])\", \"expr_hasagg\": true, \"col_alias\": \"Split persons\", \"dataset_colname\": \"Split persons\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([merged_persons])\", \"expression_for_trigger\": \"sum([merged_persons])\", \"expr_hasagg\": true, \"col_alias\": \"Merged persons\", \"dataset_colname\": \"Merged persons\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[business_date] as 'sub:Business date'\": \"dimensions_shelf\", \"sum([source_records]) as 'sub:Source records'\": \"aggregates_shelf\", \"sum([parties]) as 'sub:Parties'\": \"aggregates_shelf\", \"sum([true_pairs]) as 'sub:True pairs'\": \"aggregates_shelf\", \"sum([predicted_pairs]) as 'sub:Predicted pairs'\": \"aggregates_shelf\", \"sum([correct_pairs]) as 'sub:Correct'\": \"aggregates_shelf\", \"max([match_precision]) as 'sub:Precision'\": \"aggregates_shelf\", \"max([match_recall]) as 'sub:Recall'\": \"aggregates_shelf\", \"sum([split_persons]) as 'sub:Split persons'\": \"aggregates_shelf\", \"sum([merged_persons]) as 'sub:Merged persons'\": \"aggregates_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "518a00a4-4527-5e0d-b809-61d9c268e220",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  }
+ ],
+ "colorpalette": [],
+ "appgroups": [],
+ "datasets": [
+  {
+   "model": "datasets.dataset",
+   "pk": 9100,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - NPA trend",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.mis_npa_trend",
+    "dataset_description": "rsingh_gdl_semantic.mis_npa_trend (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.mis_npa_trend\", \"columns\": [{\"alias\": \"reporting_date\", \"type\": \"DATE\", \"name\": \"reporting_date\", \"isdim\": true}, {\"alias\": \"loans\", \"type\": \"BIGINT\", \"name\": \"loans\", \"isdim\": false}, {\"alias\": \"npa_loans\", \"type\": \"BIGINT\", \"name\": \"npa_loans\", \"isdim\": false}, {\"alias\": \"gross_advances\", \"type\": \"DECIMAL(38,2)\", \"name\": \"gross_advances\", \"isdim\": false}, {\"alias\": \"gross_npa\", \"type\": \"DECIMAL(38,2)\", \"name\": \"gross_npa\", \"isdim\": false}, {\"alias\": \"gross_npa_ratio\", \"type\": \"DOUBLE\", \"name\": \"gross_npa_ratio\", \"isdim\": false}, {\"alias\": \"npa_provision\", \"type\": \"DECIMAL(38,2)\", \"name\": \"npa_provision\", \"isdim\": false}, {\"alias\": \"net_npa\", \"type\": \"DECIMAL(38,2)\", \"name\": \"net_npa\", \"isdim\": false}, {\"alias\": \"total_provision\", \"type\": \"DECIMAL(38,2)\", \"name\": \"total_provision\", \"isdim\": false}, {\"alias\": \"provision_coverage\", \"type\": \"DOUBLE\", \"name\": \"provision_coverage\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.mis_npa_trend\"]",
+    "uuid": "1941f140-d02a-582b-8aca-23679ea9964f",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9000
+    ],
+    "version_id": 9100,
+    "version_group_id": 9100,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9101,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - NPA breakdown",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.mis_npa_breakdown",
+    "dataset_description": "rsingh_gdl_semantic.mis_npa_breakdown (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.mis_npa_breakdown\", \"columns\": [{\"alias\": \"reporting_date\", \"type\": \"DATE\", \"name\": \"reporting_date\", \"isdim\": true}, {\"alias\": \"region\", \"type\": \"STRING\", \"name\": \"region\", \"isdim\": true}, {\"alias\": \"branch_code\", \"type\": \"STRING\", \"name\": \"branch_code\", \"isdim\": true}, {\"alias\": \"branch_name\", \"type\": \"STRING\", \"name\": \"branch_name\", \"isdim\": true}, {\"alias\": \"product_code\", \"type\": \"STRING\", \"name\": \"product_code\", \"isdim\": true}, {\"alias\": \"product_name\", \"type\": \"STRING\", \"name\": \"product_name\", \"isdim\": true}, {\"alias\": \"asset_class\", \"type\": \"STRING\", \"name\": \"asset_class\", \"isdim\": true}, {\"alias\": \"loans\", \"type\": \"BIGINT\", \"name\": \"loans\", \"isdim\": false}, {\"alias\": \"gross_advances\", \"type\": \"DECIMAL(38,2)\", \"name\": \"gross_advances\", \"isdim\": false}, {\"alias\": \"gross_npa\", \"type\": \"DECIMAL(38,2)\", \"name\": \"gross_npa\", \"isdim\": false}, {\"alias\": \"provision_amount\", \"type\": \"DECIMAL(38,2)\", \"name\": \"provision_amount\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.mis_npa_breakdown\"]",
+    "uuid": "00997e61-8f14-5f0e-adda-61bdb4dac211",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9000
+    ],
+    "version_id": 9101,
+    "version_group_id": 9101,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9102,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - CASA trend",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.mis_casa_trend",
+    "dataset_description": "rsingh_gdl_semantic.mis_casa_trend (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.mis_casa_trend\", \"columns\": [{\"alias\": \"reporting_date\", \"type\": \"DATE\", \"name\": \"reporting_date\", \"isdim\": true}, {\"alias\": \"accounts\", \"type\": \"BIGINT\", \"name\": \"accounts\", \"isdim\": false}, {\"alias\": \"casa_balance\", \"type\": \"DECIMAL(38,2)\", \"name\": \"casa_balance\", \"isdim\": false}, {\"alias\": \"term_balance\", \"type\": \"DECIMAL(38,2)\", \"name\": \"term_balance\", \"isdim\": false}, {\"alias\": \"total_deposits\", \"type\": \"DECIMAL(38,2)\", \"name\": \"total_deposits\", \"isdim\": false}, {\"alias\": \"casa_ratio\", \"type\": \"DOUBLE\", \"name\": \"casa_ratio\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.mis_casa_trend\"]",
+    "uuid": "ccd29a00-6148-58c3-8a2b-0dd2e227ef03",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9000
+    ],
+    "version_id": 9102,
+    "version_group_id": 9102,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9103,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - CASA breakdown",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.mis_casa_breakdown",
+    "dataset_description": "rsingh_gdl_semantic.mis_casa_breakdown (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.mis_casa_breakdown\", \"columns\": [{\"alias\": \"reporting_date\", \"type\": \"DATE\", \"name\": \"reporting_date\", \"isdim\": true}, {\"alias\": \"region\", \"type\": \"STRING\", \"name\": \"region\", \"isdim\": true}, {\"alias\": \"branch_code\", \"type\": \"STRING\", \"name\": \"branch_code\", \"isdim\": true}, {\"alias\": \"branch_name\", \"type\": \"STRING\", \"name\": \"branch_name\", \"isdim\": true}, {\"alias\": \"segment\", \"type\": \"STRING\", \"name\": \"segment\", \"isdim\": true}, {\"alias\": \"accounts\", \"type\": \"BIGINT\", \"name\": \"accounts\", \"isdim\": false}, {\"alias\": \"casa_balance\", \"type\": \"DECIMAL(38,2)\", \"name\": \"casa_balance\", \"isdim\": false}, {\"alias\": \"term_balance\", \"type\": \"DECIMAL(38,2)\", \"name\": \"term_balance\", \"isdim\": false}, {\"alias\": \"total_deposits\", \"type\": \"DECIMAL(38,2)\", \"name\": \"total_deposits\", \"isdim\": false}, {\"alias\": \"casa_ratio\", \"type\": \"DOUBLE\", \"name\": \"casa_ratio\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.mis_casa_breakdown\"]",
+    "uuid": "c91c8e9d-c68c-5def-bfd2-80fa22763b50",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9000
+    ],
+    "version_id": 9103,
+    "version_group_id": 9103,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9104,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - CRV by segment",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.mis_crv_segment",
+    "dataset_description": "rsingh_gdl_semantic.mis_crv_segment (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.mis_crv_segment\", \"columns\": [{\"alias\": \"reporting_date\", \"type\": \"DATE\", \"name\": \"reporting_date\", \"isdim\": true}, {\"alias\": \"segment\", \"type\": \"STRING\", \"name\": \"segment\", \"isdim\": true}, {\"alias\": \"home_branch\", \"type\": \"STRING\", \"name\": \"home_branch\", \"isdim\": true}, {\"alias\": \"value_band\", \"type\": \"STRING\", \"name\": \"value_band\", \"isdim\": true}, {\"alias\": \"parties\", \"type\": \"BIGINT\", \"name\": \"parties\", \"isdim\": false}, {\"alias\": \"casa_value\", \"type\": \"DECIMAL(38,2)\", \"name\": \"casa_value\", \"isdim\": false}, {\"alias\": \"td_value\", \"type\": \"DECIMAL(38,2)\", \"name\": \"td_value\", \"isdim\": false}, {\"alias\": \"lending_value\", \"type\": \"DECIMAL(38,2)\", \"name\": \"lending_value\", \"isdim\": false}, {\"alias\": \"fee_value\", \"type\": \"DECIMAL(38,2)\", \"name\": \"fee_value\", \"isdim\": false}, {\"alias\": \"crv_total\", \"type\": \"DECIMAL(38,2)\", \"name\": \"crv_total\", \"isdim\": false}, {\"alias\": \"crv_average\", \"type\": \"DECIMAL(22,6)\", \"name\": \"crv_average\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.mis_crv_segment\"]",
+    "uuid": "1cd436af-bf14-5665-9ef5-b5c3d6b94d0d",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9000
+    ],
+    "version_id": 9104,
+    "version_group_id": 9104,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9105,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - CRV top relationships",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.mis_crv_top_relationships",
+    "dataset_description": "rsingh_gdl_semantic.mis_crv_top_relationships (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.mis_crv_top_relationships\", \"columns\": [{\"alias\": \"reporting_date\", \"type\": \"DATE\", \"name\": \"reporting_date\", \"isdim\": true}, {\"alias\": \"crv_rank\", \"type\": \"BIGINT\", \"name\": \"crv_rank\", \"isdim\": true}, {\"alias\": \"party_id\", \"type\": \"STRING\", \"name\": \"party_id\", \"isdim\": true}, {\"alias\": \"full_name\", \"type\": \"STRING\", \"name\": \"full_name\", \"isdim\": true}, {\"alias\": \"segment\", \"type\": \"STRING\", \"name\": \"segment\", \"isdim\": true}, {\"alias\": \"home_branch\", \"type\": \"STRING\", \"name\": \"home_branch\", \"isdim\": true}, {\"alias\": \"casa_value\", \"type\": \"DECIMAL(18,2)\", \"name\": \"casa_value\", \"isdim\": false}, {\"alias\": \"td_value\", \"type\": \"DECIMAL(18,2)\", \"name\": \"td_value\", \"isdim\": false}, {\"alias\": \"lending_value\", \"type\": \"DECIMAL(18,2)\", \"name\": \"lending_value\", \"isdim\": false}, {\"alias\": \"fee_value\", \"type\": \"DECIMAL(18,2)\", \"name\": \"fee_value\", \"isdim\": false}, {\"alias\": \"crv\", \"type\": \"DECIMAL(18,2)\", \"name\": \"crv\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.mis_crv_top_relationships\"]",
+    "uuid": "aa4655a1-d70e-5187-a9fa-fad1c22e6498",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9000
+    ],
+    "version_id": 9105,
+    "version_group_id": 9105,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9106,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - Reconciliation",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.dash_recon",
+    "dataset_description": "rsingh_gdl_semantic.dash_recon (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.dash_recon\", \"columns\": [{\"alias\": \"business_date\", \"type\": \"DATE\", \"name\": \"business_date\", \"isdim\": true}, {\"alias\": \"batch_id\", \"type\": \"STRING\", \"name\": \"batch_id\", \"isdim\": true}, {\"alias\": \"layer\", \"type\": \"STRING\", \"name\": \"layer\", \"isdim\": true}, {\"alias\": \"layer_label\", \"type\": \"STRING\", \"name\": \"layer_label\", \"isdim\": true}, {\"alias\": \"entity\", \"type\": \"STRING\", \"name\": \"entity\", \"isdim\": true}, {\"alias\": \"check_name\", \"type\": \"STRING\", \"name\": \"check_name\", \"isdim\": true}, {\"alias\": \"expected\", \"type\": \"DOUBLE\", \"name\": \"expected\", \"isdim\": false}, {\"alias\": \"actual\", \"type\": \"DOUBLE\", \"name\": \"actual\", \"isdim\": false}, {\"alias\": \"difference\", \"type\": \"DOUBLE\", \"name\": \"difference\", \"isdim\": false}, {\"alias\": \"status\", \"type\": \"STRING\", \"name\": \"status\", \"isdim\": true}, {\"alias\": \"detail\", \"type\": \"STRING\", \"name\": \"detail\", \"isdim\": true}, {\"alias\": \"is_matched\", \"type\": \"TINYINT\", \"name\": \"is_matched\", \"isdim\": false}, {\"alias\": \"is_explained\", \"type\": \"TINYINT\", \"name\": \"is_explained\", \"isdim\": false}, {\"alias\": \"is_mismatch\", \"type\": \"TINYINT\", \"name\": \"is_mismatch\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.dash_recon\"]",
+    "uuid": "f27f596a-6a82-500c-a024-b86253fda372",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9001
+    ],
+    "version_id": 9106,
+    "version_group_id": 9106,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9107,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - Load audit",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.dash_load_audit",
+    "dataset_description": "rsingh_gdl_semantic.dash_load_audit (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.dash_load_audit\", \"columns\": [{\"alias\": \"business_date\", \"type\": \"DATE\", \"name\": \"business_date\", \"isdim\": true}, {\"alias\": \"batch_id\", \"type\": \"STRING\", \"name\": \"batch_id\", \"isdim\": true}, {\"alias\": \"pipeline_run\", \"type\": \"STRING\", \"name\": \"pipeline_run\", \"isdim\": true}, {\"alias\": \"stage\", \"type\": \"STRING\", \"name\": \"stage\", \"isdim\": true}, {\"alias\": \"stage_label\", \"type\": \"STRING\", \"name\": \"stage_label\", \"isdim\": true}, {\"alias\": \"entity\", \"type\": \"STRING\", \"name\": \"entity\", \"isdim\": true}, {\"alias\": \"status\", \"type\": \"STRING\", \"name\": \"status\", \"isdim\": true}, {\"alias\": \"rows_in\", \"type\": \"BIGINT\", \"name\": \"rows_in\", \"isdim\": false}, {\"alias\": \"rows_out\", \"type\": \"BIGINT\", \"name\": \"rows_out\", \"isdim\": false}, {\"alias\": \"rows_rejected\", \"type\": \"BIGINT\", \"name\": \"rows_rejected\", \"isdim\": false}, {\"alias\": \"logged_at\", \"type\": \"TIMESTAMP\", \"name\": \"logged_at\", \"isdim\": true}, {\"alias\": \"message\", \"type\": \"STRING\", \"name\": \"message\", \"isdim\": true}, {\"alias\": \"is_final\", \"type\": \"TINYINT\", \"name\": \"is_final\", \"isdim\": true}, {\"alias\": \"failed\", \"type\": \"TINYINT\", \"name\": \"failed\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.dash_load_audit\"]",
+    "uuid": "889e0fdd-06a3-5d37-8509-385162571fe8",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9001
+    ],
+    "version_id": 9107,
+    "version_group_id": 9107,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9108,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - Match quality",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.dash_match_quality",
+    "dataset_description": "rsingh_gdl_semantic.dash_match_quality (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.dash_match_quality\", \"columns\": [{\"alias\": \"business_date\", \"type\": \"DATE\", \"name\": \"business_date\", \"isdim\": true}, {\"alias\": \"batch_id\", \"type\": \"STRING\", \"name\": \"batch_id\", \"isdim\": true}, {\"alias\": \"source_records\", \"type\": \"BIGINT\", \"name\": \"source_records\", \"isdim\": false}, {\"alias\": \"parties\", \"type\": \"BIGINT\", \"name\": \"parties\", \"isdim\": false}, {\"alias\": \"true_pairs\", \"type\": \"BIGINT\", \"name\": \"true_pairs\", \"isdim\": false}, {\"alias\": \"predicted_pairs\", \"type\": \"BIGINT\", \"name\": \"predicted_pairs\", \"isdim\": false}, {\"alias\": \"correct_pairs\", \"type\": \"BIGINT\", \"name\": \"correct_pairs\", \"isdim\": false}, {\"alias\": \"match_precision\", \"type\": \"DOUBLE\", \"name\": \"match_precision\", \"isdim\": false}, {\"alias\": \"match_recall\", \"type\": \"DOUBLE\", \"name\": \"match_recall\", \"isdim\": false}, {\"alias\": \"split_persons\", \"type\": \"BIGINT\", \"name\": \"split_persons\", \"isdim\": false}, {\"alias\": \"merged_persons\", \"type\": \"BIGINT\", \"name\": \"merged_persons\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.dash_match_quality\"]",
+    "uuid": "4d53ef23-58e3-519d-918c-4c0af61edb5c",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9002
+    ],
+    "version_id": 9108,
+    "version_group_id": 9108,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9109,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - Match pairs",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.dash_match_pair",
+    "dataset_description": "rsingh_gdl_semantic.dash_match_pair (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.dash_match_pair\", \"columns\": [{\"alias\": \"batch_id\", \"type\": \"STRING\", \"name\": \"batch_id\", \"isdim\": true}, {\"alias\": \"rule\", \"type\": \"STRING\", \"name\": \"rule\", \"isdim\": true}, {\"alias\": \"decision\", \"type\": \"STRING\", \"name\": \"decision\", \"isdim\": true}, {\"alias\": \"score\", \"type\": \"DOUBLE\", \"name\": \"score\", \"isdim\": false}, {\"alias\": \"name_similarity\", \"type\": \"DOUBLE\", \"name\": \"name_similarity\", \"isdim\": false}, {\"alias\": \"same_pan\", \"type\": \"TINYINT\", \"name\": \"same_pan\", \"isdim\": false}, {\"alias\": \"same_mobile\", \"type\": \"TINYINT\", \"name\": \"same_mobile\", \"isdim\": false}, {\"alias\": \"same_dob\", \"type\": \"TINYINT\", \"name\": \"same_dob\", \"isdim\": false}, {\"alias\": \"same_pincode\", \"type\": \"TINYINT\", \"name\": \"same_pincode\", \"isdim\": false}, {\"alias\": \"for_review\", \"type\": \"TINYINT\", \"name\": \"for_review\", \"isdim\": false}, {\"alias\": \"id_a\", \"type\": \"STRING\", \"name\": \"id_a\", \"isdim\": true}, {\"alias\": \"id_b\", \"type\": \"STRING\", \"name\": \"id_b\", \"isdim\": true}, {\"alias\": \"name_a\", \"type\": \"STRING\", \"name\": \"name_a\", \"isdim\": true}, {\"alias\": \"name_b\", \"type\": \"STRING\", \"name\": \"name_b\", \"isdim\": true}, {\"alias\": \"party_a\", \"type\": \"STRING\", \"name\": \"party_a\", \"isdim\": true}, {\"alias\": \"party_b\", \"type\": \"STRING\", \"name\": \"party_b\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.dash_match_pair\"]",
+    "uuid": "3d916920-6580-5153-926a-c94f1f575690",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9002
+    ],
+    "version_id": 9109,
+    "version_group_id": 9109,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9110,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - Party cross-reference",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.dash_party_xref",
+    "dataset_description": "rsingh_gdl_semantic.dash_party_xref (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.dash_party_xref\", \"columns\": [{\"alias\": \"src_system\", \"type\": \"STRING\", \"name\": \"src_system\", \"isdim\": true}, {\"alias\": \"src_key\", \"type\": \"STRING\", \"name\": \"src_key\", \"isdim\": true}, {\"alias\": \"party_id\", \"type\": \"STRING\", \"name\": \"party_id\", \"isdim\": true}, {\"alias\": \"match_rule\", \"type\": \"STRING\", \"name\": \"match_rule\", \"isdim\": true}, {\"alias\": \"match_confidence\", \"type\": \"DOUBLE\", \"name\": \"match_confidence\", \"isdim\": false}, {\"alias\": \"cluster_size\", \"type\": \"BIGINT\", \"name\": \"cluster_size\", \"isdim\": true}, {\"alias\": \"is_active\", \"type\": \"TINYINT\", \"name\": \"is_active\", \"isdim\": false}, {\"alias\": \"moved_party\", \"type\": \"TINYINT\", \"name\": \"moved_party\", \"isdim\": false}, {\"alias\": \"first_batch_id\", \"type\": \"STRING\", \"name\": \"first_batch_id\", \"isdim\": true}, {\"alias\": \"batch_id\", \"type\": \"STRING\", \"name\": \"batch_id\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.dash_party_xref\"]",
+    "uuid": "0bf65704-350b-53bb-bcfb-d18fb7886ead",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9002
+    ],
+    "version_id": 9110,
+    "version_group_id": 9110,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 9111,
+   "fields": {
+    "dataconnection": 1,
+    "dataset_name": "GDL - Golden parties",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_gdl_semantic.dash_golden_party",
+    "dataset_description": "rsingh_gdl_semantic.dash_golden_party (sql/semantic)",
+    "dataset_info": "[{\"tablename\": \"rsingh_gdl_semantic.dash_golden_party\", \"columns\": [{\"alias\": \"party_id\", \"type\": \"STRING\", \"name\": \"party_id\", \"isdim\": true}, {\"alias\": \"full_name\", \"type\": \"STRING\", \"name\": \"full_name\", \"isdim\": true}, {\"alias\": \"segment\", \"type\": \"STRING\", \"name\": \"segment\", \"isdim\": true}, {\"alias\": \"home_branch\", \"type\": \"STRING\", \"name\": \"home_branch\", \"isdim\": true}, {\"alias\": \"kyc_status\", \"type\": \"STRING\", \"name\": \"kyc_status\", \"isdim\": true}, {\"alias\": \"address_city\", \"type\": \"STRING\", \"name\": \"address_city\", \"isdim\": true}, {\"alias\": \"member_records\", \"type\": \"BIGINT\", \"name\": \"member_records\", \"isdim\": true}, {\"alias\": \"has_pan_conflict\", \"type\": \"TINYINT\", \"name\": \"has_pan_conflict\", \"isdim\": false}, {\"alias\": \"is_merged\", \"type\": \"TINYINT\", \"name\": \"is_merged\", \"isdim\": false}, {\"alias\": \"batch_id\", \"type\": \"STRING\", \"name\": \"batch_id\", \"isdim\": true}, {\"alias\": \"business_date\", \"type\": \"DATE\", \"name\": \"business_date\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_gdl_semantic.dash_golden_party\"]",
+    "uuid": "b58d2bb2-b529-5b21-8bfd-268d7296ff85",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     9002
+    ],
+    "version_id": 9111,
+    "version_group_id": 9111,
+    "is_active_version": true,
+    "version_name": "general-datalakehouse",
+    "is_named_version": false
+   }
+  }
+ ],
+ "version": {
+  "Arcviz Version": "8.1.7",
+  "Description": "8.1.7-b36"
+ }
+}

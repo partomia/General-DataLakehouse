@@ -543,8 +543,9 @@ def fact_aml_alert(ctx: Ctx) -> None:
     sev = F.create_map(*[x for r in rules.values() for x in (F.lit(r["rule_code"]), F.lit(r["severity"]))])
     t = ctx.t("fact_aml_alert")
     if C.table_exists(ctx.spark, t):
+        # checkpointed: Atlas drops the lineage of a write whose plan also reads the target table
         seen = (ctx.spark.table(t).where(F.col("business_date") < ctx.dlit).select("rule_code", "subject_key")
-                .distinct().withColumn("_seen", F.lit(True)))
+                .distinct().withColumn("_seen", F.lit(True)).localCheckpoint())
         df = df.join(seen, ["rule_code", "subject_key"], "left")
     else:
         df = df.withColumn("_seen", F.lit(None).cast("boolean"))

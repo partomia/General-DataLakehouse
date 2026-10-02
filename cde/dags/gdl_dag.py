@@ -1,14 +1,15 @@
 """
 Airflow DAG (CDE): one batch of the General Data Lakehouse, one business date per run.
 
-  land_sources -> ingest_bronze -> build_silver -> build_mdm -> build_gold -> reconcile
+  land_sources -> ingest_bronze -> build_silver -> build_mdm -> build_gold -> reconcile -> batch_complete
 
 land_sources stands in for the six source systems dropping their extracts on the landing
 zone (s3a://federal-buk-574bcea0/data/IB/rsingh_gdl/landing/). Every other task reads only
 what landed there. reconcile runs whatever happened upstream (trigger rule all_done), so a
 failed batch still gets its mismatch report in ref.recon_results and under
 <landing>/../reports/recon/<date>/; the stage gates in the jobs (silver needs a COMPLETED
-bronze, and so on) stop a later stage from building on a broken one.
+bronze, and so on) stop a later stage from building on a broken one. batch_complete needs
+every stage to have succeeded, so the run itself is marked failed for a failed batch.
 
 The semantic layer (certified KPI views, regulatory datasets, KPI consistency check) runs on
 CDW Impala after the batch: python scripts/run_semantic.py --engine impala --dates <date>.
@@ -25,6 +26,7 @@ Job names must match cde/scripts/deploy_jobs.sh (CDEJobRunOperator fails with 40
 from datetime import datetime, timedelta
 
 from airflow import DAG
+from airflow.operators.empty import EmptyOperator
 from cloudera.cdp.airflow.operators.cde_operator import CDEJobRunOperator
 
 JOB_PREFIX = "rsingh-gdl"
@@ -69,5 +71,9 @@ with DAG(
     mdm = stage("build_mdm", "mdm")
     gold = stage("build_gold", "gold")
     recon = stage("reconcile", "recon", trigger_rule="all_done")
+    # Airflow takes a run's state from its last tasks; recon succeeds on a failed batch, so this
+    # task is what turns the run red when any stage failed
+    batch_complete = EmptyOperator(task_id="batch_complete", trigger_rule="all_success")
 
     land >> bronze >> silver >> mdm >> gold >> recon
+    [gold, recon] >> batch_complete

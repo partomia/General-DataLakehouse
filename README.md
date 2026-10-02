@@ -83,6 +83,7 @@ per business date, the semantic layer on Impala, governance, dashboards, and wha
 | [docs/BANKING_MODEL.md](docs/BANKING_MODEL.md) | Entities, canonical keys, SCD2, golden record, source mappings, extending the model (AML) |
 | [docs/FAILED_BATCH_DEMO.md](docs/FAILED_BATCH_DEMO.md) | A batch that dies mid-write: what it leaves, the mismatch report, the re-run |
 | [docs/GOVERNANCE.md](docs/GOVERNANCE.md) | PII classifications, Ranger masking, auto-classification with Data Catalog profilers, the KPI glossary, lineage |
+| [docs/PROFILER_TAG_RULES.md](docs/PROFILER_TAG_RULES.md) | Creating the seven profiler tag rules in the Data Catalog UI, with screenshots |
 | [docs/DATAVIZ.md](docs/DATAVIZ.md) | The four dashboards, build, import and verify |
 | [docs/DEMO_RUNBOOK.md](docs/DEMO_RUNBOOK.md) | Deploy, run and present the demo |
 | [docs/PROJECT_LOG.md](docs/PROJECT_LOG.md) | What ran on the cluster, and the results |

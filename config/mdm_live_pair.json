@@ -1,0 +1,40 @@
+{
+  "_comment": "Two records of one person that share no identifier, for cde/jobs/mdm_live.py: no PAN on the CRM side, different mobiles and e-mails, no cross-reference. Name order and a typo differ; date of birth and pincode agree. Edit, or pass --records-json, to try another pair.",
+  "records": [
+    {
+      "src_system": "cbs",
+      "src_key": "LIVE-100001",
+      "full_name": "Dr. Meera Krishnan",
+      "dob": "1988-07-14",
+      "pan": "AKCPK4821M",
+      "gender": "F",
+      "mobile": "98470 12345",
+      "email": "meera.krishnan@example.com",
+      "address": "14, M.G. Rd., Ernakulam",
+      "city": "Kochi",
+      "pincode": "682016",
+      "kyc_status": "VERIFIED",
+      "segment": "AFFLUENT",
+      "home_branch": "BR104",
+      "updated_at": "2026-03-02 10:15:00"
+    },
+    {
+      "src_system": "crm",
+      "src_key": "CRM-LIVE-0001",
+      "full_name": "Krishnan, Mera",
+      "dob": "1988-07-14",
+      "pan": null,
+      "gender": "F",
+      "mobile": "+91-90200-55555",
+      "email": "mkrishnan88@mail.example.org",
+      "address": "Flat 14, Mahatma Gandhi Road, Ernakulam",
+      "city": "Kochi",
+      "pincode": "682016",
+      "kyc_status": null,
+      "segment": null,
+      "home_branch": null,
+      "updated_at": "2026-09-30 18:00:00",
+      "address_updated_on": "2024-01-10"
+    }
+  ]
+}

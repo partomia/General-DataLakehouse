@@ -53,6 +53,7 @@ create_job "${JOB_PREFIX}-silver" "cde/jobs/build_silver.py"
 create_job "${JOB_PREFIX}-mdm"    "cde/jobs/build_mdm.py"
 create_job "${JOB_PREFIX}-gold"   "cde/jobs/build_gold.py"
 create_job "${JOB_PREFIX}-recon"  "cde/jobs/reconcile.py"
+create_job "${JOB_PREFIX}-mdm-live" "cde/jobs/mdm_live.py"
 
 echo ""
 echo "Jobs deployed from ${REPO_NAME}. One stage by hand (run-time args replace the job's):"

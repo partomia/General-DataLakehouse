@@ -44,7 +44,7 @@ flowchart LR
 
 | Path | What |
 |---|---|
-| `cde/jobs/` | The CDE Spark jobs, one per stage: `land_sources.py` (the source systems), `ingest_bronze.py`, `build_silver.py`, `build_mdm.py`, `build_gold.py`, `reconcile.py`; shared helpers in `gdl_common.py` |
+| `cde/jobs/` | The CDE Spark jobs, one per stage: `land_sources.py` (the source systems), `ingest_bronze.py`, `build_silver.py`, `build_mdm.py`, `build_gold.py`, `reconcile.py`; `mdm_live.py` for the live golden-record demo; shared helpers in `gdl_common.py` |
 | `cde/dags/gdl_dag.py`, `cde/scripts/` | The Airflow DAG (one run per business date) and the deploy scripts |
 | `contracts/` | One data contract per source entity: format, key, columns, types, checks |
 | `config/` | `pipeline.json` (dates, entities, endpoints), `kpi.json` (certified KPI definitions and parameters), `aml_rules.json`, `governance.json`, `profiler_tag_rules.json` (Data Catalog auto-classification) |
@@ -83,6 +83,7 @@ per business date, the semantic layer on Impala, governance, dashboards, and wha
 | [docs/BANKING_MODEL.md](docs/BANKING_MODEL.md) | Entities, canonical keys, SCD2, golden record, source mappings, extending the model (AML) |
 | [docs/FAILED_BATCH_DEMO.md](docs/FAILED_BATCH_DEMO.md) | A batch that dies mid-write: what it leaves, the mismatch report, the re-run |
 | [docs/GOVERNANCE.md](docs/GOVERNANCE.md) | PII classifications, Ranger masking, auto-classification with Data Catalog profilers, the KPI glossary, lineage |
+| [questions/](questions/README.md) | Demo questions: what to say, run and show for each |
 | [docs/PROFILER_TAG_RULES.md](docs/PROFILER_TAG_RULES.md) | Creating the seven profiler tag rules in the Data Catalog UI, with screenshots |
 | [docs/DATAVIZ.md](docs/DATAVIZ.md) | The four dashboards, build, import and verify |
 | [docs/DEMO_RUNBOOK.md](docs/DEMO_RUNBOOK.md) | Deploy, run and present the demo |

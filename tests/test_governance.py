@@ -41,6 +41,13 @@ def test_masking_policies_cover_only_the_masked_users():
         assert not G.policy_differs(p, json.loads(json.dumps(p)))
 
 
+def test_raw_record_columns_are_masked():
+    # whole source records and documents, and MDM's golden values, carry every personal field at once
+    for c in ("_record", "payload", "text_content", "value"):
+        assert G.column_tag(GOV, c, "string") == "GDL_PII_REDACT"
+    assert G.column_tag(GOV, "content", "binary") == "GDL_PII_NULL"
+
+
 def test_date_of_birth_is_masked_by_type():
     assert G.column_tag(GOV, "dob", "date") == "GDL_PII_YEAR"
     assert G.column_tag(GOV, "DOB", "string") == "GDL_PII_REDACT"

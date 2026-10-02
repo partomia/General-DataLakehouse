@@ -11,7 +11,9 @@
     "GDL_PII_REDACT": {"description": "Postal address or a raw date-of-birth string: letters become x, digits n",
                        "mask": {"dataMaskType": "hive:MASK"}},
     "GDL_PII_YEAR":   {"description": "Date of birth (DATE column): masked users see 1 January of the year",
-                       "mask": {"dataMaskType": "hive:CUSTOM", "valueExpr": "TRUNC({col}, 'YYYY')"}}
+                       "mask": {"dataMaskType": "hive:CUSTOM", "valueExpr": "TRUNC({col}, 'YYYY')"}},
+    "GDL_PII_NULL":   {"description": "Raw binary content of a document (e-mail, KYC scan): masked users see NULL",
+                       "mask": {"dataMaskType": "hive:MASK_NULL"}}
   },
   "columns": {
     "pan": "GDL_PII_LAST_4", "pan_std": "GDL_PII_LAST_4", "borrower_pan": "GDL_PII_LAST_4",
@@ -28,6 +30,8 @@
     "addr_line1": "GDL_PII_REDACT",
     "addr_line2": "GDL_PII_REDACT", "address_std": "GDL_PII_REDACT", "address_text": "GDL_PII_REDACT",
     "address_display": "GDL_PII_REDACT",
+    "_record": "GDL_PII_REDACT", "payload": "GDL_PII_REDACT", "text_content": "GDL_PII_REDACT",
+    "value": "GDL_PII_REDACT", "content": "GDL_PII_NULL",
     "dob": {"date": "GDL_PII_YEAR", "string": "GDL_PII_REDACT"},
     "date_of_birth": {"date": "GDL_PII_YEAR", "string": "GDL_PII_REDACT"}
   },

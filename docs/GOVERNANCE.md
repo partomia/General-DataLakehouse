@@ -30,8 +30,13 @@ contract adds a personal-looking column without a classification.
 |---|---|---|---|
 | `GDL_PII_LAST_4` | PAN, Aadhaar, mobile, account number | `MASK_SHOW_LAST_4` | only the last 4 characters in clear |
 | `GDL_PII_HASH` | names, e-mail | `MASK_HASH` | a hash: joins, counts and distinct counts still work |
-| `GDL_PII_REDACT` | addresses, a date of birth held as text | `MASK` | letters `x`, digits `n` |
+| `GDL_PII_REDACT` | addresses, a date of birth held as text; whole records and texts (`_record`, `payload`, `text_content`, MDM's `golden_attribute.value`) | `MASK` | letters `x`, digits `n` |
 | `GDL_PII_YEAR` | date of birth as a DATE | `CUSTOM`: `TRUNC({col}, 'YYYY')` | 1 January of the year |
+| `GDL_PII_NULL` | raw document bytes (`doc_document.content`) | `MASK_NULL` | NULL |
+
+The whole-record columns hold every personal field of a record at once: the rejected record in
+`bronze.quarantine._record`, the source JSON in bronze `payload`, the e-mail and KYC text in
+`doc_document`, and each surviving golden value in `golden_attribute.value`.
 
 `dob` and `date_of_birth` are classified by type: YEAR on a DATE column (silver onwards), REDACT
 on bronze, where every column is still a string.

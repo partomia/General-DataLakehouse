@@ -116,7 +116,8 @@ same comparison on the generator's landing files.
    minutes.
 2. Data Compliance profiler > Configuration: an allow-list rule, Database name starts with
    `rsingh_gdl_`. Incremental profiling on, which reads only new Iceberg data.
-3. Tag Rules > Create Tag Rule, once per rule. Pick the tag and upload
+3. Tag Rules > Create Tag Rule, once per rule (step by step, with screenshots:
+   [PROFILER_TAG_RULES.md](PROFILER_TAG_RULES.md)). Pick the tag and upload
    `governance/profiler/<rule>.csv` as the regular-expression file, or type the expressions
    from the table above. Set the column value weightage, then use `test_data.csv` in Test Tag
    Rule.

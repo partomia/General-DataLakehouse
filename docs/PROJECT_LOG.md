@@ -87,3 +87,10 @@ The reconciliation counts and the KPIs are the same as in the run one stage at a
 Afterwards `governance.py apply` made 134 changes, and `verify` found 121 PII columns (115
 before, plus the 6 address lines), none left to tag. The dashboards were imported again, and
 `--verify` passed.
+
+### Data Catalog profilers, 2 Oct 2026
+
+The compute-cluster profilers had not started: the shared compute cluster's infra node group
+was at 0 nodes. With it at 3, the Data Compliance and Statistics Collector profilers run
+hourly. Four of the seven tag rules are created (PAN, Aadhaar, Mobile, Account number); the
+other three are created live in the demo ([PROFILER_TAG_RULES.md](PROFILER_TAG_RULES.md)).

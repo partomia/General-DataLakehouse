@@ -59,12 +59,38 @@ Create Tag Rule.
 
 ![Review](images/profiler/5-review.png)
 
+## Status (2 Oct 2026)
+
+Created: GDL PAN, GDL Aadhaar, GDL Mobile and GDL Account number, each at Dry Run Pending.
+GDL E-mail, GDL Person name and GDL Postal address are created live in the demo, with the
+steps above.
+
+![Tag Rules on the Data Compliance profiler](images/profiler/6-tag-rules-list.png)
+
+The new rules are listed under Profilers > Data Compliance Profiler > Tag Rules, with their
+parent tag, Rule Type Custom and Validation Status. The profiler runs every hour.
+
+## Demo checklist: the remaining three rules
+
+| Tag Rule Name | Description | Select Tags | Upload file | Column Value Weightage |
+|---|---|---|---|---|
+| GDL E-mail | E-mail address, by value | `GDL_PII_HASH` | `gdl_e_mail.csv` | 85 |
+| GDL Person name | A person's name, by column name | `GDL_PII_HASH` | `gdl_person_name.csv` | 20 |
+| GDL Postal address | Street address, by column name | `GDL_PII_REDACT` | `gdl_postal_address.csv` | 20 |
+
+For each: Create Tag Rule, enter the name and description, select the tag, Next; Upload
+Regular Expression File, set the weightage, Next; upload `test_data.csv`, Next; Create Tag
+Rule. In the Test step, GDL E-mail should tag `email`, GDL Person name `first_name`,
+`last_name` and `full_name` (not `branch_name` or `product_name`), and GDL Postal address
+`addr_line1` and `address`.
+
 ## After the seven rules
 
 1. Data Compliance profiler > Configuration: an allow-list asset filter rule, Database name
    starts with `rsingh_gdl_`, and incremental profiling on.
 2. Dry Run the rules on a few tables (for example `rsingh_gdl_silver.cbs_customer`,
-   `rsingh_gdl_silver.pay_transaction`, `rsingh_gdl_gold.dim_party`), then Enable them.
+   `rsingh_gdl_silver.pay_transaction`, `rsingh_gdl_gold.dim_party`) from the rule's Action
+   menu, then Enable them.
 3. After the profiler has run, review the suggested tags (Job History > Profiled Assets, or
    `cdp datacatalog get-suggested-tags`) and approve them.
 4. Set `"profiler_tags_on_tables": true` in `config/governance.json`, so `governance.py

@@ -91,3 +91,25 @@ a missing amount).
 The one mismatch left is the planted fault: `lms_repayment_20260923.csv: trailer says 13,
 file has 12 data lines`. The KPI consistency check passed (23 matched, 0 mismatches; gross
 NPA 11.40%, CASA 40.57%).
+
+## Recorded run through the Airflow DAG (CDE, 2 Oct 2026)
+
+The same drill, one DAG run per attempt:
+
+```bash
+cde job run --name rsingh-gdl-orchestration \
+  --config-json '{"business_date": "2026-09-23", "bronze_mode": "fail-during:lms_loan"}'
+cde job run --name rsingh-gdl-orchestration \
+  --config-json '{"business_date": "2026-09-23", "bronze_mode": "resume"}'
+```
+
+| DAG run | Tasks | Result |
+|---|---|---|
+| 199 | land succeeded, bronze failed, silver / mdm / gold skipped (upstream failed), reconcile succeeded (`MATCHED 11, EXPLAINED 0, MISMATCH 19`), `batch_complete` failed | **failed** |
+| 203 | land, bronze (3 entities skipped as already committed), silver, mdm, gold, reconcile (`MATCHED 47, EXPLAINED 4, MISMATCH 1`), `batch_complete` | succeeded |
+
+`reconcile` runs whatever happened upstream (`trigger_rule="all_done"`), so the failed
+batch is reconciled and the mismatches are on the dashboard. `batch_complete` needs every
+stage to succeed, so the Airflow grid shows the failed attempt red. Without it, the first
+try of this drill (run 195) showed as succeeded: Airflow takes a run's state from its last
+tasks. `load_audit`, the row counts and the snapshots were the same as in the run above.

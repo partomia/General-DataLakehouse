@@ -28,6 +28,7 @@ Each fix has a test, so it cannot come back.
 | `cde job run --wait` hung on a dropped network | client-side wait | submit without `--wait`, then poll the run |
 | Masking gap: `addr_line1` / `addr_line2` not classified | the name map listed `address` but not the CBS address lines; found by the profiler tag rules check (`scripts/profiler_rules.py evaluate`) | added to `config/governance.json`, 6 columns tagged; the governance test now treats `addr*` as personal |
 | Atlas: `fact_aml_alert` had no Spark lineage | the `is_new` lookup reads the table being written; the Spark Atlas hook logs "Detected cycle - same entity observed to both input and output" and drops the outputs | only that lookup is checkpointed, so the rest of the plan, and its lineage, stays visible |
+| Airflow: the failed-batch DAG run (195) showed as succeeded, though bronze failed | Airflow takes a run's state from its last tasks, and `reconcile` runs with `all_done` and succeeds on a failed batch | a `batch_complete` task after `gold` and `reconcile` with `all_success`; the same drill (run 199) now shows as failed |
 
 Found later on the laptop: the generator planted its AML structuring deposits on a different
 sample of accounts every date (the sample was drawn from the date's active accounts), so no
@@ -59,9 +60,30 @@ Afterwards:
   screening list, and 1 alert that is new that day.
 - Masking checked in Hue on `dim_party`: as `federal01` the PII columns come back masked,
   as `rsingh` in clear.
-- The Airflow DAG `rsingh-gdl-orchestration` is registered, paused, with its schedule off.
+- The Airflow DAG `rsingh-gdl-orchestration` is registered, with its schedule off (the fresh
+  run through it is below).
 - Atlas lineage runs from bronze to silver, gold and semantic, through Spark and Impala
   processes. For example, `kpi_npa_exposure` traces back to `fact_loan_position_daily`, then
   to `silver.lms_loan_daily` and `bronze.lms_loan`. After the lineage fix above, gold and
   recon for 2026-09-25 were run again (runs 161 and 163), with the same results: 48 / 4 / 0,
   and 23/23 for KPI consistency.
+
+### Fresh run through the Airflow DAG, 1-2 Oct 2026
+
+From empty databases again, one DAG run per business date (`cde job run --name
+rsingh-gdl-orchestration --config-json '{"business_date": ...}'`), then the semantic layer
+on Impala:
+
+| Business date | DAG run | Reconciliation | KPI consistency |
+|---|---|---|---|
+| 2026-09-21 | 181 | 52 / 4 / 0 | 23/23 |
+| 2026-09-22 | 188 | 48 / 4 / 0 | 23/23 |
+| 2026-09-23 | 199 `fail-during:lms_loan`: failed | 11 / 0 / 19 | not run |
+| 2026-09-23 | 203 `resume`: succeeded | 47 / 4 / 1 (the planted trailer fault) | 23/23 |
+| 2026-09-24 | 210 | 46 / 6 / 0 | 23/23 |
+| 2026-09-25 | 217 | 48 / 4 / 0 | 23/23 |
+
+The reconciliation counts and the KPIs are the same as in the run one stage at a time.
+Afterwards `governance.py apply` made 134 changes, and `verify` found 121 PII columns (115
+before, plus the 6 address lines), none left to tag. The dashboards were imported again, and
+`--verify` passed.

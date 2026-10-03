@@ -1,6 +1,6 @@
-# Q9. The banking model: at least three domains, with entities, relationships, canonical keys, SCD2 treatment, common dimensions, source mappings and the extension methodology
+# C09. Banking data model and extension methodology
 
-## The short answer
+## Summary
 
 Yes: five domains in `rsingh_gdl_gold`, built by `cde/jobs/build_gold.py` each business date:
 **Customer**, **Deposits**, **Lending**, **Payments**, and **AML**. AML was added last, as the
@@ -57,7 +57,7 @@ on it.
 
 | Key | Form | Source of truth |
 |---|---|---|
-| `party_id` | MDM id, stable across runs | `mdm.party_xref`, the only path from any source customer id to a party (Q8) |
+| `party_id` | MDM id, stable across runs | `mdm.party_xref`, the only path from any source customer id to a party (C08) |
 | `account_key` | `ACC:CBS:<acct_no>` | core banking accounts; also the own side of a payment |
 | `loan_key` | `LN:LMS:<loan_id>` | the loan system |
 | `branch_code`, `product_code`, `currency_code` | the CBS codes | core banking dump and CDC |
@@ -81,7 +81,7 @@ Columns: `version`, `effective_from`, `effective_to` (`9999-12-31` while open), 
 (SUPERSEDED, REMOVED_AT_SOURCE), and the source record behind each version. Facts join the
 version valid on their date. Example, Shreya Naidu (`P0A4F2E33DF8E`): v1 NEW from 2026-09-21;
 v2 from 09-23, address and pincode changed; v3 from 09-24, address changed again, from her own
-change-request e-mail. Q5 covers the full SCD2 behaviour, including late-arriving data.
+change-request e-mail. C05 covers the full SCD2 behaviour, including late-arriving data.
 
 The branch, product and currency dimensions are type 1 (reference data, current values).
 
@@ -96,7 +96,7 @@ It is loaded into `rsingh_gdl_ref.source_mapping` and rendered into `docs/BANKIN
 Six source systems feed the model: core banking (CBS), loans (LMS), CRM, payments, documents
 (KYC and change requests) and compliance (the AML watchlist).
 
-## Demo, about 8 minutes
+## Walkthrough (about 8 minutes)
 
 **1. The model (2 min).** `docs/BANKING_MODEL.md` on GitHub: the ER diagram renders. Walk the
 five domains and the conformed dimensions.
@@ -158,7 +158,7 @@ days), pass-through (8 or more credits of 50,000 or more, 90% out the same day),
 PAN (CRITICAL), screening on name and date of birth (HIGH). A namesake with another date of
 birth must not alert, and reconciliation checks that.
 
-## Follow-ups to expect
+## Common questions
 
 - **"Is this BIAN or FSLDM?"** A dimensional model aligned to their domains (party,
   arrangement / account, product, location / branch, event / transaction). The canonical keys

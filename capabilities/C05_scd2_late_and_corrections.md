@@ -1,6 +1,6 @@
-# Q5. A type 2 dimension end to end, with a late-arriving update and a correction to a closed record
+# C05. SCD Type 2 dimensions: late-arriving updates and corrections to closed records
 
-## The short answer
+## Summary
 
 Partly. SCD2 is maintained end to end on three dimensions, from source change to the fact rows
 that point at the right version. Two of the asked cases are handled at the edges, not in the
@@ -94,7 +94,7 @@ If the panel wants them, the change is in `scd2()` alone (facts already join by 
 - **Correction to a closed version** (the value was wrong, not changed): rewrite that
   version's attributes in place, keep its dates, and record `corrected_batch_id` and
   `correction_reason`. Iceberg keeps the uncorrected table as a snapshot, so "what we
-  reported before the correction" stays answerable by time travel (Q4).
+  reported before the correction" stays answerable by time travel (C04).
 
 Both need an effective date from the source, which the current feeds do not carry for most
 attributes (the business date is the effective date). The CRM feed's `address_updated_on` is

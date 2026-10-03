@@ -1,6 +1,6 @@
-# Q1. Batch ingestion from an RDBMS or file source, with schema and record validation
+# C01. Batch ingestion with schema and record validation
 
-## The short answer
+## Summary
 
 Every source arrives as a daily batch of files in the landing zone, with a manifest of record
 counts and control totals. The bronze job (`cde/jobs/ingest_bronze.py`) parses each file,
@@ -25,7 +25,7 @@ JDBC pull in the project.
 Landing: `s3a://federal-buk-574bcea0/data/IB/rsingh_gdl/landing/`, one folder per business
 date, each with a manifest.
 
-## Demo, about 8 minutes
+## Walkthrough (about 8 minutes)
 
 **1. The source files (1 min).** Hue file browser on the landing path: open
 `cbs_dump_20260921.sql`, a loan file and its trailer line, and the manifest.
@@ -87,7 +87,7 @@ rejected. Reconciliation checks accepted + quarantined against the manifest for 
   repayments trailer says 13, the file has 12 - the one reconciliation mismatch left on D3.
 - Close on the dashboard "GDL Reconciliation & Data Quality".
 
-## Follow-ups to expect
+## Common questions
 
 - **"Can it pull from a live database?"** The ingest is contract-driven and the parser is per
   format; a JDBC read from MySQL or Postgres would feed the same validation, quarantine and

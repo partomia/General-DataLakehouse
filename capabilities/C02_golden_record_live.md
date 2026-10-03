@@ -1,9 +1,9 @@
-# Q2. A golden record, live, from two customer records that share no identifier
+# C02. Golden record from customer records that share no identifier
 
-Show the match, the survivorship decision, the audit entry, and the record written back to a
-table another engine can read.
+Covers the match, the survivorship decision, the audit entry, and the record written back to
+a table another engine can read.
 
-## The short answer
+## Summary
 
 A CDE Spark job, `rsingh-gdl-mdm-live` (`cde/jobs/mdm_live.py`), takes two customer records
 and runs them through the pipeline's own MDM code: silver's standardisation, then
@@ -12,7 +12,7 @@ in `rsingh_gdl_mdm` and an audit row per step to `rsingh_gdl_ref.transform_log`.
 reads the golden record: Spark wrote it, a different engine reads it, through the shared
 metastore.
 
-The live tables are separate (`live_*`), so the demo does not touch the pipeline's 991 parties.
+The live tables are separate (`live_*`), so a live run does not touch the pipeline's 991 parties.
 
 ## The two records
 
@@ -32,7 +32,7 @@ The live tables are separate (`live_*`), so the demo does not touch the pipeline
 No PAN, mobile, e-mail or cross-reference in common: the link has to come from the person's
 attributes.
 
-## Demo, about 8 minutes
+## Walkthrough (about 8 minutes)
 
 **1. The records (1 min).** Open `config/mdm_live_pair.json` and the table above. To make it
 truly live, change a value in front of the audience and pass the pair on the command line
@@ -145,7 +145,7 @@ SELECT snapshot_id, committed_at, operation FROM rsingh_gdl_mdm.live_golden_part
 Each run replaces the live tables, and Iceberg keeps every earlier run as a snapshot (time
 travel with `FOR SYSTEM_VERSION AS OF <snapshot_id>`).
 
-## Variants to show if asked
+## Variants
 
 Edit the pair and run again (`--records-json`):
 
@@ -163,7 +163,7 @@ or mobile in common, but they do share an e-mail, which the rules do not use. Th
 shares nothing. Match quality against the generator's truth file is on the dashboard
 "GDL MDM & Golden Record" (precision and recall per batch).
 
-## Follow-ups to expect
+## Common questions
 
 - **"Is the name threshold a guess?"** 0.92 merges, 0.85 to 0.92 goes to review; both are
   constants in `build_mdm.py` (`MERGE_AT`, `REVIEW_AT`), checked every batch against the truth

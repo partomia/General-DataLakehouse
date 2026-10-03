@@ -1,6 +1,6 @@
-# Q8. MDM: matching, deduplication, survivorship and golden-record creation
+# C08. Master data management: matching, deduplication, survivorship and golden record
 
-## The short answer
+## Summary
 
 The MDM stage (`cde/jobs/build_mdm.py`, CDE job `rsingh-gdl-mdm`) runs every batch, after
 silver, over all customer records of the three systems that hold people: core banking (CBS),
@@ -16,8 +16,8 @@ loans (LMS) and CRM. For 2026-09-25:
 | Quality | pairwise precision and recall against the generator's truth file | `match_quality` | precision 1.000, recall 1.000 |
 
 Every step writes an audit row to `rsingh_gdl_ref.transform_log`. The tables are Iceberg, so
-Impala, Hue and the dashboard read the golden record directly. Q2 shows the same code run live
-on two new records ([Q02_golden_record_live.md](Q02_golden_record_live.md)).
+Impala, Hue and the dashboard read the golden record directly. C02 shows the same code run live
+on two new records ([C02_golden_record_live.md](C02_golden_record_live.md)).
 
 ## The match rules
 
@@ -35,7 +35,7 @@ the longer name, on the name and on its order-free form, whichever is higher.
 | NAME_DOB | name similarity ≥ 0.85, same date of birth | REVIEW (kept apart) | similarity | 0 |
 | PRIOR_LINK | the previous run had both in one party, and no PAN conflict now | MERGE | 0.90 | 1 |
 
-## Demo, about 10 minutes
+## Walkthrough (about 10 minutes)
 
 Open the dashboard "GDL MDM & Golden Record" for the overview (match quality, pairs by rule,
 cluster sizes, golden parties), then Hue for one party end to end.
@@ -115,7 +115,7 @@ FROM rsingh_gdl_mdm.golden_party WHERE party_id = 'P97F981593876';
 
 `source_systems` `["cbs","crm","lms"]`, `member_records` 4, `attribute_sources` maps each
 attribute to its record. `record_hash` changes only when a survived value changes. That is what
-`gold.dim_party` (SCD2) uses to open a new version (Q5).
+`gold.dim_party` (SCD2) uses to open a new version (C05).
 
 As federal01 the PAN, mobile, e-mail and address are masked (Ranger tag policies), so the
 golden record is governed like the sources.
@@ -151,7 +151,7 @@ links and survive (all the rules). Quality for the five business days: precision
 1.000, no person split, no party mixing two persons. The generator knows who is who, so the
 match is measured, not asserted.
 
-## Follow-ups to expect
+## Common questions
 
 - **"The synthetic data is easy; what of real data?"** The data plants the hard cases: typos,
   surname first, initials, missing PANs, a namesake with the same date of birth, a dropped middle
@@ -165,4 +165,4 @@ match is measured, not asserted.
   score would go, without changing the clustering or survivorship.
 - **"Documents?"** KYC declarations and address-change requests are linked to the party
   (`document_party`) and take part in survivorship: a customer's own change request beats an
-  older CBS address (Shreya Naidu in Q4).
+  older CBS address (Shreya Naidu in C04).

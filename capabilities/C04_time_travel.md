@@ -1,6 +1,6 @@
-# Q4. A time-travel query against a table as it stood in the past, then its snapshots
+# C04. Time travel and table snapshots
 
-## The short answer
+## Summary
 
 Every table is Iceberg, so every commit is a snapshot. The pipeline records the snapshot id of
 each table before and after every batch in `rsingh_gdl_ref.load_audit`, so "as the D3 batch
@@ -10,7 +10,7 @@ queries are in `sql/time_travel.sql` (Hue asks for the `${...}` values).
 
 The example: Shreya Naidu (`P0A4F2E33DF8E`) e-mailed an address change on D3 and another on D4.
 
-## Demo, about 6 minutes
+## Walkthrough (about 6 minutes)
 
 **1. Which snapshot each batch wrote (1 min).**
 
@@ -88,10 +88,10 @@ that date", without snapshots.
   batch committed them (`gdl_common.read_as_of_batch`), so re-running a later stage for an old
   date reads the same data it read the first time.
 - **Rollback.** `CALL system.rollback_to_snapshot('rsingh_gdl_bronze.lms_loan', <id>)` in Spark
-  (see Q7).
+  (see C07).
 
-## Follow-ups to expect
+## Common questions
 
 - **"How long are snapshots kept?"** Until `expire_snapshots` runs; nothing expires them in
-  the demo. In production, a retention set by the regulatory need (for example the reporting
+  this environment. In production, a retention set by the regulatory need (for example the reporting
   period), with tags on the snapshots of submitted returns so they are kept.

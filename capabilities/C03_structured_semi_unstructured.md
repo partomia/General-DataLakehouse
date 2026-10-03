@@ -1,6 +1,6 @@
-# Q3. Structured, semi-structured and unstructured data in one lakehouse on an open table format
+# C03. Structured, semi-structured and unstructured data on one open table format
 
-## The short answer
+## Summary
 
 Yes. All three kinds land in the same place, go through the same bronze job, and are stored as
 **Apache Iceberg** tables in one catalog (the data lake's Hive metastore) on one S3 location,
@@ -52,7 +52,7 @@ How each kind is handled:
   such as `ADDRESS_CHANGE` or `KYC_DECLARATION`) and the image size from the PNG header. MDM
   then uses them: a customer's address-change e-mail can win survivorship for the address.
 
-## Demo, about 6 minutes
+## Walkthrough (about 6 minutes)
 
 **1. The landing zone (1 min).** Hue file browser, one date folder: a dump, a JSON lines file,
 an `.eml` and a `.png` side by side, with the manifest.
@@ -75,15 +75,15 @@ FROM rsingh_gdl_silver.doc_extract WHERE business_date = DATE '2026-09-24';
 ```
 
 Then the payoff: `rsingh_gdl_mdm.document_party` links each document to a golden party, and
-Shreya Naidu's address in `golden_party` came from her e-mail `EML-20260924-0001.eml` (see Q4).
+Shreya Naidu's address in `golden_party` came from her e-mail `EML-20260924-0001.eml` (see C04).
 
 **4. Same tables, any engine (1 min).** The bronze and silver tables were written by Spark on
 CDE and are being read in Impala; Atlas shows them as `iceberg_table` entities.
 
-## Follow-ups to expect
+## Common questions
 
 - **"Why Iceberg?"** ACID commits per entity (a failed load leaves nothing half written, see
-  Q7), snapshots and time travel (Q4), schema evolution, partition replace for idempotent
+  C07), snapshots and time travel (C04), schema evolution, partition replace for idempotent
   re-runs, and one copy readable by Spark, Impala and Hive.
 - **"Do you store big files in a table?"** Here the documents are small, so bytes in a binary
   column are fine. For large media the pattern is the file on S3 and its path, hash and

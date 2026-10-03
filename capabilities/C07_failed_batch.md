@@ -1,6 +1,6 @@
-# Q7. A batch fails halfway through a load; then the re-run. What happened to the rows already written, and the automated mismatch report
+# C07. Failed-batch recovery and automated reconciliation
 
-## The short answer
+## Summary
 
 The bronze run for 2026-09-23 is made to fail in the middle of writing `lms_loan` (a Spark
 task raises an error). Three entities had already committed; `lms_loan` and the rest had not.
@@ -30,7 +30,7 @@ Full drill notes: [`docs/FAILED_BATCH_DEMO.md`](../docs/FAILED_BATCH_DEMO.md).
 | Orchestration | Airflow: `reconcile` runs whatever happened (`all_done`); `batch_complete` needs all stages (`all_success`), so the failed run is red | `cde/dags/gdl_dag.py` |
 | Alternative: roll back | `load_audit` holds every snapshot before the batch; `CALL system.rollback_to_snapshot(...)` | Spark SQL |
 
-## Demo, about 10 minutes
+## Walkthrough (about 10 minutes)
 
 The drill already ran (DAG runs 199 and 203, 2 Oct). Show the evidence; re-run it live if time
 allows (each DAG run about 12 minutes).
@@ -133,7 +133,7 @@ The one mismatch is real and expected: `lms_repayment_20260923.csv: trailer says
 known reason: 1 duplicate payment message removed in silver (count and amount), and 6 balance
 and 8 payment rows on the UNKNOWN party because their customer was quarantined at bronze. The KPI consistency check: 23 matched.
 
-## Follow-ups to expect
+## Common questions
 
 - **"Why not roll back the three committed entities?"** They are complete and verified against
   the manifest; reloading them is wasted work. If the source itself was wrong, roll back:

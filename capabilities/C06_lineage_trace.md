@@ -1,6 +1,6 @@
-# Q6. Trace one dashboard figure back to its source column, every hop; then lineage for a streaming pipeline
+# C06. End-to-end lineage, from a dashboard figure to its source column
 
-## The short answer
+## Summary
 
 The figure: **Gross NPA ratio 11.29%** on the "NPA exposure" sheet of the dashboard "GDL
 Banking KPIs MIS" (business date 2026-09-25; gross NPA 60,566,765.50 over gross advances
@@ -25,7 +25,7 @@ offer.
 | 6 | `kpi_npa_exposure` | `semantic.mis_npa_trend` | CDW Impala view | `sql/semantic/20_mis_views.sql` | `SUM(gross_npa) / SUM(gross_advance)` per date, `is_latest` | Atlas `impala_process` |
 | 7 | `mis_npa_trend` | tile "Gross NPA ratio %" | Data Visualization | `dataviz/build_dashboard.py` (dataset "GDL - NPA trend") | `max([gross_npa_ratio])`, filter `is_latest = 1` | the dashboard code; not in Atlas |
 
-## Demo, about 8 minutes
+## Walkthrough (about 8 minutes)
 
 **1. The figure (30 s).** Open the dashboard, NPA exposure sheet: 11.29%. In
 `dataviz/build_dashboard.py` the tile is `title="Gross NPA ratio %"` on dataset `npa_trend` =
@@ -103,7 +103,7 @@ Not in the project. What to say and offer:
   Kafka, if the environment has a Streams Messaging Data Hub) into an Iceberg table, then the
   same Atlas search. Ask whether the environment has Kafka or DataFlow before committing to it.
 
-## Follow-ups to expect
+## Common questions
 
 - **"Why are the two edge hops not in Atlas?"** Bronze reads the landing files itself (to keep
   the source row number and parse the dump), not through a Spark data source, so the Atlas hook

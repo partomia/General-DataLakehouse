@@ -87,6 +87,7 @@ per business date, the semantic layer on Impala, governance, dashboards, and wha
 | [docs/PROFILER_TAG_RULES.md](docs/PROFILER_TAG_RULES.md) | Creating the seven profiler tag rules in the Data Catalog UI, with screenshots |
 | [docs/DATAVIZ.md](docs/DATAVIZ.md) | The four dashboards, build, import and verify |
 | [docs/DEMO_RUNBOOK.md](docs/DEMO_RUNBOOK.md) | Deploy, run and present the demo |
+| [docs/PRESENTER_RUNBOOK.md](docs/PRESENTER_RUNBOOK.md) | Slide by slide: the commands, jobs and queries to show each slide live |
 | [docs/PROJECT_LOG.md](docs/PROJECT_LOG.md) | What ran on the cluster, and the results |
 
 All data is synthetic. No credentials are kept in the repository: the scripts read them from

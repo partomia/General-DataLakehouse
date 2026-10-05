@@ -46,17 +46,17 @@ Atlas (Data Catalog), Ranger, GitHub Actions.
 
 ---
 
-## Slide 2 · Cloudera Data Platform architecture (guide pages 3 to 4)
+## Slide 2 · Cloudera Data Platform architecture (guide pages 4 to 5)
 
 Nothing to run: framing slide.
 
-## Slide 3 · Indian Bank DLH: solution architecture (guide pages 5 to 6)
+## Slide 3 · Indian Bank DLH: solution architecture (guide pages 6 to 7)
 
 Nothing to run: framing slide.
 
 ---
 
-## Slide 4 · Use case architecture by layer (guide pages 7 to 8) · C03, C07
+## Slide 4 · Use case architecture by layer (guide pages 8 to 9) · C03, C07
 
 Optional, to show the layers are real Iceberg tables:
 
@@ -87,7 +87,7 @@ semantic layer runs after it on Impala.
 
 ---
 
-## Slide 5 · Unified ingestion: six sources, three shapes (guide pages 9 to 10) · C03, C01
+## Slide 5 · Unified ingestion: six sources, three shapes (guide pages 10 to 12) · C03, C01
 
 **Airflow.** CDE › Jobs › `rsingh-gdl-orchestration` › Airflow UI › DAG `general_datalakehouse`,
 Grid view: one run per business date, run 199 (23 Sep) red. From the CLI:
@@ -148,7 +148,7 @@ ORDER BY file_name;
 
 ---
 
-## Slide 6 · Bronze: data contracts and data quality (guide pages 11 to 12) · C01, C07
+## Slide 6 · Bronze: data contracts and data quality (guide pages 13 to 14) · C01, C07
 
 **A contract is configuration:** GitHub › `contracts/lms_loan.json` (format, key, types,
 `dd/MM/yyyy`, the `^LN[0-9]{8}$` pattern, severity).
@@ -208,7 +208,7 @@ WHERE batch_id = 'B20260925' AND job = 'ingest_bronze' ORDER BY logged_at;
 
 ---
 
-## Slide 7 · MDM: standardise, match, cluster (guide pages 13 to 14) · C08
+## Slide 7 · MDM: standardise, match, cluster (guide pages 15 to 17) · C08
 
 **Dashboard:** CDV › "GDL MDM & Golden Record" › Matching sheet (pairs by rule and decision,
 the review queue, match quality).
@@ -262,7 +262,7 @@ FROM rsingh_gdl_mdm.match_quality ORDER BY business_date;
 
 ---
 
-## Slide 8 · Golden record: survivorship per attribute (guide page 15) · C08, C02
+## Slide 8 · Golden record: survivorship per attribute (guide pages 18 to 19) · C08, C02
 
 **Arun Agarwal, `P97F981593876`: 4 records from 3 systems.**
 
@@ -335,7 +335,7 @@ WHERE batch_id = 'B20260925' AND run_id LIKE 'reconcile%' AND check_name = 'part
 
 ---
 
-## Slide 9 · Banking data model: four domains plus AML (guide pages 16 to 17) · C09
+## Slide 9 · Banking data model: four domains plus AML (guide pages 20 to 21) · C09
 
 **One customer across domains (Arun Agarwal):**
 
@@ -379,7 +379,7 @@ WHERE calendar_date IN (DATE '2026-03-31', DATE '2026-04-01', DATE '2026-09-25')
 
 ---
 
-## Slide 10 · History: SCD Type 2 and Iceberg time travel (guide pages 18 to 19) · C04, C05
+## Slide 10 · History: SCD Type 2 and Iceberg time travel (guide pages 22 to 24) · C04, C05
 
 If asked about late-arriving data or a back-dated correction: the SCD2 build is forward only;
 see C05 for the honest answer.
@@ -454,7 +454,7 @@ GROUP BY reporting_date ORDER BY reporting_date;
 
 ---
 
-## Slide 11 · Source-to-target mapping and extending the model (guide pages 20 to 21) · C09, C06
+## Slide 11 · Source-to-target mapping and extending the model (guide pages 25 to 26) · C09, C06
 
 **The mapping, as a table:**
 
@@ -494,7 +494,7 @@ WHERE batch_id = 'B20260925' AND run_id LIKE 'reconcile%' AND entity = 'fact_aml
 
 ---
 
-## Slide 12 · Semantic layer: KPIs certified once, read three ways (guide pages 22 to 23) · C06
+## Slide 12 · Semantic layer: KPIs certified once, read three ways (guide pages 27 to 29) · C06
 
 **The certified definitions:**
 
@@ -573,7 +573,7 @@ Then open the file in Hue › Files at line 217.
 
 ---
 
-## Slide 13 · Data Visualization: four dashboards, built as code (guide page 24) · C06 (hop 7)
+## Slide 13 · Data Visualization: four dashboards, built as code (guide pages 30 to 31) · C06 (hop 7)
 
 **Open in CDV:** "GDL Banking KPIs MIS" (NPA tile 11.29%), "GDL Reconciliation & Data Quality"
 (25 Sep 48 / 4 / 0, KPI consistency), "GDL MDM & Golden Record" (review queue),
@@ -597,7 +597,7 @@ SELECT * FROM rsingh_gdl_semantic.dash_recon WHERE is_latest = 1;
 
 ---
 
-## Slide 14 · One security, one governance: SDX as code (guide pages 25 to 26) · C06 (Atlas)
+## Slide 14 · One security, one governance: SDX as code (guide pages 32 to 33) · C06 (Atlas)
 
 **Same query, two users.** Run in Hue as federal01, then as rsingh:
 
@@ -639,7 +639,7 @@ Mobile, Account number); create the other 3 live from
 
 ---
 
-## Slide 15 · Reconciliation and the failed-batch re-run (guide page 27) · C07
+## Slide 15 · Reconciliation and the failed-batch re-run (guide pages 34 to 35) · C07
 
 **Airflow:** DAG `general_datalakehouse`, run 199 (23 Sep, red: bronze failed, silver to gold
 skipped, reconcile green, `batch_complete` red), then run 203 (resume, green). The triggers:
@@ -652,6 +652,35 @@ cde job run --name rsingh-gdl-orchestration \
 ```
 
 Do not run them live on this cluster (21 to 25 Sep are loaded; SCD2 builds forward only).
+
+**To fail a batch live, run it in a sandbox:** the same jobs against their own databases
+(`rsingh_gdl_demo_*`) and landing folder, so nothing of the demo data is touched. 23 Sep is
+already landed there (CDE run 336). Four steps, about 7 minutes:
+
+```bash
+D="--arg=--business-date --arg=2026-09-23 --arg=--db-prefix --arg=rsingh_gdl_demo \
+   --arg=--landing --arg=s3a://federal-buk-574bcea0/data/IB/rsingh_gdl_demo/landing"
+cde job run --name rsingh-gdl-bronze ${=D} --arg=--mode --arg=fail-during:lms_loan --wait   # fails
+cde job run --name rsingh-gdl-recon  ${=D} --wait   # MISMATCH 16: what did not load, against the manifests
+cde job run --name rsingh-gdl-bronze ${=D} --arg=--mode --arg=resume --wait             # skips the 3 committed
+cde job run --name rsingh-gdl-recon  ${=D} --wait   # MATCHED 27, MISMATCH 1 (the planted trailer)
+```
+
+```sql
+SELECT run_id, entity, status, rows_out, ended_at
+FROM rsingh_gdl_demo_ref.load_audit WHERE stage = 'bronze' ORDER BY ended_at;
+
+SELECT COUNT(*) AS rows_loaded, COUNT(DISTINCT _record_hash) AS distinct_rows
+FROM rsingh_gdl_demo_bronze.lms_loan;
+-- 361, 361: no duplicates after the resume
+
+SELECT layer, entity, check_name, expected, actual, status, detail
+FROM rsingh_gdl_demo_ref.recon_results ORDER BY status, entity;
+```
+
+The first reconcile's report is in its driver log (`cde run logs --id <run> --type driver/stdout`);
+the second replaces the date's rows in `recon_results`. Rehearsed on 5 Oct with
+`rsingh_gdl_drill` (runs 331 to 335).
 
 **What the failed attempt left, and what the resume did:**
 
@@ -706,7 +735,7 @@ CALL spark_catalog.system.rollback_to_snapshot('rsingh_gdl_bronze.lms_loan', <sn
 
 ---
 
-## Slide 16 · DevOps: everything is code and runs in CI (guide page 28)
+## Slide 16 · DevOps: everything is code and runs in CI (guide pages 36 to 37)
 
 ```bash
 gh run list --repo partomia/General-DataLakehouse --limit 5   # the last pushes, all green
@@ -730,7 +759,7 @@ cde repository sync --name rsingh-gdl-pipeline   # after a code change
 
 ---
 
-## Slide 17 · What this use case proves against the RFP (guide page 29)
+## Slide 17 · What this use case proves against the RFP (guide page 38)
 
 Nothing to run. If the panel wants a row backed, the capability documents are in
 [`capabilities/`](../capabilities/README.md): C09 model, C08 and C02 master data, C04 and C05

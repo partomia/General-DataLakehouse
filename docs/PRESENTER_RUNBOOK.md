@@ -651,7 +651,7 @@ cde job run --name rsingh-gdl-orchestration \
   --config-json '{"business_date": "2026-09-23", "bronze_mode": "resume"}'
 ```
 
-Do not run them live on this cluster (21 to 25 Sep are loaded; SCD2 builds forward only).
+Not on the demo databases (SCD2 builds forward only). To fail a batch live, use the sandbox below.
 
 **To fail a batch live, run it in a sandbox:** the same jobs against their own databases
 (`rsingh_gdl_demo_*`) and landing folder, so nothing of the demo data is touched. 23 Sep is

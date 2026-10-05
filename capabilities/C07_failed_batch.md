@@ -30,17 +30,90 @@ Full drill notes: [`docs/FAILED_BATCH_DEMO.md`](../docs/FAILED_BATCH_DEMO.md).
 | Orchestration | Airflow: `reconcile` runs whatever happened (`all_done`); `batch_complete` needs all stages (`all_success`), so the failed run is red | `cde/dags/gdl_dag.py` |
 | Alternative: roll back | `load_audit` holds every snapshot before the batch; `CALL system.rollback_to_snapshot(...)` | Spark SQL |
 
-## Walkthrough (about 10 minutes)
+## Walkthrough, live (about 7 minutes): a failure in a sandbox
 
-The drill already ran (DAG runs 199 and 203, 2 Oct). Show the evidence; do not re-run it once
-later dates are loaded. The resume run rebuilds MDM for 23 Sep, then gold refuses the earlier
-date (SCD2 is built forward), which leaves MDM and gold on different dates. The same holds for any
-date before the latest one loaded (25 Sep), 21 Sep included. To run it live, run the bronze drill
-in a sandbox: the
-same jobs with `--db-prefix rsingh_gdl_demo` and their own `--landing` folder (commands in
-`docs/PRESENTER_RUNBOOK.md`, slide 15).
+Do not trigger the drill on the demo databases (`rsingh_gdl_*`). They hold 21 to 25 Sep, and no
+date before the latest one loaded is safe to run there, 21 Sep included: MDM rebuilds for the
+earlier date, then gold refuses it (SCD2 is built forward), which leaves MDM and gold on
+different dates.
 
-**1. Trigger the failure (the recorded run: DAG run 199).**
+Live, run the same jobs against their own databases (`rsingh_gdl_demo_*`) and their own landing
+folder. Nothing of the demo data is touched. 23 Sep is already landed there (CDE run 336);
+rehearsed on 5 Oct in `rsingh_gdl_drill_*` (CDE runs 331 to 335).
+
+**1. Fail the batch.** The run ends `failed`: three entities commit, then a write task of
+`lms_loan` raises an error.
+
+```bash
+cde job run --name rsingh-gdl-bronze --wait \
+  --arg=--business-date --arg=2026-09-23 --arg=--db-prefix --arg=rsingh_gdl_demo \
+  --arg=--landing --arg=s3a://federal-buk-574bcea0/data/IB/rsingh_gdl_demo/landing \
+  --arg=--mode --arg=fail-during:lms_loan
+```
+
+**2. The damage report.**
+
+```bash
+cde job run --name rsingh-gdl-recon --wait \
+  --arg=--business-date --arg=2026-09-23 --arg=--db-prefix --arg=rsingh_gdl_demo \
+  --arg=--landing --arg=s3a://federal-buk-574bcea0/data/IB/rsingh_gdl_demo/landing
+```
+
+16 mismatches, each against the manifest: `last bronze run FAILED: RuntimeError: simulated
+failure in task for partition 1`, then for `lms_loan`, `lms_repayment`, `pay_transaction`,
+`crm_customer`, `doc_document` and `aml_watchlist`: `not loaded by the last run (FAILED)` and
+`0 accepted + 0 quarantined vs <n> in the manifest` (361 for `lms_loan`). The recorded run below
+has 19: it also checks silver and gold, which the sandbox does not build. The report is in the
+run's driver log (CDE › Job Runs › the run › Logs › driver/stdout); step 4 replaces the date's
+rows in `recon_results`.
+
+**3. Resume.**
+
+```bash
+cde job run --name rsingh-gdl-bronze --wait \
+  --arg=--business-date --arg=2026-09-23 --arg=--db-prefix --arg=rsingh_gdl_demo \
+  --arg=--landing --arg=s3a://federal-buk-574bcea0/data/IB/rsingh_gdl_demo/landing \
+  --arg=--mode --arg=resume
+```
+
+**4. Reconcile again.**
+
+```bash
+cde job run --name rsingh-gdl-recon --wait \
+  --arg=--business-date --arg=2026-09-23 --arg=--db-prefix --arg=rsingh_gdl_demo \
+  --arg=--landing --arg=s3a://federal-buk-574bcea0/data/IB/rsingh_gdl_demo/landing
+```
+
+**5. Show it in Hue.**
+
+```sql
+SELECT run_id, entity, status, rows_out, snapshot_before, snapshot_after, ended_at, message
+FROM rsingh_gdl_demo_ref.load_audit WHERE stage = 'bronze' ORDER BY ended_at;
+-- failed run: cbs_cdc_event, cbs_eod_balance, lms_borrower COMMITTED, then * FAILED
+-- resume: those 3 SKIPPED, the rest COMMITTED, * COMPLETED
+
+DESCRIBE HISTORY rsingh_gdl_demo_bronze.lms_loan;
+-- one snapshot, from the resume: none from the failed attempt
+
+SELECT COUNT(*) AS rows_loaded, COUNT(DISTINCT _record_hash) AS distinct_rows
+FROM rsingh_gdl_demo_bronze.lms_loan;
+-- 361, 361: no duplicates
+
+SELECT layer, entity, check_name, expected, actual, status, detail
+FROM rsingh_gdl_demo_ref.recon_results ORDER BY status, entity;
+-- MATCHED 27, MISMATCH 1: the planted trailer in lms_repayment_20260923.csv
+```
+
+Run it once per prefix. For another clean run, land a fresh prefix first (about a minute):
+`rsingh-gdl-land` with the same arguments and a new `--db-prefix` and `--landing`.
+
+## Walkthrough, recorded (about 10 minutes): the full DAG on the demo databases
+
+The drill ran on the demo databases on 2 Oct, in date order (DAG runs 199 and 203), with every
+stage: Airflow shows it red, silver to gold skipped. Show the evidence; do not run these
+triggers again.
+
+**1. The failure (DAG run 199).** How it was triggered:
 
 ```bash
 cde job run --name rsingh-gdl-orchestration \
@@ -114,7 +187,7 @@ Reconciliation & Data Quality".
 **5. Silver refuses.** In the recorded stage-by-stage run (CDE run 136): `refused, last bronze
 run for B20260923 is FAILED`. In the DAG, silver is skipped (upstream failed).
 
-**6. The re-run.**
+**6. The re-run (DAG run 203).** How it was triggered:
 
 ```bash
 cde job run --name rsingh-gdl-orchestration \

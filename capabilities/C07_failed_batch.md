@@ -32,10 +32,12 @@ Full drill notes: [`docs/FAILED_BATCH_DEMO.md`](../docs/FAILED_BATCH_DEMO.md).
 
 ## Walkthrough (about 10 minutes)
 
-The drill already ran (DAG runs 199 and 203, 2 Oct). Show the evidence; re-run it live if time
-allows (each DAG run about 12 minutes).
+The drill already ran (DAG runs 199 and 203, 2 Oct). Show the evidence; do not re-run it once
+later dates are loaded. The resume run rebuilds MDM for 23 Sep, then gold refuses the earlier
+date (SCD2 is built forward), which leaves MDM and gold on different dates. To run it live, rebuild
+from 21 Sep and run the drill before 24 and 25 Sep.
 
-**1. Trigger the failure (live or show the recorded run).**
+**1. Trigger the failure (the recorded run: DAG run 199).**
 
 ```bash
 cde job run --name rsingh-gdl-orchestration \

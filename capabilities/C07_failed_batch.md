@@ -34,8 +34,9 @@ Full drill notes: [`docs/FAILED_BATCH_DEMO.md`](../docs/FAILED_BATCH_DEMO.md).
 
 The drill already ran (DAG runs 199 and 203, 2 Oct). Show the evidence; do not re-run it once
 later dates are loaded. The resume run rebuilds MDM for 23 Sep, then gold refuses the earlier
-date (SCD2 is built forward), which leaves MDM and gold on different dates. To run it live, rebuild
-from 21 Sep and run the drill before 24 and 25 Sep, or run the bronze drill in a sandbox: the
+date (SCD2 is built forward), which leaves MDM and gold on different dates. The same holds for any
+date before the latest one loaded (25 Sep), 21 Sep included. To run it live, run the bronze drill
+in a sandbox: the
 same jobs with `--db-prefix rsingh_gdl_demo` and their own `--landing` folder (commands in
 `docs/PRESENTER_RUNBOOK.md`, slide 15).
 
